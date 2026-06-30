@@ -1,0 +1,11 @@
+---
+- name: This playbookd is to create user 
+  hosts: all
+  become: true
+  tasks:
+   - name: Create user
+     user:
+       name: srujan
+       password: 1234
+       state: absent
+...

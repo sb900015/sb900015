@@ -1,0 +1,10 @@
+---
+- name: This playbook is to modify the content of the file
+  hosts: all
+  become: true
+  tasks:
+   - name: content modification
+     copy:
+      dest: /home/ansadmin/file.txt
+      content: This is a test file push from ansible
+...

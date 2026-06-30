@@ -1,0 +1,10 @@
+---
+- name: This playbook is to change the owner of a file
+  hosts: all
+  become: true
+  tasks:
+   - name: module + tasks
+     file:
+       path: /home/ansadmin/ansible/file.txt
+       owner: ansadmin
+...

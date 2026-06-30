@@ -1,0 +1,10 @@
+---
+- name: This playbook is to install tree package
+  hosts: all
+  become: true
+  tasks:
+   - name: module + tasks
+     package: 
+       name: tree
+       state: present
+...

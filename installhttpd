@@ -1,0 +1,16 @@
+---
+- name: This playbook is to install httpd package
+  hosts: all
+  become: true
+  tasks:
+   - name: modules + tasks
+     package:
+       name: httpd
+       state: present
+     
+   - name: enable service 
+     service:
+       name: httpd
+       state: started
+       enabled: true
+...

@@ -1,0 +1,10 @@
+---
+- name: This playbook is to change the file permissions 
+  hosts: all
+  become: true
+  tasks:
+   - name: module + tasks
+     file:
+      path: /home/ansadmin/ansible/file.txt
+      mode: '0666'
+...

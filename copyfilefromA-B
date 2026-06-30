@@ -1,0 +1,11 @@
+---
+- name: This playbook is to move a file from one location to another location
+  hosts: all
+  become: true
+  tasks:
+   - name: move file 
+     copy:
+      src: /home/ansadmin/file.txt
+      dest: /home/ansadmin/ansible/file.txt
+      remote_src: true
+...

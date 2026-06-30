@@ -1,0 +1,18 @@
+---
+- name: This playbook is to create webservers in node machines
+  hosts: all
+  become: true
+  tasks:
+   - name: create index.html file
+     file:
+      path: /var/www/html/index.html
+      state: touch
+   - name: add content to the file
+     copy:
+      dest: /var/www/html/index.html
+      content: This is my webserver hosted from Ansible
+   - name: restart service httpd
+     service:
+      name: httpd
+      state: restarted
+...
