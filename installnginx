@@ -1,0 +1,24 @@
+---
+- name: This playbook is to configure Nginx and make it work with Tomcat
+  hosts: all
+  become: true
+
+  tasks:
+   - name: Install Nginx
+     package:
+       name: nginx
+       state: present
+       update_cache: yes
+   
+   - name: Copy the nginx.conf file from server to nodes
+     copy:
+       src: /home/ansadmin/ansible_playbooks/nginx.conf
+       dest: /etc/nginx/nginx.conf
+       mode: 0644
+
+   - name: Start and enable nginx service 
+     service:
+       name: nginx
+       state: started
+       enabled: yes
+...

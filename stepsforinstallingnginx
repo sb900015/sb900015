@@ -1,0 +1,25 @@
+Step 1: Install NginxUnlike Tomcat, Nginx is available directly inside your standard Linux package repositories.
+For Amazon Linux 2023 / RHEL:bashsudo dnf install nginx -y
+Use code with caution.For Ubuntu / Debian:bashsudo apt update && sudo apt install nginx -y
+Use code with caution.
+
+Step 2: Configure the Reverse Proxy RoutingTo make Nginx talk to Tomcat, 
+we must edit Nginx's main configuration file.Open the configuration file:bashsudo nano /etc/nginx/nginx.conf
+Use code with caution.Find the server { ... } block that listens on port 80, and update its location / section to point directly to your Tomcat backend 
+IP and port:nginxlocation / {
+    proxy_pass http://<YOUR_TOMCAT_SERVER_PRIVATE_IP>:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}
+Use code with caution.
+
+Step 3: Start and Enable the Nginx ServiceJust like Tomcat, Nginx runs as a background system service.bashsudo systemctl start nginx
+sudo systemctl enable nginx
+sudo systemctl status nginx
+Use code with caution.
+
+Step 4: Open Port 80 in Your FirewallSince Nginx handles standard web traffic, you must allow incoming connections on port 80 through your Linux firewall
+ (and your AWS EC2 Security Group).For Amazon Linux / RHEL:bashsudo firewall-cmd --zone=public --permanent --add-service=http
+sudo firewall-cmd --reload
+Use code with caution.Once this is done, you can type http://<YOUR_NGINX_PUBLIC_IP> into your browser, 
+and you will see the Tomcat welcome page without needing to type :8080 at the end!
