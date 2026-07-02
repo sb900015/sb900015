@@ -1,0 +1,37 @@
+Steps:
+
+Step 1: Install Java (Prerequisite)
+   -> yum update -y
+   -> yum install java -y
+
+Step 2: Create a Dedicated Tomcat User
+  -> useradd srujan
+  -> passwd srujan - 1234
+  -> Add srujan to sudoers group
+  -> create a group called tomcat and add srujan to that group
+  -> change to srujan user in EC2 machine 
+
+Step 3: Download and Extract Tomcat
+  -> Visit official tomcat website
+  -> download the chosen version to your EC2 machine (that will be in .tar.gz)
+  -> Remove tar and zip on that file
+  -> Move that file to /opt/tomcat -> This is where ideally all applications should sit
+
+Step 4: Configure Permissions
+  -> Now, verify the file permissions for this folder in /opt. It should be 755 with owner set to srujan and group set to tomcat
+
+Step 5: Create a systemd Service File
+  -> You will get error when you try systemctl start tomcat command now saying service not found. We have to fix this 
+  -> create a file in the following path and fill the file as stated in chat gpt. 
+             sudo nano /etc/systemd/system/tomcat.service
+
+Step 6: Start and Enable the Tomcat Service
+  -> sudo systemctl daemon-reload
+  -> systemctl start tomcat
+  -> systemctl enable tomcat
+You will get error here. You have to change the java path in the tomcat.service file. chat gpt will give you the correct data. copy paste in that file
+
+Step 7: Adjust Your Firewall Settings - port 8080
+ In security group open port 8080 for tomcat access 
+
+step 8: !!! Test the connectivity !!!

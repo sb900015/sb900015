@@ -1,0 +1,27 @@
+---
+- name: This playbook is to demonstrate handlers and when condition
+  hosts: all
+  become: true
+  tasks:
+   - name: httpd + install
+     package:
+       name: httpd
+       state: present
+     notify: start httpd
+     when: ansible_os_family == "RedHat"
+   - name: apache2 + install
+     package:
+       name: apache2
+       state: present
+     notify: start apache2
+     when: ansible_os_family == "Debian"
+  handlers:
+   - name: start httpd
+     service:
+       name: httpd
+       state: started
+   - name: start apache2
+     service:
+       name: apache2
+       state: started
+...

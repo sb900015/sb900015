@@ -1,0 +1,15 @@
+---
+- name: This playbook is to delete the users using variables
+  hosts: all
+  become: true
+ 
+  vars_files:
+   - users.yml
+
+  tasks:
+   - name: Delete {{user}}
+     user:
+       name: "{{item}}"
+       state: absent
+     loop: "{{user}}"
+...

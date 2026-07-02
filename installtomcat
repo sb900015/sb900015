@@ -1,0 +1,104 @@
+---
+- name: This playbook is to install Tomcat
+  hosts: all
+  become: true
+
+  tasks:
+   - name: Install java package
+     package:
+       name: java-17-amazon-corretto-devel       # Java package will be installed 
+       state: present
+       update_cache: yes                 # this is for yum update -y
+
+   - name: Dynamically find the real JAVA_HOME path
+     shell: dirname $(dirname $(readlink -f $(which java)))
+     register: discovered_java_home
+     changed_when: false
+
+   - name: create group called tomcat
+     group:
+       name: tomcat                      # creates group called tomcat
+       state: present
+
+   - name: create user srujan and  add srujan to sudoers and to tomcat group
+     user:
+       name: srujan                      # creates user named srujan
+       password: 1234
+       group: tomcat                     # this is the primary group for the user srujan
+       groups: wheel                     # this is the secondary group which grants sudoers rights
+       append: yes                       # this ensures srujan is part of both primary and secondary groups
+       state: present
+
+   - name: download apache tomcat archive
+     get_url: 
+       url: https://downloads.apache.org/tomcat/tomcat-11/v11.0.23/bin/apache-tomcat-11.0.23.tar.gz
+       dest: /tmp/apache-tomcat-11.0.23.tar.gz
+       mode: 0755
+
+   - name: create a destination folder for the downloaded tomcat file
+     file:
+       path: /opt/tomcat                  # the downloaded file will be moved here 
+       state: directory                   # a directory is created with the name tomcat
+       owner: srujan                      # owner of the directory is user - srujan
+       group: tomcat                      # the directory belongs to group tomcat 
+       mode: 0755
+
+   - name: extract/unzip downloaded file
+     unarchive:
+       src: /tmp/apache-tomcat-11.0.23.tar.gz
+       dest: /opt/tomcat
+       remote_src: true
+       extra_opts: [--strip-components=1] # this is needed otherwise the file will be unzipped inside the directory 
+
+   - name: Ensure srujan owns the entire tomcat installation recursively
+     file:
+       path: /opt/tomcat
+       owner: srujan
+       group: tomcat
+       recurse: yes
+
+   - name: Ensure Tomcat scripts are executable
+     file:
+       path: /opt/tomcat/bin
+       mode: "a+x"
+       recurse: yes
+
+   - name: Create a systemd Service File  # this is to enable systemctl commands for tomcat
+     copy:
+       dest: /etc/systemd/system/tomcat.service
+       owner: root
+       group: root 
+       mode: 0755
+       content: |
+          [Unit]
+          Description=Apache Tomcat Web Application Container
+          After=network.target
+
+          [Service]
+          Type=forking
+
+          User=srujan
+          Group=tomcat
+
+          Environment="JAVA_HOME={{ discovered_java_home.stdout }}"
+          Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+          Environment="CATALINA_HOME=/opt/tomcat"
+          Environment="CATALINA_BASE=/opt/tomcat"
+          Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+
+          ExecStart=/opt/tomcat/bin/startup.sh
+          ExecStop=/opt/tomcat/bin/shutdown.sh
+
+          [Install]
+          WantedBy=multi-user.target
+
+   - name: restart systemctl daemon
+     systemd:
+       daemon_reload: yes
+
+   - name: Create a systemd Service File  # this is to enable systemctl commands for tomcat
+     service:
+       name: tomcat
+       state: started
+       enabled: yes     
+...

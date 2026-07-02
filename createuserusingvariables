@@ -1,0 +1,15 @@
+---
+- name: This playbook is to create users using varibles
+  hosts: all
+  become: true
+
+  vars_files:
+   - users.yml
+
+  tasks:
+   - name: create {{user}}
+     user:
+       name: "{{item}}"
+       state: present
+     loop: "{{ user}}"
+...
