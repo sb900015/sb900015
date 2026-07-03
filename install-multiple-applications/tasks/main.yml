@@ -1,0 +1,7 @@
+---
+# tasks file for install-multiple-applications
+- name: Install multiple applications
+  package:
+    name: "{{item}}"
+    state: present
+  loop: "{{packages}}"

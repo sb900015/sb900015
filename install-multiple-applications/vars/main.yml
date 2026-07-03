@@ -1,0 +1,6 @@
+---
+# vars file for install-multiple-applications
+  packages:
+     - tree
+     - httpd
+     - docker
