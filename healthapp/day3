@@ -1,0 +1,317 @@
+# 🚀 Day 3 – Making Your Program Interactive
+
+Welcome back!
+
+Yesterday, your program looked like this:
+
+```python
+name = "Priya Sharma"
+```
+
+The problem is that every time you run it, it always shows **Priya Sharma**.
+
+Today, we'll make the program ask the user for information. This is the first step toward building a real application.
+
+**Goal for today:**
+
+* Learn what `input()` is.
+* Understand user input.
+* Store input in variables.
+* Build a simple patient registration program.
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 – What is Input? (10 minutes)
+
+Think about apps you use every day.
+
+When you open WhatsApp and type a message...
+
+Who typed the message?
+
+**You did.**
+
+The app waited for your input.
+
+Similarly, in our blood report app, the user will enter:
+
+* Name
+* Age
+* Gender
+* Blood Group
+
+Python provides a function called `input()` for this.
+
+---
+
+# Part 2 – Your First Input Program (15 minutes)
+
+Create a new file:
+
+```
+practice/day3.py
+```
+
+Type this code yourself:
+
+```python
+name = input("Enter your name: ")
+
+print("Hello", name)
+```
+
+Save it (**Ctrl + S**).
+
+Run it:
+
+```powershell
+python day3.py
+```
+
+Example:
+
+```
+Enter your name: Rahul
+Hello Rahul
+```
+
+---
+
+## What's happening?
+
+This line:
+
+```python
+name = input("Enter your name: ")
+```
+
+means:
+
+1. Show the message:
+
+   ```
+   Enter your name:
+   ```
+
+2. Wait.
+
+3. Whatever the user types gets stored inside the variable `name`.
+
+Then:
+
+```python
+print("Hello", name)
+```
+
+prints the value stored in `name`.
+
+---
+
+# Part 3 – Multiple Inputs (15 minutes)
+
+Now replace your code with:
+
+```python
+name = input("Enter patient name: ")
+age = input("Enter age: ")
+gender = input("Enter gender: ")
+
+print()
+print("Patient Details")
+print("---------------")
+print("Name:", name)
+print("Age:", age)
+print("Gender:", gender)
+```
+
+Run it.
+
+Example:
+
+```
+Enter patient name: Priya
+Enter age: 42
+Enter gender: Female
+
+Patient Details
+---------------
+Name: Priya
+Age: 42
+Gender: Female
+```
+
+Congratulations!
+
+Your program is now interactive.
+
+---
+
+# Important Concept (10 minutes)
+
+Notice this:
+
+```python
+age = input("Enter age: ")
+```
+
+Even if you type:
+
+```
+42
+```
+
+Python stores it as **text**, not a number.
+
+Let's prove it.
+
+Add this line:
+
+```python
+print(type(age))
+```
+
+Output:
+
+```
+<class 'str'>
+```
+
+`str` means **string** (text).
+
+We'll learn tomorrow how to convert it into a number.
+
+---
+
+# Part 4 – Mini Project (15 minutes)
+
+Create a patient registration program.
+
+Ask the user for:
+
+* Patient Name
+* Age
+* Gender
+* Blood Group
+* Hemoglobin
+* HbA1c
+* Vitamin D
+
+Then print:
+
+```
+========== Patient Details ==========
+
+Name:
+Age:
+Gender:
+Blood Group:
+Hemoglobin:
+HbA1c:
+Vitamin D:
+
+=====================================
+```
+
+**Don't worry if all the values are stored as text today.**
+
+We'll fix that tomorrow.
+
+---
+
+# New Concept – Comments
+
+Sometimes we write notes inside our code.
+
+Python ignores them.
+
+Example:
+
+```python
+# This program stores patient details
+
+name = input("Enter patient name: ")
+```
+
+Anything after `#` is a comment.
+
+Comments help explain your code to future you (or other developers).
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day3.md
+```
+
+Answer these questions:
+
+1. What does `input()` do?
+2. What is a string?
+3. Why is age stored as text?
+4. What is a comment?
+
+---
+
+# Challenge (Optional ⭐)
+
+Can you make the output look like this?
+
+```
+=========================================
+      BLOOD REPORTS APP
+=========================================
+
+Patient Name : Priya
+Age          : 42
+Gender       : Female
+Blood Group  : O+
+
+=========================================
+```
+
+(Hint: Use `print()` creatively.)
+
+---
+
+# Today's Learning Summary
+
+Today you learned:
+
+* ✅ `input()`
+* ✅ Interactive programs
+* ✅ Variables storing user input
+* ✅ `type()`
+* ✅ Comments (`#`)
+
+---
+
+# Tomorrow (Day 4)
+
+Tomorrow is one of the most important days so far.
+
+You'll learn:
+
+* `int()`
+* `float()`
+* Why computers distinguish between text and numbers
+* Basic calculations
+
+By the end of Day 4, your program will be able to calculate values instead of just displaying them.
+
+---
+
+## Before Day 4
+
+Please send me:
+
+1. Your `day3.py` code.
+2. A screenshot or copy of the output after running it.
+3. In your own words: **Why does `input()` return a string even when you type a number?**
+
+That last question is important—it will show me whether you've understood today's core concept.
+

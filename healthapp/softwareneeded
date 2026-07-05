@@ -1,0 +1,14 @@
+My recommendations for Windows
+Install Windows Terminal from the Microsoft Store (much better than Command Prompt).
+Use PowerShell or Windows Terminal instead of Command Prompt.
+Install Git for Windows.
+Install VS Code with these extensions later:
+Python
+Flutter
+Dart
+GitLens (optional)
+Your PC should ideally have
+Windows 10 or Windows 11 ✅
+8 GB RAM minimum (16 GB is even better)
+At least 50 GB free disk space
+An Intel or AMD processor with virtualization enabled (helps with the Android emulator)

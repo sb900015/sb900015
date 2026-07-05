@@ -1,0 +1,202 @@
+Awesome! Welcome to **Day 2**. Today you'll write your first Python program.
+
+**Goal:** Understand what a program, variable, string, integer, float, and `print()` are.
+
+Time: **~1 hour**
+
+---
+
+# Part 1 (10 minutes): What is a Program?
+
+A **program** is simply a list of instructions for a computer.
+
+Example:
+
+```text
+1. Take the patient's name.
+2. Take the patient's age.
+3. Display the information.
+```
+
+That's a program.
+
+Python lets us write those instructions.
+
+---
+
+# Part 2 (10 minutes): Create Your First Python File
+
+Inside your project, go to:
+
+```text
+BloodReportsApp/
+└── practice/
+```
+
+Create a file named:
+
+```text
+day2.py
+```
+
+Open it in VS Code.
+
+---
+
+# Part 3 (15 minutes): Your First Program
+
+Type this **yourself** (don't copy-paste):
+
+```python
+print("Welcome to Blood Reports App")
+print("This is my first Python program.")
+```
+
+Save the file.
+
+Run it from the terminal:
+
+```bash
+cd ~/Desktop/BloodReportsApp/practice
+python day2.py
+```
+
+You should see:
+
+```text
+Welcome to Blood Reports App
+This is my first Python program.
+```
+
+### What is `print()`?
+
+`print()` tells Python:
+
+> "Display this on the screen."
+
+---
+
+# Part 4 (15 minutes): Variables
+
+A **variable** is a named container that stores data.
+
+Think of it like a labeled medicine bottle.
+
+| Label        | Value |
+| ------------ | ----- |
+| patient_name | Rahul |
+| age          | 30    |
+| hemoglobin   | 13.8  |
+
+In Python:
+
+```python
+patient_name = "Rahul"
+age = 30
+hemoglobin = 13.8
+```
+
+The `=` sign means **assign** a value to a variable.
+
+---
+
+# Part 5 (10 minutes): Data Types
+
+Replace your code with:
+
+```python
+patient_name = "Rahul"
+age = 30
+hemoglobin = 13.8
+is_fasting = True
+
+print(patient_name)
+print(age)
+print(hemoglobin)
+print(is_fasting)
+```
+
+### What are these types?
+
+| Value     | Type             | Meaning        |
+| --------- | ---------------- | -------------- |
+| `"Rahul"` | String (`str`)   | Text           |
+| `30`      | Integer (`int`)  | Whole number   |
+| `13.8`    | Float (`float`)  | Decimal number |
+| `True`    | Boolean (`bool`) | True/False     |
+
+---
+
+# Mini Challenge (10 minutes)
+
+Create variables for this patient:
+
+* Name: Priya Sharma
+* Age: 42
+* Gender: Female
+* Hemoglobin: 11.8
+* HbA1c: 6.1
+* Vitamin D: 24.5
+
+Then print each value.
+
+**Don't look at my solution until you've tried it.**
+
+---
+
+## Solution (after you try)
+
+```python
+patient_name = "Priya Sharma"
+age = 42
+gender = "Female"
+hemoglobin = 11.8
+hba1c = 6.1
+vitamin_d = 24.5
+
+print(patient_name)
+print(age)
+print(gender)
+print(hemoglobin)
+print(hba1c)
+print(vitamin_d)
+```
+
+---
+
+# Homework
+
+1. Create a file called `notes/day2.md`.
+
+Write answers in your own words:
+
+* What is a program?
+* What is a variable?
+* What is a string?
+* What is an integer?
+* What is a float?
+* What does `print()` do?
+
+2. Modify your program by adding:
+
+```python
+blood_group = "O+"
+weight = 72.5
+```
+
+Print them too.
+
+---
+
+# Checkpoint
+
+Before we move to Day 3, send me:
+
+1. A screenshot or copy of your `day2.py`.
+2. The output you get after running it.
+3. Tell me, in your own words: **What is a variable?**
+
+## A small tip
+
+From today onward, **type every line yourself**. Typing builds muscle memory and helps you become a better programmer much faster than copying and pasting.
+
