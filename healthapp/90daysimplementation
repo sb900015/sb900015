@@ -1,0 +1,500 @@
+Absolutely. Given your goal, I'd teach you differently than a normal programming course.
+
+**Goal after 90 days:**
+You will have a working app where a user can:
+
+* Sign up
+* Upload a blood report
+* Store it
+* View all uploaded reports
+* Prepare the app for OCR integration
+
+You won't just "learn Flutter"—every lesson will build your app.
+
+---
+
+# Rules for the 90 Days
+
+Every day (1 hour):
+
+* **15 min:** Learn one concept.
+* **35 min:** Build your app.
+* **10 min:** Write what you learned in a journal (`learning.md`).
+
+Never skip typing code yourself.
+
+---
+
+# Phase 1 (Days 1–15): Computer & Programming Basics
+
+## Day 1
+
+**Goal:** Set up your computer.
+
+Install:
+
+* VS Code
+* Python
+* Git
+* GitHub Desktop
+
+Learn:
+
+* What is programming?
+* What is an IDE?
+* What is Git?
+
+Homework:
+
+* Create a folder called `BloodReportsApp`.
+
+---
+
+## Day 2
+
+Learn:
+
+* Variables
+* Strings
+* Numbers
+
+Practice:
+
+```python
+patient_name = "Rahul"
+age = 28
+hb = 13.5
+
+print(patient_name)
+print(age)
+print(hb)
+```
+
+Homework:
+Create variables for:
+
+* Patient name
+* Age
+* Gender
+* Hemoglobin
+* HbA1c
+
+---
+
+## Day 3
+
+Learn:
+
+* Lists
+* Dictionaries
+
+Homework:
+
+Create:
+
+```python
+blood_tests = {
+    "Hemoglobin":13.5,
+    "HbA1c":5.6,
+    "Vitamin D":22
+}
+```
+
+---
+
+## Day 4
+
+Learn:
+
+* if
+* else
+
+Example:
+
+```
+if hb <12:
+   print("Low")
+```
+
+---
+
+## Day 5
+
+Learn:
+
+* for loop
+
+Print every blood test.
+
+---
+
+## Day 6
+
+Learn:
+
+* Functions
+
+Create:
+
+```
+showPatient()
+```
+
+---
+
+## Day 7
+
+Mini Project
+
+Create a Python program that prints:
+
+```
+Patient
+
+Name
+
+Age
+
+Blood Tests
+
+Hemoglobin
+
+HbA1c
+```
+
+---
+
+## Day 8
+
+Learn:
+Input from keyboard
+
+```
+input()
+```
+
+---
+
+## Day 9
+
+Mini Project
+
+Ask:
+
+Patient Name
+
+Age
+
+Store it.
+
+---
+
+## Day 10
+
+Learn
+
+Files
+
+Write patient data into
+
+```
+patient.txt
+```
+
+---
+
+## Day 11
+
+Read file.
+
+---
+
+## Day 12
+
+JSON
+
+Store patient information as JSON.
+
+---
+
+## Day 13
+
+Revision.
+
+---
+
+## Day 14
+
+Mini Project
+
+Patient Management System (console)
+
+---
+
+## Day 15
+
+Git
+
+Learn
+
+```
+git init
+git add
+git commit
+git push
+```
+
+---
+
+# Phase 2 (Days 16–35): Flutter
+
+Goal:
+
+Create beautiful mobile screens.
+
+Days 16–20
+
+Install Flutter.
+
+Create app.
+
+Learn
+
+* Widgets
+* Scaffold
+* Text
+* Button
+* Icons
+
+Build:
+
+Splash Screen
+
+---
+
+Days 21–25
+
+Learn
+
+* Row
+* Column
+* Container
+* Padding
+* Images
+
+Build
+
+Login Screen
+
+---
+
+Days 26–30
+
+Learn
+
+* TextField
+* Forms
+* Validation
+
+Build
+
+Patient Registration
+
+---
+
+Days 31–35
+
+Learn
+
+Navigation
+
+Build
+
+```
+Login
+
+↓
+
+Home
+
+↓
+
+Upload Report
+
+↓
+
+Reports
+```
+
+---
+
+# Phase 3 (Days 36–50): Backend
+
+Install FastAPI.
+
+Create
+
+```
+localhost:8000
+```
+
+Learn
+
+* GET
+* POST
+* DELETE
+* PUT
+
+Build
+
+Patient API
+
+```
+Add Patient
+
+Get Patient
+
+Delete Patient
+```
+
+---
+
+# Phase 4 (Days 51–60): Database
+
+Install PostgreSQL.
+
+Create database
+
+```
+BloodReports
+```
+
+Tables
+
+```
+Users
+
+Reports
+
+BloodTests
+```
+
+Connect FastAPI.
+
+---
+
+# Phase 5 (Days 61–70): Connect App + Backend
+
+Flutter calls API.
+
+Display users.
+
+Save users.
+
+Upload report.
+
+Display reports.
+
+---
+
+# Phase 6 (Days 71–80): OCR
+
+Learn
+
+OCR
+
+Google Vision API
+
+Upload PDF
+
+↓
+
+Extract
+
+```
+Hemoglobin
+
+HbA1c
+
+Vitamin D
+```
+
+Save into database.
+
+---
+
+# Phase 7 (Days 81–90): AI + Deployment
+
+Learn
+
+OpenAI API
+
+Send extracted report.
+
+Receive
+
+```
+Simple explanation
+
+Trend summary
+
+Possible discussion points for doctor
+```
+
+Then:
+
+Deploy Backend.
+
+Deploy Database.
+
+Prepare Play Store version.
+
+---
+
+# Books (Free)
+
+Read a little each week:
+
+* *Automate the Boring Stuff with Python*
+* Flutter documentation
+* FastAPI documentation
+* PostgreSQL tutorial
+* Git documentation
+
+---
+
+# Folder Structure
+
+By Day 90, your project should look like:
+
+```text
+blood-report-app/
+│
+├── mobile/          # Flutter app
+├── backend/         # FastAPI
+├── database/        # SQL scripts
+├── docs/            # Notes & architecture
+├── learning.md      # Daily journal
+└── README.md
+```
+
+## My suggestion
+
+Instead of overwhelming you with all 90 days at once, we can treat this like a bootcamp.
+
+Every day, you come back and say:
+
+> **"Day 1"**
+
+I'll give you:
+
+* The exact lesson (20–30 minutes)
+* The exact coding exercise
+* A mini quiz
+* Homework
+* Solutions if you get stuck
+* A small addition to your blood-report app
+
+This way, you'll learn at a steady pace and build the app step by step rather than trying to absorb everything at once.
+
+

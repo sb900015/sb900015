@@ -1,0 +1,197 @@
+Welcome to **Day 1**! Over the next 90 days, I'll act as your mentor. By the end, you'll understand every part of your blood-report app because you'll build it yourself.
+
+# Day 1 Goal
+
+Today you'll:
+
+1. Understand how apps work.
+2. Install the required software.
+3. Create your project folder.
+4. Create your GitHub account.
+5. Write your first notes.
+
+No coding today.
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 (15 min): How Your App Will Work
+
+Your app will have 5 main parts:
+
+```text
+User
+   │
+   ▼
+Flutter App (Mobile)
+   │
+   ▼
+FastAPI (Backend)
+   │
+   ▼
+PostgreSQL Database
+   │
+   ▼
+AWS S3 (Stores PDFs)
+```
+
+Later you'll add:
+
+```text
+Google Vision OCR
+        │
+        ▼
+Extract Blood Test Values
+
+        ▼
+
+OpenAI API
+
+        ▼
+
+Explain the Report
+```
+
+Think of it like a hospital:
+
+* **Flutter** = Reception desk (what users see)
+* **FastAPI** = Doctor's assistant (handles requests)
+* **PostgreSQL** = Medical records room
+* **AWS S3** = File cabinet for reports
+* **OCR** = Staff member reading reports
+* **AI** = Assistant explaining reports in simple language
+
+---
+
+# Part 2 (25 min): Install Software
+
+Install these tools:
+
+### 1. VS Code
+
+Code editor where you'll write code.
+
+### 2. Python (latest stable version)
+
+During installation, **check**:
+
+* ✅ Add Python to PATH
+
+Verify:
+
+```bash
+python --version
+```
+
+or, if needed:
+
+```bash
+python3 --version
+```
+
+---
+
+### 3. Git
+
+Verify:
+
+```bash
+git --version
+```
+
+---
+
+### 4. GitHub
+
+Create a free GitHub account.
+
+We'll use it to save your project and track changes.
+
+---
+
+# Part 3 (10 min): Create Your Workspace
+
+Create this folder:
+
+```text
+BloodReportsApp/
+│
+├── mobile/
+├── backend/
+├── database/
+├── docs/
+└── learning.md
+```
+
+Leave the folders empty for now.
+
+---
+
+# Part 4 (5 min): Start Your Learning Journal
+
+Create `learning.md`.
+
+Write:
+
+```markdown
+# Blood Reports App Journey
+
+## Day 1
+
+Goal:
+Build a mobile app that stores blood reports securely.
+
+Today's Learnings:
+- Learned how apps are structured.
+- Installed Python.
+- Installed Git.
+- Installed VS Code.
+- Created project folders.
+
+Questions:
+- (Leave this empty for now.)
+```
+
+You'll update this every day.
+
+---
+
+# Homework (5 min)
+
+Answer these questions in your own words:
+
+1. What is an app?
+2. What is a database?
+3. Why do we need a backend?
+4. What is Flutter?
+5. What is Python?
+
+Don't worry about perfect answers—writing them helps you learn.
+
+---
+
+# Checklist
+
+Before tomorrow, confirm you have:
+
+* ☐ VS Code installed
+* ☐ Python installed
+* ☐ Git installed
+* ☐ GitHub account created
+* ☐ `BloodReportsApp` folder created
+* ☐ `learning.md` created
+
+---
+
+# Tomorrow (Day 2)
+
+You'll write your **first Python program** and learn:
+
+* Variables
+* Strings
+* Numbers
+* `print()`
+
+By the end of Day 2, you'll have written your first real code.
+

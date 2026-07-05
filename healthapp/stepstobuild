@@ -1,0 +1,278 @@
+If you're starting from scratch, build it in this order. Don't worry about AWS or AI on day one.
+
+## Step 1: Learn the basics (1–2 weeks)
+
+You should understand:
+
+* Flutter (mobile app)
+* Python
+* FastAPI
+* SQL (PostgreSQL)
+* REST APIs
+* Git & GitHub
+
+Resources:
+
+* Flutter documentation
+* FastAPI documentation
+* PostgreSQL tutorial
+* GitHub tutorials
+
+---
+
+## Step 2: Create the Flutter app
+
+Install:
+
+* Flutter SDK
+* Android Studio
+* VS Code
+
+Create your project:
+
+```bash
+flutter create blood_reports
+cd blood_reports
+flutter run
+```
+
+Build these screens:
+
+* Login
+* Home
+* Upload Report
+* Report List
+* Report Details
+* Profile
+
+---
+
+## Step 3: Build the backend
+
+Install:
+
+```bash
+pip install fastapi uvicorn sqlalchemy psycopg2-binary
+```
+
+Create:
+
+```
+backend/
+│
+├── main.py
+├── models.py
+├── database.py
+├── routes/
+├── services/
+└── requirements.txt
+```
+
+Start the server:
+
+```bash
+uvicorn main:app --reload
+```
+
+Test:
+
+```
+http://localhost:8000/docs
+```
+
+FastAPI automatically gives you API documentation.
+
+---
+
+## Step 4: Set up PostgreSQL
+
+Create tables like:
+
+```
+Users
+
+Reports
+
+BloodTests
+```
+
+Relationships:
+
+```
+User
+  |
+  |---- Reports
+           |
+           |---- Blood Tests
+```
+
+Example:
+
+```
+Users
+------
+id
+name
+phone
+
+Reports
+-------
+id
+user_id
+date
+pdf_url
+
+BloodTests
+----------
+report_id
+test_name
+value
+unit
+normal_range
+```
+
+---
+
+## Step 5: Upload PDFs
+
+Initially, save files locally.
+
+After that:
+
+```
+Flutter
+      ↓
+FastAPI
+      ↓
+AWS S3
+```
+
+Store only the S3 URL in PostgreSQL.
+
+---
+
+## Step 6: OCR
+
+User uploads
+
+↓
+
+Google Vision API
+
+↓
+
+Extract
+
+```
+Hemoglobin
+13.6 g/dL
+
+HbA1c
+6.2 %
+
+Vitamin D
+18 ng/mL
+```
+
+Save into PostgreSQL.
+
+---
+
+## Step 7: Display data
+
+Instead of showing only PDFs:
+
+```
+Hemoglobin
+
+Jan 2024 12.8
+
+Jun 2024 13.4
+
+Jan 2025 13.9
+```
+
+Show graphs.
+
+---
+
+## Step 8: Add AI
+
+Send extracted values (not the PDF) to the OpenAI API:
+
+```json
+{
+  "age": 35,
+  "gender": "Male",
+  "tests": [
+    {
+      "name": "HbA1c",
+      "value": 6.4,
+      "range": "4.0-5.6"
+    }
+  ]
+}
+```
+
+Receive:
+
+* Plain-language explanation
+* Trend summary
+* Questions to discuss with a doctor
+
+Avoid presenting AI output as a diagnosis.
+
+---
+
+## Step 9: Deploy
+
+Deploy:
+
+* FastAPI → AWS EC2, ECS, or App Runner
+* PostgreSQL → AWS RDS
+* Files → AWS S3
+* Flutter → Google Play Store and Apple App Store
+
+---
+
+## Suggested project structure
+
+```
+blood-reports/
+│
+├── mobile/        # Flutter
+│
+├── backend/       # FastAPI
+│
+├── database/      # SQL migrations
+│
+├── docs/
+│
+└── README.md
+```
+
+## Build one feature at a time
+
+1. ✅ User login
+2. ✅ Upload PDF
+3. ✅ Save PDF
+4. ✅ List uploaded reports
+5. ✅ OCR extraction
+6. ✅ Store extracted values
+7. ✅ Charts
+8. ✅ AI summaries
+9. ✅ Share reports
+10. ✅ Notifications
+
+This incremental approach keeps the project manageable and lets you test each piece before adding the next.
+
+**One recommendation:** Since this app handles medical records, also learn:
+
+* Authentication (JWT or Firebase Auth)
+* File security and encryption
+* API testing with Postman or Bruno
+* Docker (for deployment)
+* Basic cloud monitoring and backups
+
+These skills will make your app much more production-ready.
+
