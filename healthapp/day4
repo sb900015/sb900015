@@ -1,0 +1,385 @@
+# 🚀 Day 4 – Data Types & Type Conversion
+
+Welcome back! You're doing really well. Yesterday, you learned how to **take input**. Today you'll learn how to **use** that input.
+
+This is one of the most important lessons in programming.
+
+---
+
+# Today's Goal
+
+By the end of today, you'll understand:
+
+* What data types are
+* Why Python treats `"35"` and `35` differently
+* `int()`
+* `float()`
+* `str()`
+* `type()`
+* Why type conversion is necessary
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 (10 minutes): What is a Data Type?
+
+Imagine you have three boxes:
+
+```
+📦 Box 1
+Name = Srujan
+
+📦 Box 2
+Age = 35
+
+📦 Box 3
+Hemoglobin = 13.8
+```
+
+Although all of these are "values", they're **different kinds of values**.
+
+| Value    | Data Type      | Python Name |
+| -------- | -------------- | ----------- |
+| "Srujan" | Text           | `str`       |
+| 35       | Whole Number   | `int`       |
+| 13.8     | Decimal Number | `float`     |
+
+Python needs to know the type because it treats each differently.
+
+---
+
+# Part 2 (10 minutes): Using `type()`
+
+Create a new file:
+
+```
+practice/day4.py
+```
+
+Type this:
+
+```python
+name = "Srujan"
+age = 35
+hemoglobin = 13.8
+
+print(type(name))
+print(type(age))
+print(type(hemoglobin))
+```
+
+Run it.
+
+Expected output:
+
+```text
+<class 'str'>
+<class 'int'>
+<class 'float'>
+```
+
+### What does this mean?
+
+Python is telling you:
+
+* `name` is text.
+* `age` is an integer.
+* `hemoglobin` is a decimal number.
+
+---
+
+# Part 3 (10 minutes): The Problem with `input()`
+
+Let's prove something.
+
+```python
+age = input("Enter Age: ")
+
+print(age)
+print(type(age))
+```
+
+Enter:
+
+```
+35
+```
+
+Output:
+
+```text
+35
+<class 'str'>
+```
+
+Even though you typed a number, Python stored it as **text**.
+
+---
+
+# Part 4 (15 minutes): Type Conversion
+
+Python provides functions to convert data.
+
+## Convert to Integer
+
+```python
+age = int(input("Enter Age: "))
+
+print(age)
+print(type(age))
+```
+
+Output:
+
+```text
+35
+<class 'int'>
+```
+
+Now Python knows it's a number.
+
+---
+
+## Convert to Float
+
+```python
+hemoglobin = float(input("Enter Hemoglobin: "))
+
+print(type(hemoglobin))
+```
+
+If you enter:
+
+```
+13.8
+```
+
+Output:
+
+```text
+<class 'float'>
+```
+
+---
+
+## Convert Number to Text
+
+```python
+age = 35
+
+print(type(age))
+
+age = str(age)
+
+print(type(age))
+```
+
+Output:
+
+```text
+<class 'int'>
+<class 'str'>
+```
+
+---
+
+# Part 5 (10 minutes): Why Does This Matter?
+
+Suppose we want to calculate the patient's age after 5 years.
+
+### Wrong way
+
+```python
+age = input("Enter Age: ")
+
+print(age + 5)
+```
+
+What do you think will happen?
+
+Try it.
+
+You'll get an error like:
+
+```
+TypeError
+```
+
+Why?
+
+Because Python cannot add a number (`5`) to text (`"35"`).
+
+---
+
+### Correct way
+
+```python
+age = int(input("Enter Age: "))
+
+print(age + 5)
+```
+
+Input:
+
+```
+35
+```
+
+Output:
+
+```
+40
+```
+
+Now Python performs **mathematics**, not text handling.
+
+---
+
+# Part 6 (15 minutes): Mini Project
+
+Let's improve your patient registration program.
+
+```python
+print("====== Blood Reports App ======")
+
+name = input("Enter Name: ").strip()
+
+age = int(input("Enter Age: "))
+
+gender = input("Enter Gender: ").strip()
+
+blood_group = input("Enter Blood Group: ").strip()
+
+hemoglobin = float(input("Enter Hemoglobin: "))
+
+hba1c = float(input("Enter HbA1c: "))
+
+vitamin_d = float(input("Enter Vitamin D: "))
+
+print()
+
+print("========== Patient Details ==========")
+
+print("Name:", name)
+print("Age:", age)
+print("Gender:", gender)
+print("Blood Group:", blood_group)
+print("Hemoglobin:", hemoglobin)
+print("HbA1c:", hba1c)
+print("Vitamin D:", vitamin_d)
+
+print("=====================================")
+```
+
+Notice how we now use:
+
+* `int()` for age
+* `float()` for blood values
+* `.strip()` for text
+
+This is much closer to how a real application works.
+
+---
+
+# Mini Challenge ⭐
+
+Add this line:
+
+```python
+print("Patient age after 10 years:", age + 10)
+```
+
+If the patient is **35**, the output should be:
+
+```
+Patient age after 10 years: 45
+```
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day4.md
+```
+
+Answer:
+
+1. What is a data type?
+2. Why does `input()` return a string?
+3. What does `int()` do?
+4. What does `float()` do?
+5. What does `str()` do?
+6. What does `type()` do?
+
+---
+
+# Bonus Challenge ⭐⭐
+
+Can you calculate the patient's **year of birth**?
+
+Hint:
+
+Current year:
+
+```python
+current_year = 2026
+```
+
+Formula:
+
+```
+Birth Year = Current Year - Age
+```
+
+Expected output (if age is 35):
+
+```
+Birth Year: 1991
+```
+
+---
+
+# Today's Learning Summary
+
+Today you'll master:
+
+* ✅ Data types
+* ✅ `type()`
+* ✅ `int()`
+* ✅ `float()`
+* ✅ `str()`
+* ✅ Why type conversion is necessary
+
+---
+
+# Preview of Day 5
+
+Tomorrow we'll learn **operators**.
+
+You'll finally start making decisions and calculations, such as:
+
+* Is hemoglobin low?
+* Is HbA1c high?
+* Calculate BMI.
+* Compare values.
+
+This is where your program starts becoming intelligent instead of just storing information.
+
+---
+
+## Before Day 5
+
+When you're done, send me:
+
+1. Your `day4.py` code.
+2. The output after running it.
+3. In your own words:
+
+> **Why can't Python add `5` to `"35"`?**
+
+That answer is one of the most important programming concepts you'll learn this week.
+

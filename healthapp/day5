@@ -1,0 +1,423 @@
+# 🚀 Day 5 – Teaching Your Program to Make Decisions
+
+Welcome to **Day 5**! This is an exciting milestone.
+
+So far, your program can:
+
+* ✅ Store data
+* ✅ Display data
+* ✅ Perform calculations
+
+Today, you'll teach it to **think**.
+
+Not like ChatGPT 😊, but it will start making simple decisions.
+
+---
+
+# Today's Goal
+
+By the end of today, you'll understand:
+
+* Comparison operators
+* Boolean values (`True` / `False`)
+* `if`
+* `else`
+* How your blood report app decides whether a value is normal or abnormal
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 – How Computers Make Decisions (10 min)
+
+Imagine you're a doctor.
+
+A patient's hemoglobin is:
+
+```
+11.2
+```
+
+You think:
+
+> Is it less than 12?
+
+If **Yes**:
+
+```
+Low Hemoglobin
+```
+
+Otherwise:
+
+```
+Normal
+```
+
+Computers think exactly the same way.
+
+---
+
+# Part 2 – Comparison Operators (15 min)
+
+These are the symbols that allow Python to compare values.
+
+| Operator | Meaning               | Example            |
+| -------- | --------------------- | ------------------ |
+| `>`      | Greater than          | `15 > 12`          |
+| `<`      | Less than             | `10 < 12`          |
+| `>=`     | Greater than or equal | `12 >= 12`         |
+| `<=`     | Less than or equal    | `11 <= 12`         |
+| `==`     | Equal to              | `age == 35`        |
+| `!=`     | Not equal             | `gender != "Male"` |
+
+Notice something important.
+
+Equality is:
+
+```python
+==
+```
+
+NOT
+
+```python
+=
+```
+
+This is one of the biggest beginner mistakes.
+
+---
+
+# Part 3 – Boolean Values (10 min)
+
+Create:
+
+```text
+practice/day5.py
+```
+
+Type:
+
+```python
+print(15 > 12)
+
+print(10 < 5)
+
+print(35 == 35)
+
+print(20 != 10)
+```
+
+Run it.
+
+Output:
+
+```text
+True
+False
+True
+True
+```
+
+Python answers every comparison with:
+
+* `True`
+* `False`
+
+These are called **Boolean values**.
+
+Think of them as:
+
+```
+Yes
+
+or
+
+No
+```
+
+---
+
+# Part 4 – Your First `if` Statement (15 min)
+
+Now write:
+
+```python
+hemoglobin = float(input("Enter Hemoglobin: "))
+
+if hemoglobin < 12:
+    print("Hemoglobin is LOW")
+```
+
+Notice the indentation.
+
+Python uses indentation to know which lines belong inside the `if`.
+
+Try:
+
+```
+11.4
+```
+
+Output:
+
+```
+Hemoglobin is LOW
+```
+
+Now try:
+
+```
+13.8
+```
+
+Output:
+
+Nothing.
+
+Why?
+
+Because the condition is **False**.
+
+---
+
+# Part 5 – `else`
+
+Let's improve it.
+
+```python
+hemoglobin = float(input("Enter Hemoglobin: "))
+
+if hemoglobin < 12:
+    print("Hemoglobin is LOW")
+else:
+    print("Hemoglobin is NORMAL")
+```
+
+Now:
+
+Input:
+
+```
+11.4
+```
+
+Output:
+
+```
+Hemoglobin is LOW
+```
+
+Input:
+
+```
+13.6
+```
+
+Output:
+
+```
+Hemoglobin is NORMAL
+```
+
+Your program just made its first decision!
+
+---
+
+# Part 6 – Build a Mini Blood Report Analyzer (20 min)
+
+Create this program:
+
+```python
+print("====== Blood Report Analyzer ======")
+
+name = input("Patient Name: ").strip()
+
+hemoglobin = float(input("Hemoglobin: "))
+
+print()
+
+print("Patient:", name)
+
+if hemoglobin < 12:
+    print("Status: Low Hemoglobin")
+else:
+    print("Status: Normal Hemoglobin")
+```
+
+Try both:
+
+```
+11
+```
+
+and
+
+```
+14
+```
+
+See how the output changes.
+
+---
+
+# ⭐ Mini Challenge
+
+Can you also check Vitamin D?
+
+Rules:
+
+```
+Vitamin D < 20
+
+↓
+
+Low Vitamin D
+```
+
+Otherwise:
+
+```
+Vitamin D Normal
+```
+
+Hint:
+
+```python
+vitamin_d = float(input("Vitamin D: "))
+```
+
+Then write another `if...else`.
+
+---
+
+# ⭐⭐ Bonus Challenge
+
+Can you check HbA1c?
+
+Use this rule:
+
+* Less than **5.7** → Normal
+* Otherwise → Above Normal
+
+> **Note:** These thresholds are simplified for learning purposes. Real medical interpretation depends on clinical context, so treat this only as a programming exercise.
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day5.md
+```
+
+Answer:
+
+1. What is a Boolean?
+2. What does `>` mean?
+3. What does `==` mean?
+4. What is the difference between `=` and `==`?
+5. What does `if` do?
+6. What does `else` do?
+
+---
+
+# Common Beginner Mistakes
+
+❌ Wrong:
+
+```python
+if age = 35:
+```
+
+Correct:
+
+```python
+if age == 35:
+```
+
+---
+
+❌ Wrong indentation:
+
+```python
+if hemoglobin < 12:
+print("Low")
+```
+
+Correct:
+
+```python
+if hemoglobin < 12:
+    print("Low")
+```
+
+Python relies on indentation, so those spaces matter.
+
+---
+
+# Real App Connection
+
+Today might seem simple, but this is exactly how your future app will work.
+
+Imagine someone uploads a blood report:
+
+```
+Hemoglobin: 10.8
+```
+
+Your app will run logic like:
+
+```python
+if hemoglobin < 12:
+    status = "Low"
+```
+
+Then the app can:
+
+* Show a red warning
+* Include it in the AI summary
+* Track it over time
+
+This tiny `if` statement is the foundation for all of that.
+
+---
+
+# Tomorrow (Day 6)
+
+You'll learn about **multiple conditions**.
+
+Questions like:
+
+* Is HbA1c normal, prediabetic, or diabetic?
+* Is Vitamin D low, insufficient, or normal?
+
+For that, we'll use:
+
+```python
+if
+elif
+else
+```
+
+This will make your program much smarter.
+
+---
+
+## Before Day 6
+
+When you've completed today's work, send me:
+
+1. Your `day5.py` code.
+2. The output for:
+
+   * Hemoglobin = **11**
+   * Hemoglobin = **14**
+3. In your own words:
+
+> **What is the difference between `=` and `==`?**
+
+That concept is one of the most important in programming, and mastering it early will save you from many frustrating bugs later.
+
