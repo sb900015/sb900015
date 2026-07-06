@@ -1,0 +1,590 @@
+# 🚀 Day 9 – Logical Operators (`and`, `or`, `not`)
+
+Welcome to **Day 9!** 🎉
+
+Yesterday, your program could make **one decision at a time**.
+
+Example:
+
+```python
+if bmi > 25:
+    print("Overweight")
+```
+
+But what if a patient has:
+
+* Low Hemoglobin
+* Low Vitamin D
+
+and you want to show a special warning?
+
+Today's lesson teaches your program to check **multiple conditions together**.
+
+This is one of the most important concepts in programming.
+
+**Time:** ~1 hour
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today you'll understand:
+
+* `and`
+* `or`
+* `not`
+* Combining multiple conditions
+* Real-world healthcare logic
+
+---
+
+# Part 1 – What is a Logical Operator?
+
+Imagine you're hiring a doctor.
+
+Requirements:
+
+* MBBS
+* Medical License
+
+The person must have **both**.
+
+This is:
+
+```python
+and
+```
+
+---
+
+Suppose you're entering a hospital.
+
+You can enter using:
+
+* Employee Card
+* Visitor Pass
+
+Either one works.
+
+This is:
+
+```python
+or
+```
+
+---
+
+Suppose the hospital says:
+
+```
+Not a visitor
+```
+
+This means
+
+```
+Employee
+```
+
+This is:
+
+```python
+not
+```
+
+---
+
+# Part 2 – `and`
+
+Create
+
+```
+practice/day9.py
+```
+
+Type:
+
+```python
+age = 25
+citizen = True
+
+print(age >= 18 and citizen)
+```
+
+Output
+
+```
+True
+```
+
+Why?
+
+```
+25 >=18
+
+True
+
+AND
+
+citizen = True
+
+↓
+
+True
+```
+
+---
+
+Now change
+
+```python
+citizen = False
+```
+
+Output
+
+```
+False
+```
+
+Because BOTH conditions must be true.
+
+---
+
+# Think of `and` like this
+
+```
+True AND True
+
+↓
+
+True
+```
+
+Everything else becomes
+
+```
+False
+```
+
+| A     | B     | A and B |
+| ----- | ----- | ------- |
+| True  | True  | ✅ True  |
+| True  | False | ❌ False |
+| False | True  | ❌ False |
+| False | False | ❌ False |
+
+---
+
+# Part 3 – `or`
+
+Now write
+
+```python
+has_pass = False
+employee = True
+
+print(has_pass or employee)
+```
+
+Output
+
+```
+True
+```
+
+Because at least one condition is true.
+
+---
+
+Another example
+
+```python
+print(False or False)
+```
+
+Output
+
+```
+False
+```
+
+---
+
+| A     | B     | A or B  |
+| ----- | ----- | ------- |
+| True  | True  | ✅ True  |
+| True  | False | ✅ True  |
+| False | True  | ✅ True  |
+| False | False | ❌ False |
+
+---
+
+# Part 4 – `not`
+
+Write
+
+```python
+is_logged_in = True
+
+print(not is_logged_in)
+```
+
+Output
+
+```
+False
+```
+
+Because
+
+```
+not True
+
+↓
+
+False
+```
+
+Now try
+
+```python
+is_logged_in = False
+
+print(not is_logged_in)
+```
+
+Output
+
+```
+True
+```
+
+`not` simply reverses the answer.
+
+---
+
+# Part 5 – Real Blood Report Example
+
+Let's build something useful.
+
+```python
+hemoglobin = float(input("Enter Hemoglobin: "))
+vitamin_d = float(input("Enter Vitamin D: "))
+```
+
+Now check:
+
+```python
+if hemoglobin < 12 and vitamin_d < 20:
+    print("Multiple deficiencies detected")
+```
+
+Try
+
+```
+Hemoglobin = 11
+
+Vitamin D = 15
+```
+
+Output
+
+```
+Multiple deficiencies detected
+```
+
+---
+
+Now try
+
+```
+Hemoglobin = 13
+
+Vitamin D = 15
+```
+
+Nothing happens.
+
+Why?
+
+Because BOTH conditions were not true.
+
+---
+
+# Part 6 – Using `or`
+
+Suppose we want to warn the patient if **either** HbA1c is high **or** BMI is high.
+
+```python
+hba1c = float(input("Enter HbA1c: "))
+bmi = float(input("Enter BMI: "))
+```
+
+```python
+if hba1c >= 6.5 or bmi >= 30:
+    print("Patient requires medical attention")
+```
+
+Try
+
+```
+HbA1c = 5.4
+
+BMI = 32
+```
+
+Output
+
+```
+Patient requires medical attention
+```
+
+Because one condition is enough.
+
+---
+
+# Part 7 – Using `not`
+
+Imagine:
+
+```python
+is_smoker = input("Is patient a smoker? (yes/no): ").strip().lower()
+```
+
+Now write:
+
+```python
+if not (is_smoker == "yes"):
+    print("Patient is a non-smoker.")
+```
+
+Example:
+
+Input
+
+```
+no
+```
+
+Output
+
+```
+Patient is a non-smoker.
+```
+
+Don't worry if `not` feels a little confusing today. You'll get more practice with it later.
+
+---
+
+# Part 8 – Mini Project
+
+Build this:
+
+```python
+print("=" * 50)
+print("      HEALTH RISK CHECKER")
+print("=" * 50)
+
+hemoglobin = float(input("Hemoglobin: "))
+hba1c = float(input("HbA1c: "))
+vitamin_d = float(input("Vitamin D: "))
+bmi = float(input("BMI: "))
+
+print()
+
+if hemoglobin < 12 and vitamin_d < 20:
+    print("⚠ Multiple deficiencies detected")
+
+if hba1c >= 6.5 or bmi >= 30:
+    print("⚠ High health risk")
+
+if hemoglobin >= 12 and vitamin_d >= 20 and hba1c < 5.7:
+    print("✅ Blood report looks healthy")
+```
+
+---
+
+# Example 1
+
+Input
+
+```
+Hemoglobin = 11
+
+HbA1c = 6.8
+
+Vitamin D = 15
+
+BMI = 31
+```
+
+Output
+
+```
+⚠ Multiple deficiencies detected
+
+⚠ High health risk
+```
+
+---
+
+# Example 2
+
+Input
+
+```
+Hemoglobin = 14
+
+HbA1c = 5.4
+
+Vitamin D = 35
+
+BMI = 22
+```
+
+Output
+
+```
+Blood report looks healthy
+```
+
+---
+
+# ⭐ Mini Challenge
+
+Can you detect this?
+
+If BOTH conditions are true:
+
+```
+BMI > 30
+
+AND
+
+Vitamin D < 20
+```
+
+Print:
+
+```
+High Priority Case
+```
+
+Hint:
+
+```python
+if bmi > 30 and vitamin_d < 20:
+```
+
+---
+
+# ⭐⭐ Bonus Challenge
+
+Suppose a patient is healthy only if:
+
+* Hemoglobin ≥ 12
+* HbA1c < 5.7
+* Vitamin D ≥ 30
+* BMI between 18.5 and 25
+
+Can you write **one `if` statement** that checks all four conditions?
+
+Hint:
+
+```python
+if condition1 and condition2 and condition3 and condition4:
+```
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day9.md
+```
+
+Answer:
+
+1. What does `and` do?
+2. What does `or` do?
+3. What does `not` do?
+4. When should we use `and`?
+5. When should we use `or`?
+
+---
+
+# Common Beginner Mistake
+
+❌ Wrong:
+
+```python
+if hemoglobin < 12 or vitamin_d < 20:
+    print("Multiple deficiencies")
+```
+
+This is incorrect because `or` means only **one** condition has to be true.
+
+✅ Correct:
+
+```python
+if hemoglobin < 12 and vitamin_d < 20:
+    print("Multiple deficiencies")
+```
+
+---
+
+# Real App Connection
+
+Imagine your future app receives these values from an uploaded report:
+
+```
+Hemoglobin = 10.8
+HbA1c = 7.2
+Vitamin D = 12
+BMI = 31
+```
+
+Your backend could automatically detect:
+
+* Multiple deficiencies
+* Diabetes
+* Obesity
+* High-risk patient
+
+All of that starts with today's lesson on logical operators.
+
+---
+
+# Tomorrow (Day 10)
+
+We'll learn **Loops**.
+
+Right now, your program processes **one patient** and stops.
+
+After tomorrow, you'll be able to process **many patients** without restarting the program.
+
+That is one of the biggest steps toward building a real application.
+
+---
+
+## Before Day 10
+
+Please send me:
+
+1. Your `day9.py` code.
+2. Output for at least **two different patients**.
+3. In your own words:
+
+> **What is the difference between `and` and `or`?**
+
+---
+
+### 🌟 Mentor's Note
+
+You're now learning the same foundational programming concepts that every backend developer uses—whether they're building a banking app, an e-commerce platform, or a healthcare system.
+
+Every day, you're adding one more building block. By the end of these 90 days, those blocks will come together into the blood reports app you originally imagined. Keep going—you've been very consistent so far. 🚀
+

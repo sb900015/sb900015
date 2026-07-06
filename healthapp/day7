@@ -1,0 +1,411 @@
+# 🚀 Day 7 – Week 1 Revision Project: Blood Report Analyzer v1.0
+
+Welcome to **Day 7!** 🎉
+
+Today is different.
+
+You're **not learning any new Python concepts**.
+
+Instead, you're going to combine everything you've learned into your **first mini-project**.
+
+This is exactly how real software engineers work:
+
+* Learn a few concepts.
+* Build something with them.
+* Improve it before moving on.
+
+---
+
+# 🎯 Today's Goal
+
+Build **Blood Report Analyzer v1.0**
+
+This version should:
+
+* Ask the patient for details.
+* Analyze blood values.
+* Display a clean report.
+* Count how many abnormal values are found.
+* Give an overall summary.
+
+Time: **~1 hour**
+
+---
+
+# Step 1 – Create a New File
+
+Inside the `practice` folder, create:
+
+```text
+day7.py
+```
+
+---
+
+# Step 2 – Display the Title
+
+```python
+print("=" * 50)
+print("       BLOOD REPORT ANALYZER v1.0")
+print("=" * 50)
+```
+
+Notice something new:
+
+```python
+"=" * 50
+```
+
+This repeats the `=` character 50 times.
+
+Output:
+
+```text
+==================================================
+```
+
+This makes your program look much more professional.
+
+---
+
+# Step 3 – Take User Input
+
+Ask for:
+
+```python
+patient_name
+age
+gender
+blood_group
+hemoglobin
+hba1c
+vitamin_d
+```
+
+Remember:
+
+* `.strip()` for text
+* `int()` for age
+* `float()` for blood values
+
+---
+
+# Step 4 – Create a Counter
+
+Today you'll learn one tiny new idea.
+
+Create:
+
+```python
+abnormal_count = 0
+```
+
+What is this?
+
+It is a variable that starts at zero.
+
+Every time you find an abnormal result...
+
+Increase it by one.
+
+Example:
+
+```python
+abnormal_count = abnormal_count + 1
+```
+
+Let's understand this.
+
+Suppose:
+
+Initially
+
+```text
+abnormal_count = 0
+```
+
+Low Hemoglobin?
+
+Yes.
+
+Now
+
+```python
+abnormal_count = abnormal_count + 1
+```
+
+becomes
+
+```text
+0 + 1 = 1
+```
+
+Later Vitamin D is low.
+
+Again
+
+```text
+1 + 1 = 2
+```
+
+By the end, you know exactly how many abnormal values the patient has.
+
+---
+
+# Step 5 – Analyze Hemoglobin
+
+```python
+print()
+
+print("Hemoglobin :", hemoglobin)
+
+if hemoglobin < 12:
+    print("Status : LOW")
+    abnormal_count = abnormal_count + 1
+else:
+    print("Status : NORMAL")
+```
+
+---
+
+# Step 6 – Analyze HbA1c
+
+```python
+print()
+
+print("HbA1c :", hba1c)
+
+if hba1c < 5.7:
+    print("Status : NORMAL")
+
+elif hba1c < 6.5:
+    print("Status : PRE-DIABETES")
+    abnormal_count = abnormal_count + 1
+
+else:
+    print("Status : DIABETES")
+    abnormal_count = abnormal_count + 1
+```
+
+---
+
+# Step 7 – Analyze Vitamin D
+
+```python
+print()
+
+print("Vitamin D :", vitamin_d)
+
+if vitamin_d < 20:
+    print("Status : DEFICIENT")
+    abnormal_count = abnormal_count + 1
+
+elif vitamin_d < 30:
+    print("Status : INSUFFICIENT")
+    abnormal_count = abnormal_count + 1
+
+else:
+    print("Status : NORMAL")
+```
+
+---
+
+# Step 8 – Patient Summary
+
+After all checks:
+
+```python
+print()
+
+print("=" * 50)
+
+print("Patient :", patient_name)
+
+print("Age :", age)
+
+print("Gender :", gender)
+
+print("Blood Group :", blood_group)
+
+print()
+
+print("Abnormal Results :", abnormal_count)
+```
+
+---
+
+# Step 9 – Overall Result
+
+Now use another `if`.
+
+```python
+if abnormal_count == 0:
+    print("Overall Status : Excellent")
+
+elif abnormal_count == 1:
+    print("Overall Status : Needs Attention")
+
+else:
+    print("Overall Status : Consult a Doctor")
+```
+
+---
+
+# Example Output
+
+```text
+==================================================
+       BLOOD REPORT ANALYZER v1.0
+==================================================
+
+Patient Name: Srujan
+Age: 35
+Gender: Male
+Blood Group: B+
+
+Hemoglobin : 13.5
+Status : NORMAL
+
+HbA1c : 6.2
+Status : PRE-DIABETES
+
+Vitamin D : 18
+Status : DEFICIENT
+
+==================================================
+
+Patient : Srujan
+Age : 35
+Gender : Male
+Blood Group : B+
+
+Abnormal Results : 2
+
+Overall Status : Consult a Doctor
+```
+
+---
+
+# Why This Project Matters
+
+This is actually very close to what your future app will do.
+
+Later, instead of asking:
+
+```text
+Enter Hemoglobin:
+```
+
+your app will:
+
+1. Read a PDF blood report.
+2. Extract the values using OCR.
+3. Store them in a database.
+4. Run exactly this logic.
+5. Show a summary on the phone.
+
+The logic you're writing now will still exist—it'll just get its inputs from uploaded reports instead of the keyboard.
+
+---
+
+# Week 1 Reflection
+
+Look how far you've come:
+
+### Day 2
+
+```python
+print("Hello")
+```
+
+### Day 7
+
+You'll have a program that:
+
+* Takes user input
+* Converts data types
+* Makes decisions
+* Tracks abnormal results
+* Prints a professional summary
+
+That's real progress in just one week.
+
+---
+
+# Homework
+
+Create:
+
+```text
+notes/week1.md
+```
+
+Answer these questions:
+
+1. What was the easiest topic this week?
+2. What was the hardest topic?
+3. Which concept do you want to practice more?
+4. Which day did you enjoy the most?
+5. What are three new things you learned this week?
+
+---
+
+# ⭐ Bonus Challenge (Optional)
+
+Can you improve the summary by printing something like this?
+
+```text
+Normal Results     : 1
+Abnormal Results   : 2
+```
+
+Hint:
+
+If there are 3 tests in total, then:
+
+```python
+normal_count = 3 - abnormal_count
+```
+
+Then print both values.
+
+---
+
+# Mentor's Message
+
+I want to say something before we finish Week 1.
+
+You started this journey by saying:
+
+> *"I have no knowledge on how to build this."*
+
+Seven days later, you've written multiple Python programs, fixed bugs, understood variables, data types, conditions, and built your first mini blood report analyzer.
+
+That's exactly how software is learned—not by rushing, but by showing up consistently.
+
+## Preview of Week 2
+
+Week 2 is where programming starts becoming much more powerful.
+
+You'll learn:
+
+* Arithmetic operators (`+`, `-`, `*`, `/`, `%`)
+* Logical operators (`and`, `or`, `not`)
+* Loops (`while` and `for`)
+* Functions
+* Breaking a large program into smaller reusable pieces
+
+These concepts will make your code shorter, cleaner, and closer to what professional developers write.
+
+---
+
+## Before Day 8
+
+Please send me:
+
+1. Your complete `day7.py` code.
+2. The output from two different patient examples.
+3. Your answers to the Week 1 reflection.
+
+Once you've done that, we'll begin **Week 2**, where you'll start writing code that feels much more like real software. I'm excited to see your progress continue! 🚀
+

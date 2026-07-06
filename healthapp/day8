@@ -1,0 +1,536 @@
+# 🚀 Day 8 – Arithmetic Operators (Making Your App Calculate)
+
+Welcome to **Week 2!** 🎉
+
+You've learned how to:
+
+* Store data
+* Take user input
+* Make decisions (`if`, `elif`, `else`)
+
+Now it's time to make your app **calculate**.
+
+Every health app performs calculations:
+
+* BMI
+* Age
+* Average blood sugar
+* Cholesterol ratios
+* Time between tests
+
+Today you'll learn the operators that make all of this possible.
+
+**Time:** ~1 hour
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* `+` Addition
+* `-` Subtraction
+* `*` Multiplication
+* `/` Division
+* `//` Floor Division
+* `%` Modulus (Remainder)
+* `**` Power (Exponent)
+
+---
+
+# Part 1 – Addition (+)
+
+Create:
+
+```text
+practice/day8.py
+```
+
+Write:
+
+```python
+a = 20
+b = 15
+
+print(a + b)
+```
+
+Output:
+
+```text
+35
+```
+
+---
+
+Now try:
+
+```python
+hemoglobin = 13.8
+vitamin_d = 25.5
+
+total = hemoglobin + vitamin_d
+
+print(total)
+```
+
+Output:
+
+```text
+39.3
+```
+
+---
+
+# Part 2 – Subtraction (-)
+
+```python
+current_year = 2026
+birth_year = 1991
+
+age = current_year - birth_year
+
+print(age)
+```
+
+Output
+
+```text
+35
+```
+
+---
+
+This is exactly what you did in Day 4.
+
+---
+
+# Part 3 – Multiplication (*)
+
+Suppose someone weighs **70 kg**.
+
+After one year they gain **2 kg every month**.
+
+```python
+monthly_gain = 2
+
+months = 12
+
+total_gain = monthly_gain * months
+
+print(total_gain)
+```
+
+Output
+
+```text
+24
+```
+
+---
+
+# Part 4 – Division (/)
+
+Suppose:
+
+```python
+total_cholesterol = 180
+
+months = 6
+
+average = total_cholesterol / months
+
+print(average)
+```
+
+Output
+
+```text
+30.0
+```
+
+Notice:
+
+Division always gives a **float**.
+
+Even
+
+```python
+10 / 2
+```
+
+gives
+
+```text
+5.0
+```
+
+---
+
+# Part 5 – Floor Division (//)
+
+This is a little different.
+
+```python
+print(10 / 3)
+```
+
+Output
+
+```text
+3.333333333
+```
+
+Now:
+
+```python
+print(10 // 3)
+```
+
+Output
+
+```text
+3
+```
+
+It removes the decimal part.
+
+---
+
+# Part 6 – Modulus (%)
+
+One of the most useful operators.
+
+```python
+print(10 % 3)
+```
+
+Output
+
+```text
+1
+```
+
+Why?
+
+Because
+
+```text
+10 ÷ 3
+
+Quotient = 3
+
+Remainder = 1
+```
+
+So
+
+```python
+10 % 3
+```
+
+means
+
+> Give me the remainder.
+
+---
+
+Another example
+
+```python
+print(20 % 5)
+```
+
+Output
+
+```text
+0
+```
+
+Because
+
+```text
+20 ÷ 5
+
+Remainder = 0
+```
+
+---
+
+# Why is `%` useful?
+
+Imagine checking if an age is even.
+
+```python
+age = 36
+
+if age % 2 == 0:
+    print("Even Age")
+else:
+    print("Odd Age")
+```
+
+---
+
+# Part 7 – Power (**)
+
+Suppose we want
+
+```text
+5²
+```
+
+Python:
+
+```python
+print(5 ** 2)
+```
+
+Output
+
+```text
+25
+```
+
+Another:
+
+```python
+print(2 ** 5)
+```
+
+Output
+
+```text
+32
+```
+
+---
+
+# Part 8 – Mini Practice
+
+Write this program.
+
+```python
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+
+print()
+
+print("Addition:", num1 + num2)
+
+print("Subtraction:", num1 - num2)
+
+print("Multiplication:", num1 * num2)
+
+print("Division:", num1 / num2)
+
+print("Floor Division:", num1 // num2)
+
+print("Remainder:", num1 % num2)
+
+print("Power:", num1 ** num2)
+```
+
+Try:
+
+```text
+10
+3
+```
+
+Expected output:
+
+```text
+Addition: 13
+
+Subtraction: 7
+
+Multiplication: 30
+
+Division: 3.333333333
+
+Floor Division: 3
+
+Remainder: 1
+
+Power: 1000
+```
+
+---
+
+# Part 9 – Build Something Useful
+
+Let's use arithmetic in your blood report app.
+
+```python
+print("====== BMI Calculator ======")
+
+weight = float(input("Enter Weight (kg): "))
+
+height = float(input("Enter Height (meters): "))
+
+bmi = weight / (height ** 2)
+
+print()
+
+print("BMI:", bmi)
+```
+
+Example
+
+Input
+
+```text
+Weight = 72
+
+Height = 1.75
+```
+
+Output
+
+```text
+BMI: 23.510204081632654
+```
+
+That's correct, but it's hard to read.
+
+We can improve it:
+
+```python
+print(round(bmi, 2))
+```
+
+Output
+
+```text
+23.51
+```
+
+The `round(number, 2)` function rounds to **2 decimal places**.
+
+---
+
+# ⭐ Mini Challenge
+
+Extend the BMI calculator.
+
+Use these simplified categories:
+
+| BMI                  | Status      |
+| -------------------- | ----------- |
+| Less than 18.5       | Underweight |
+| 18.5 to less than 25 | Normal      |
+| 25 to less than 30   | Overweight  |
+| 30 or higher         | Obese       |
+
+Hint:
+
+```python
+if bmi < 18.5:
+    ...
+elif bmi < 25:
+    ...
+elif bmi < 30:
+    ...
+else:
+    ...
+```
+
+---
+
+# Homework
+
+Create:
+
+```text
+notes/day8.md
+```
+
+Answer:
+
+1. What does `+` do?
+2. What does `/` do?
+3. Difference between `/` and `//`
+4. What does `%` return?
+5. What does `**` do?
+6. What does `round(number, 2)` do?
+
+---
+
+# 🧠 Think Like a Programmer
+
+Suppose:
+
+```python
+print(25 % 5)
+```
+
+What is the output?
+
+Now think:
+
+```python
+print(26 % 5)
+```
+
+Can you explain **why** the answers are different?
+
+Understanding the remainder operator will help you later when we work with loops and validation.
+
+---
+
+# Real App Connection
+
+Imagine your future app.
+
+A user uploads their report every 6 months.
+
+Your app can calculate:
+
+```python
+change = current_hba1c - previous_hba1c
+```
+
+Or:
+
+```python
+average = (hba1c_1 + hba1c_2 + hba1c_3) / 3
+```
+
+Or compute BMI from stored height and weight.
+
+These are all powered by the arithmetic operators you learned today.
+
+---
+
+# Tomorrow (Day 9)
+
+We'll combine conditions using **logical operators**:
+
+* `and`
+* `or`
+* `not`
+
+For example:
+
+```python
+if hemoglobin < 12 and vitamin_d < 20:
+    print("Multiple deficiencies detected")
+```
+
+This will let your program make much smarter decisions.
+
+---
+
+## Before Day 9
+
+Please send me:
+
+1. Your `day8.py` code.
+2. The output from your calculator and BMI program.
+3. In your own words:
+
+> **What is the difference between `/` and `//`?**
+
+One more thing: from today onward, try to predict the output **before** running your code. That's a habit that will make you a much stronger programmer. 🚀
+

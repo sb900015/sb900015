@@ -1,0 +1,583 @@
+# 🚀 Day 6 – Making Smarter Decisions with `elif`
+
+Welcome to **Day 6**! 🎉
+
+Yesterday, your program could make **one decision**:
+
+```python
+if hemoglobin < 12:
+    print("Low")
+else:
+    print("Normal")
+```
+
+But what if there are **three** possible outcomes?
+
+For example, HbA1c can be:
+
+* Normal
+* Prediabetes
+* Diabetes
+
+Today, you'll learn how to handle multiple conditions using **`elif`**.
+
+---
+
+# Today's Goal
+
+By the end of today, you'll know:
+
+* `if`
+* `elif`
+* `else`
+* Multiple conditions
+* Logical flow (top to bottom)
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 – Why do we need `elif`? (10 minutes)
+
+Imagine a teacher checking exam marks.
+
+If marks are:
+
+```
+90–100 → Grade A
+
+75–89 → Grade B
+
+50–74 → Grade C
+
+Below 50 → Fail
+```
+
+Can we write this using only `if` and `else`?
+
+Not easily.
+
+That's why Python gives us **`elif`**, which means:
+
+> **Else If**
+
+---
+
+# Part 2 – Your First `elif` Program (15 minutes)
+
+Create a new file:
+
+```
+practice/day6.py
+```
+
+Type this yourself:
+
+```python
+marks = int(input("Enter Marks: "))
+
+if marks >= 90:
+    print("Grade A")
+
+elif marks >= 75:
+    print("Grade B")
+
+elif marks >= 50:
+    print("Grade C")
+
+else:
+    print("Fail")
+```
+
+---
+
+## Test it
+
+### Example 1
+
+Input:
+
+```
+95
+```
+
+Output:
+
+```
+Grade A
+```
+
+---
+
+### Example 2
+
+Input:
+
+```
+82
+```
+
+Output:
+
+```
+Grade B
+```
+
+---
+
+### Example 3
+
+Input:
+
+```
+60
+```
+
+Output:
+
+```
+Grade C
+```
+
+---
+
+### Example 4
+
+Input:
+
+```
+30
+```
+
+Output:
+
+```
+Fail
+```
+
+---
+
+# Part 3 – How Python Thinks (10 minutes)
+
+Suppose the user enters:
+
+```
+82
+```
+
+Python checks from top to bottom.
+
+```
+Is 82 >= 90?
+
+❌ No
+```
+
+↓
+
+```
+Is 82 >= 75?
+
+✅ Yes
+```
+
+↓
+
+Python prints:
+
+```
+Grade B
+```
+
+↓
+
+Then it **stops checking**.
+
+It never reaches:
+
+```
+Grade C
+
+Fail
+```
+
+This is very important.
+
+> **As soon as one condition is True, Python skips the rest of the `elif` and `else` blocks.**
+
+---
+
+# Part 4 – Build a Better Blood Report Analyzer (20 minutes)
+
+Let's improve yesterday's program.
+
+We'll classify HbA1c into three categories.
+
+For learning purposes, use these simplified thresholds:
+
+| HbA1c         | Status      |
+| ------------- | ----------- |
+| Less than 5.7 | Normal      |
+| 5.7 to 6.4    | Prediabetes |
+| 6.5 or higher | Diabetes    |
+
+Type this:
+
+```python
+hba1c = float(input("Enter HbA1c: "))
+
+if hba1c < 5.7:
+    print("Status: Normal")
+
+elif hba1c < 6.5:
+    print("Status: Prediabetes")
+
+else:
+    print("Status: Diabetes")
+```
+
+---
+
+## Try these inputs
+
+### Input
+
+```
+5.4
+```
+
+Output
+
+```
+Normal
+```
+
+---
+
+### Input
+
+```
+6.1
+```
+
+Output
+
+```
+Prediabetes
+```
+
+---
+
+### Input
+
+```
+7.2
+```
+
+Output
+
+```
+Diabetes
+```
+
+---
+
+# Why does this work?
+
+Suppose the user enters:
+
+```
+6.1
+```
+
+Python checks:
+
+```
+6.1 < 5.7
+
+False
+```
+
+↓
+
+```
+6.1 < 6.5
+
+True
+```
+
+↓
+
+Print:
+
+```
+Prediabetes
+```
+
+↓
+
+Stop.
+
+---
+
+# Part 5 – Vitamin D Classification (15 minutes)
+
+Let's classify Vitamin D.
+
+For learning, use:
+
+| Vitamin D          | Status       |
+| ------------------ | ------------ |
+| Less than 20       | Deficient    |
+| 20 to less than 30 | Insufficient |
+| 30 or higher       | Normal       |
+
+Write:
+
+```python
+vitamin_d = float(input("Enter Vitamin D: "))
+
+if vitamin_d < 20:
+    print("Status: Deficient")
+
+elif vitamin_d < 30:
+    print("Status: Insufficient")
+
+else:
+    print("Status: Normal")
+```
+
+---
+
+## Test
+
+Input:
+
+```
+18
+```
+
+↓
+
+```
+Deficient
+```
+
+---
+
+Input:
+
+```
+25
+```
+
+↓
+
+```
+Insufficient
+```
+
+---
+
+Input:
+
+```
+36
+```
+
+↓
+
+```
+Normal
+```
+
+---
+
+# Part 6 – Mini Project (15 minutes)
+
+Combine everything.
+
+Ask the user for:
+
+* Name
+* Hemoglobin
+* HbA1c
+* Vitamin D
+
+Then:
+
+Hemoglobin:
+
+```python
+if hemoglobin < 12:
+    print("Low")
+else:
+    print("Normal")
+```
+
+HbA1c:
+
+```python
+if hba1c < 5.7:
+    print("Normal")
+
+elif hba1c < 6.5:
+    print("Prediabetes")
+
+else:
+    print("Diabetes")
+```
+
+Vitamin D:
+
+```python
+if vitamin_d < 20:
+    print("Deficient")
+
+elif vitamin_d < 30:
+    print("Insufficient")
+
+else:
+    print("Normal")
+```
+
+Your output should look like:
+
+```
+========== Blood Report Summary ==========
+
+Patient: Srujan
+
+Hemoglobin : 13.8
+Status      : Normal
+
+HbA1c       : 6.2
+Status      : Prediabetes
+
+Vitamin D   : 18
+Status      : Deficient
+
+==========================================
+```
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day6.md
+```
+
+Answer:
+
+1. What is `elif`?
+2. When does Python execute `else`?
+3. Why does Python stop after the first matching condition?
+4. What is the difference between `if` and `elif`?
+
+---
+
+# Challenge ⭐
+
+Suppose a patient has:
+
+```
+Hemoglobin = 11.5
+
+HbA1c = 7.1
+
+Vitamin D = 24
+```
+
+Without running the program, write down what you think the output should be.
+
+Then run your code and see if you were correct.
+
+Predicting the output before running the code is a great habit—it helps you build logical thinking.
+
+---
+
+# Common Beginner Mistake
+
+❌ Wrong:
+
+```python
+if marks >= 90:
+    print("A")
+
+if marks >= 75:
+    print("B")
+```
+
+If marks are `95`, both conditions are true, so it prints:
+
+```
+A
+B
+```
+
+That's usually **not** what we want.
+
+✅ Correct:
+
+```python
+if marks >= 90:
+    print("A")
+
+elif marks >= 75:
+    print("B")
+```
+
+Now only one grade is printed.
+
+---
+
+# Real App Connection
+
+When someone uploads a blood report, your future app will:
+
+1. Read the values using OCR.
+2. Classify them using logic like today's `if`/`elif`/`else`.
+3. Highlight abnormal results.
+4. Send a summary to the AI for explanation.
+
+You're building the core decision-making logic that every health app needs.
+
+---
+
+# Tomorrow (Day 7)
+
+Tomorrow is our **first revision day**.
+
+We'll review everything from **Days 1–6** by building a larger program that combines:
+
+* Variables
+* Input
+* Data types
+* `if`
+* `elif`
+* `else`
+* Calculations
+
+This will reinforce everything you've learned before we move on to loops and functions in the coming days.
+
+---
+
+## Before Day 7
+
+Please send me:
+
+1. Your `day6.py` code.
+2. The output for these values:
+
+   * Hemoglobin = **11.5**
+   * HbA1c = **7.1**
+   * Vitamin D = **24**
+3. In your own words:
+
+> **Why do we use `elif` instead of writing multiple separate `if` statements?**
+
+I'm looking forward to seeing your solution. You're progressing steadily, and that's exactly how good programmers are made. 🚀
+

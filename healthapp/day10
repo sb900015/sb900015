@@ -1,0 +1,506 @@
+# 🚀 Day 10 – Loops (while Loop)
+
+Welcome to **Day 10!** 🎉
+
+Today is one of the biggest milestones in your programming journey.
+
+Until yesterday, every program you wrote worked like this:
+
+```text
+Run Program
+      ↓
+Enter Data
+      ↓
+Show Result
+      ↓
+Program Ends
+```
+
+That's fine for one patient.
+
+But imagine your future blood report app has **10,000 users**. You can't restart the program for every user!
+
+This is where **loops** come in.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* What a loop is
+* `while` loop
+* Infinite loops
+* Loop counters
+* How to process multiple patients
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 – What is a Loop?
+
+Imagine you're a receptionist at a diagnostic center.
+
+Patients keep arriving.
+
+Instead of saying:
+
+> "I'll only help one patient today."
+
+You repeat the same process for every patient.
+
+This repetition is called a **loop**.
+
+---
+
+# Part 2 – Your First while Loop
+
+Create:
+
+```text
+practice/day10.py
+```
+
+Write:
+
+```python
+count = 1
+
+while count <= 5:
+    print(count)
+    count = count + 1
+```
+
+Output:
+
+```text
+1
+2
+3
+4
+5
+```
+
+---
+
+# Let's Understand It
+
+Initially:
+
+```text
+count = 1
+```
+
+Python checks:
+
+```python
+while count <= 5
+```
+
+Is it true?
+
+Yes.
+
+Print:
+
+```text
+1
+```
+
+Now:
+
+```python
+count = count + 1
+```
+
+becomes
+
+```text
+2
+```
+
+Python goes back to the top.
+
+Checks again.
+
+This continues until:
+
+```text
+count = 6
+```
+
+Now:
+
+```python
+6 <= 5
+```
+
+False.
+
+Loop ends.
+
+---
+
+# Part 3 – What Happens If We Forget This?
+
+Suppose we write:
+
+```python
+count = 1
+
+while count <= 5:
+    print(count)
+```
+
+What happens?
+
+Output:
+
+```text
+1
+1
+1
+1
+1
+1
+1
+1
+1
+...
+```
+
+Forever!
+
+This is called an **Infinite Loop**.
+
+Because `count` never changes.
+
+---
+
+# Rule to Remember
+
+Every `while` loop needs **three things**:
+
+1. A starting value
+
+```python
+count = 1
+```
+
+2. A condition
+
+```python
+while count <= 5:
+```
+
+3. Update the variable
+
+```python
+count = count + 1
+```
+
+Without step 3, the loop may never stop.
+
+---
+
+# Part 4 – Print Patient Numbers
+
+Write:
+
+```python
+patient = 1
+
+while patient <= 3:
+    print(f"Processing Patient {patient}")
+    patient = patient + 1
+```
+
+Output:
+
+```text
+Processing Patient 1
+Processing Patient 2
+Processing Patient 3
+```
+
+---
+
+# Part 5 – Ask for Multiple Patients
+
+Now let's build something useful.
+
+```python
+patient = 1
+
+while patient <= 3:
+
+    print("=" * 40)
+    print(f"Patient {patient}")
+
+    name = input("Enter Name: ")
+    hemoglobin = float(input("Enter Hemoglobin: "))
+
+    if hemoglobin < 12:
+        print("Status: LOW")
+    else:
+        print("Status: NORMAL")
+
+    patient = patient + 1
+```
+
+Try entering three different patients.
+
+Notice:
+
+You only wrote the code **once**.
+
+The loop repeats it.
+
+This is why loops are so powerful.
+
+---
+
+# Part 6 – Count Healthy Patients
+
+Now let's keep track.
+
+```python
+patient = 1
+
+healthy = 0
+
+while patient <= 3:
+
+    print()
+
+    hemoglobin = float(input("Hemoglobin: "))
+
+    if hemoglobin >= 12:
+        healthy = healthy + 1
+
+    patient = patient + 1
+
+print()
+
+print("Healthy Patients:", healthy)
+```
+
+Example:
+
+```text
+13
+11
+15
+```
+
+Output:
+
+```text
+Healthy Patients: 2
+```
+
+---
+
+# Part 7 – Mini Project
+
+Let's build **Blood Report Analyzer v2.0**
+
+```python
+print("=" * 50)
+print("BLOOD REPORT ANALYZER v2.0")
+print("=" * 50)
+
+patient = 1
+healthy = 0
+
+while patient <= 3:
+
+    print()
+    print(f"Patient {patient}")
+
+    name = input("Name: ")
+    hemoglobin = float(input("Hemoglobin: "))
+
+    if hemoglobin >= 12:
+        print("Status: Normal")
+        healthy = healthy + 1
+    else:
+        print("Status: Low")
+
+    patient = patient + 1
+
+print()
+print("=" * 50)
+print("Summary")
+print("=" * 50)
+
+print("Healthy Patients:", healthy)
+print("Patients Checked:", 3)
+```
+
+---
+
+# ⭐ Challenge 1
+
+Add another counter.
+
+```python
+low = 0
+```
+
+Whenever hemoglobin is low:
+
+```python
+low = low + 1
+```
+
+At the end print:
+
+```text
+Healthy Patients: 2
+Low Hemoglobin Patients: 1
+```
+
+---
+
+# ⭐⭐ Challenge 2
+
+Also ask for Vitamin D.
+
+Count:
+
+* Healthy
+* Vitamin D deficient
+
+Hint:
+
+```python
+vitamin_low = 0
+```
+
+---
+
+# ⭐⭐⭐ Bonus Challenge
+
+Suppose you want the user to decide how many patients to analyze.
+
+Instead of:
+
+```python
+while patient <= 3:
+```
+
+Ask:
+
+```python
+total_patients = int(input("How many patients? "))
+```
+
+Then:
+
+```python
+while patient <= total_patients:
+```
+
+Now your program works for **any number of patients**.
+
+This is much closer to a real application.
+
+---
+
+# Homework
+
+Create:
+
+```text
+notes/day10.md
+```
+
+Answer:
+
+1. What is a loop?
+2. What is a `while` loop?
+3. What are the three parts of every `while` loop?
+4. What is an infinite loop?
+5. Why do we need loops?
+
+---
+
+# Common Beginner Mistake
+
+❌ Wrong:
+
+```python
+patient = 1
+
+while patient <= 3:
+    print(patient)
+```
+
+This never ends.
+
+✅ Correct:
+
+```python
+patient = 1
+
+while patient <= 3:
+    print(patient)
+    patient = patient + 1
+```
+
+Always update the loop variable.
+
+---
+
+# Real App Connection
+
+Think back to your original idea:
+
+> "Users upload blood reports."
+
+In the future, your backend might need to process **100 reports** uploaded by a hospital.
+
+Instead of writing the same code 100 times, you'll use loops to process each report one by one.
+
+Today's lesson is your first step toward handling many users efficiently.
+
+---
+
+# Tomorrow (Day 11)
+
+Tomorrow you'll learn another loop:
+
+## `for` Loop
+
+You'll discover that many counting loops become much shorter and easier to write.
+
+You'll also learn when to use a `while` loop and when to use a `for` loop.
+
+---
+
+## Before Day 11
+
+Please send me:
+
+1. Your `day10.py` code.
+2. Output using at least **3 patients**.
+3. In your own words:
+
+> **Why do we need loops instead of writing the same code again and again?**
+
+---
+
+## 🌟 Mentor's Note
+
+Today's lesson marks an important shift.
+
+Until now, your programs could solve **one problem once**.
+
+From today onward, your programs can solve **the same problem many times automatically**.
+
+That's one of the core ideas behind software development.
+
+Take your time with loops—they feel strange at first, but after a few days they'll become one of your favorite programming tools. Happy coding! 🚀
+
