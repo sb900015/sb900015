@@ -1,0 +1,549 @@
+# 🚀 Day 14/90 – Functions (One of the Most Powerful Concepts in Programming)
+
+Welcome back, Srujan! 🎉
+
+Yesterday you learned **Lists**.
+
+Today you'll learn something that every professional programmer uses every single day:
+
+# **Functions**
+
+If I had to rank the most important Python topics, it would be:
+
+1. Variables
+2. Loops
+3. Lists
+4. ⭐ **Functions**
+5. Dictionaries
+6. Files
+7. APIs
+8. Databases
+
+Today's lesson will make your code look much cleaner.
+
+---
+
+# 🤔 Why do we need Functions?
+
+Look at one of your previous programs.
+
+You wrote something like this:
+
+```python
+if hemoglobin >= 12:
+    print("Status: Normal")
+else:
+    print("Status: LOW")
+```
+
+Imagine you need to check hemoglobin for **1000 patients**.
+
+Will you copy-paste this code 1000 times?
+
+No.
+
+Instead, we create a **function**.
+
+A function is simply:
+
+> **A reusable block of code that performs one specific task.**
+
+Think of it like a washing machine.
+
+You put clothes in.
+
+Press Start.
+
+It washes.
+
+Every time.
+
+You don't rebuild the washing machine.
+
+You just **use** it.
+
+---
+
+# Part 1 – Your First Function
+
+Create:
+
+```
+practice/day14.py
+```
+
+Write:
+
+```python
+def greet():
+    print("Welcome to Blood Report Analyzer")
+```
+
+Nothing happens.
+
+Why?
+
+Because we only **created** the function.
+
+We haven't **called** it.
+
+Now add:
+
+```python
+greet()
+```
+
+Output:
+
+```
+Welcome to Blood Report Analyzer
+```
+
+---
+
+# Important Vocabulary
+
+```python
+def greet():
+```
+
+This is called **defining** a function.
+
+```python
+greet()
+```
+
+This is called **calling** a function.
+
+---
+
+# Part 2 – Calling Multiple Times
+
+```python
+def greet():
+    print("Welcome to Blood Report Analyzer")
+
+greet()
+greet()
+greet()
+```
+
+Output
+
+```
+Welcome to Blood Report Analyzer
+Welcome to Blood Report Analyzer
+Welcome to Blood Report Analyzer
+```
+
+One function.
+
+Many uses.
+
+---
+
+# Part 3 – Function with Parameters
+
+Instead of always printing the same thing:
+
+```python
+def greet():
+    print("Hello")
+```
+
+We can make it flexible.
+
+```python
+def greet(name):
+    print("Hello", name)
+
+greet("Srujan")
+greet("Alice")
+greet("Bob")
+```
+
+Output
+
+```
+Hello Srujan
+Hello Alice
+Hello Bob
+```
+
+The value inside the brackets is called a **parameter**.
+
+---
+
+# Part 4 – Multiple Parameters
+
+```python
+def patient(name, age):
+    print("Patient:", name)
+    print("Age:", age)
+
+patient("Srujan", 35)
+```
+
+Output
+
+```
+Patient: Srujan
+Age: 35
+```
+
+---
+
+# Part 5 – Create a Hemoglobin Function
+
+Instead of writing:
+
+```python
+if hemoglobin >= 12:
+    print("Normal")
+else:
+    print("LOW")
+```
+
+Create a function.
+
+```python
+def check_hemoglobin(value):
+
+    if value >= 12:
+        print("Hemoglobin is Normal")
+    else:
+        print("Hemoglobin is LOW")
+```
+
+Now use it.
+
+```python
+check_hemoglobin(14)
+
+check_hemoglobin(10.5)
+
+check_hemoglobin(11.9)
+```
+
+Output
+
+```
+Hemoglobin is Normal
+
+Hemoglobin is LOW
+
+Hemoglobin is LOW
+```
+
+Notice how we wrote the logic only once.
+
+---
+
+# Part 6 – Function for BMI
+
+```python
+def bmi(weight, height):
+
+    value = weight / (height ** 2)
+
+    print("BMI:", round(value, 2))
+```
+
+Call it.
+
+```python
+bmi(86, 1.71)
+
+bmi(70, 1.71)
+```
+
+Output
+
+```
+BMI: 29.41
+
+BMI: 23.94
+```
+
+---
+
+# Part 7 – Returning Values
+
+Until now, our functions only printed.
+
+Sometimes we want the function to **give back** a value.
+
+Example:
+
+```python
+def add(a, b):
+
+    return a + b
+
+answer = add(5, 8)
+
+print(answer)
+```
+
+Output
+
+```
+13
+```
+
+The keyword:
+
+```python
+return
+```
+
+sends a value back.
+
+This is very important.
+
+---
+
+# Part 8 – BMI with Return
+
+Instead of printing:
+
+```python
+def calculate_bmi(weight, height):
+
+    bmi = weight / (height ** 2)
+
+    return round(bmi, 2)
+```
+
+Now use it.
+
+```python
+result = calculate_bmi(86, 1.71)
+
+print(result)
+```
+
+Output
+
+```
+29.41
+```
+
+---
+
+# Part 9 – Mini Project
+
+Build this:
+
+```python
+print("=" * 50)
+print("Blood Report Analyzer using Functions")
+print("=" * 50)
+
+def check_hemoglobin(value):
+
+    if value >= 12:
+        return "Normal"
+
+    return "LOW"
+
+def check_hba1c(value):
+
+    if value < 5.7:
+        return "Normal"
+
+    elif value < 6.5:
+        return "Pre-Diabetic"
+
+    else:
+        return "Diabetic"
+
+hemoglobin = float(input("Hemoglobin: "))
+hba1c = float(input("HbA1c: "))
+
+print()
+
+print("Hemoglobin Status:", check_hemoglobin(hemoglobin))
+
+print("HbA1c Status:", check_hba1c(hba1c))
+```
+
+Example
+
+Input
+
+```
+Hemoglobin: 11.8
+
+HbA1c: 6.2
+```
+
+Output
+
+```
+Hemoglobin Status: LOW
+
+HbA1c Status: Pre-Diabetic
+```
+
+---
+
+# ⭐ Challenge 1
+
+Create a function:
+
+```python
+check_vitamin_d(value)
+```
+
+Return:
+
+```
+Deficient
+
+Insufficient
+
+Normal
+```
+
+---
+
+# ⭐⭐ Challenge 2
+
+Create:
+
+```python
+check_bmi(weight, height)
+```
+
+Return
+
+```
+Underweight
+
+Normal
+
+Overweight
+
+Obese
+```
+
+---
+
+# ⭐⭐⭐ Challenge 3
+
+Ask details for **3 patients**.
+
+For each patient call:
+
+```
+check_hemoglobin()
+
+check_hba1c()
+
+check_vitamin_d()
+
+check_bmi()
+```
+
+Notice how much cleaner your code becomes.
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day14.md
+```
+
+Answer these:
+
+1. What is a function?
+2. Why do we use functions?
+3. Difference between defining and calling a function?
+4. What is a parameter?
+5. What does `return` do?
+6. What is the difference between `print()` and `return`?
+
+---
+
+# The Most Important Thing Today
+
+Many beginners get confused between these two.
+
+### `print()`
+
+```python
+def hello():
+    print("Hello")
+```
+
+This **shows** something on the screen.
+
+---
+
+### `return`
+
+```python
+def hello():
+    return "Hello"
+```
+
+This **gives the value back** to whoever called the function.
+
+Example:
+
+```python
+message = hello()
+
+print(message)
+```
+
+Output:
+
+```
+Hello
+```
+
+You'll use `return` extensively when we start building your backend with FastAPI.
+
+---
+
+# 🩺 Real App Connection
+
+Imagine your future Blood Report App.
+
+When a user uploads a report, your app might call functions like:
+
+```python
+check_hemoglobin(11.4)
+check_hba1c(6.3)
+check_vitamin_d(18)
+calculate_bmi(86, 1.71)
+```
+
+Each function has **one responsibility**, making your code easier to read, test, and improve. This is exactly how larger software projects are organized.
+
+---
+
+## 👨‍🏫 Mentor's Note
+
+You've now completed **14 out of 90 days**.
+
+A few things I've noticed about your learning style:
+
+* You don't skip the exercises—you write the code yourself.
+* You always summarize the concept in your own words, which is an excellent habit.
+* You ask questions whenever something doesn't make sense instead of pretending you understood it.
+
+Those habits matter more than speed.
+
+For today, don't worry about memorizing every detail of functions. Focus on understanding the idea:
+
+> **"If I have code that I might use again, I can put it inside a function and call it whenever I need it."**
+
+Once that idea clicks, functions will become one of your favorite tools in Python.
+
+Tomorrow, after you've shared your `day14.py`, we'll build on these functions and make them even more useful.
