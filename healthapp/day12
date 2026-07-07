@@ -1,0 +1,645 @@
+# 🚀 Day 12 – Strings (Text Processing)
+
+Welcome to **Day 12!** 🎉
+
+Today you're going to learn one of the most useful topics in Python.
+
+Until now you've mostly worked with **numbers**:
+
+```python
+hemoglobin = 13.4
+age = 35
+bmi = 24.6
+```
+
+But your future Health Analyzer App won't only process numbers.
+
+It will also process text like:
+
+```text
+Patient Name: Srujan Bharthipudi
+Gender: Male
+Blood Group: B+
+Lab Name: Apollo Diagnostics
+Test Name: Hemoglobin
+```
+
+To work with text, we use **Strings**.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know how to:
+
+* Create strings
+* Find the length of text
+* Convert text to uppercase/lowercase
+* Remove extra spaces
+* Replace words
+* Search inside text
+* Extract part of a string (slicing)
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 – What is a String?
+
+A **string** is simply **text**.
+
+Examples:
+
+```python
+name = "Srujan"
+hospital = "Apollo"
+blood_group = "B+"
+```
+
+Everything inside quotes is a string.
+
+---
+
+# Part 2 – `len()` – Find Length
+
+Create:
+
+```
+practice/day12.py
+```
+
+Write:
+
+```python
+name = "Srujan"
+
+print(name)
+print(len(name))
+```
+
+Output
+
+```text
+Srujan
+6
+```
+
+Because:
+
+```
+S r u j a n
+1 2 3 4 5 6
+```
+
+---
+
+Try another:
+
+```python
+hospital = "Apollo Hospitals"
+
+print(len(hospital))
+```
+
+Output
+
+```text
+17
+```
+
+Spaces are also counted.
+
+---
+
+# Part 3 – Uppercase & Lowercase
+
+```python
+name = input("Enter Name: ")
+
+print(name.upper())
+```
+
+Input
+
+```text
+Srujan
+```
+
+Output
+
+```text
+SRUJAN
+```
+
+---
+
+Now:
+
+```python
+print(name.lower())
+```
+
+Output
+
+```text
+srujan
+```
+
+---
+
+Why is this useful?
+
+Suppose a user enters:
+
+```text
+Male
+```
+
+or
+
+```text
+male
+```
+
+or
+
+```text
+MALE
+```
+
+Instead of checking all three:
+
+```python
+if gender.lower() == "male":
+```
+
+Now every version becomes:
+
+```text
+male
+```
+
+Very useful.
+
+---
+
+# Part 4 – `strip()`
+
+Users sometimes type extra spaces.
+
+Example:
+
+```
+"    Srujan    "
+```
+
+Write:
+
+```python
+name = input("Enter Name: ")
+
+print(name.strip())
+```
+
+If the user enters:
+
+```text
+     Srujan
+```
+
+Output:
+
+```text
+Srujan
+```
+
+You've already been using `.strip()` in your previous programs without fully knowing what it does.
+
+Now you know.
+
+---
+
+# Part 5 – `replace()`
+
+Suppose you want to replace text.
+
+```python
+hospital = "Apollo Hospital"
+
+print(hospital.replace("Apollo", "Yashoda"))
+```
+
+Output
+
+```text
+Yashoda Hospital
+```
+
+---
+
+Another example:
+
+```python
+report = "Vitamin-D Deficient"
+
+print(report.replace("Deficient", "Normal"))
+```
+
+Output
+
+```text
+Vitamin-D Normal
+```
+
+---
+
+# Part 6 – `find()`
+
+Suppose we want to know whether a report contains a word.
+
+```python
+report = "Hemoglobin is Low"
+
+print(report.find("Low"))
+```
+
+Output
+
+```text
+15
+```
+
+That number is the position where `"Low"` starts.
+
+---
+
+Try:
+
+```python
+print(report.find("Diabetes"))
+```
+
+Output
+
+```text
+-1
+```
+
+`-1` means:
+
+> Not found.
+
+---
+
+# Part 7 – String Slicing
+
+One of Python's coolest features.
+
+```python
+name = "Srujan"
+
+print(name[0])
+```
+
+Output
+
+```text
+S
+```
+
+---
+
+Try:
+
+```python
+print(name[1])
+```
+
+Output
+
+```text
+r
+```
+
+---
+
+Entire word:
+
+```text
+S r u j a n
+0 1 2 3 4 5
+```
+
+---
+
+Now:
+
+```python
+print(name[0:3])
+```
+
+Output
+
+```text
+Sru
+```
+
+Because Python prints:
+
+```
+0
+1
+2
+```
+
+and stops before **3**.
+
+---
+
+Another example:
+
+```python
+print(name[3:])
+```
+
+Output
+
+```text
+jan
+```
+
+Meaning:
+
+Start from position 3 until the end.
+
+---
+
+# Part 8 – Mini Project
+
+Let's build a **Patient Name Formatter**.
+
+```python
+print("=" * 50)
+print("Patient Name Formatter")
+print("=" * 50)
+
+name = input("Enter Patient Name: ")
+
+print()
+
+print("Original :", name)
+print("Upper :", name.upper())
+print("Lower :", name.lower())
+print("Length :", len(name))
+print("Without Spaces :", name.strip())
+print("First Letter :", name[0])
+print("Last Letter :", name[-1])
+```
+
+---
+
+Example
+
+Input
+
+```text
+   Srujan Bharthipudi
+```
+
+Output
+
+```text
+Original :    Srujan Bharthipudi
+
+Upper : SRUJAN BHARTHIPUDI
+
+Lower : srujan bharthipudi
+
+Length : 22
+
+Without Spaces : Srujan Bharthipudi
+
+First Letter :
+
+Last Letter : i
+```
+
+Notice something interesting?
+
+The **first letter is blank** because the original string starts with spaces.
+
+To fix that:
+
+```python
+name = input("Enter Name: ").strip()
+```
+
+Now:
+
+```python
+print(name[0])
+```
+
+correctly prints:
+
+```text
+S
+```
+
+---
+
+# ⭐ Challenge 1
+
+Ask for a patient's name.
+
+Print:
+
+```text
+First 3 letters
+
+Last 3 letters
+```
+
+Hint:
+
+```python
+print(name[:3])
+
+print(name[-3:])
+```
+
+---
+
+# ⭐⭐ Challenge 2
+
+Ask for:
+
+```text
+Blood Group
+```
+
+Convert it to uppercase.
+
+Input:
+
+```text
+b+
+```
+
+Output:
+
+```text
+B+
+```
+
+---
+
+# ⭐⭐⭐ Bonus Challenge
+
+Ask for:
+
+```text
+Hospital Name
+```
+
+If it contains the word:
+
+```text
+Apollo
+```
+
+Print:
+
+```text
+Apollo Network Hospital
+```
+
+Otherwise:
+
+```text
+Other Hospital
+```
+
+Hint:
+
+```python
+if "Apollo" in hospital:
+```
+
+This introduces the `in` operator, which is a very Pythonic way to check if text contains another piece of text.
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day12.md
+```
+
+Answer:
+
+1. What is a string?
+2. What does `len()` do?
+3. What does `.upper()` do?
+4. What does `.lower()` do?
+5. What does `.strip()` do?
+6. What does `.replace()` do?
+7. What does `.find()` return if the word isn't found?
+8. What is string slicing?
+
+---
+
+# Common Beginner Mistake
+
+❌ Wrong:
+
+```python
+name = "Srujan"
+
+print(name[6])
+```
+
+Output:
+
+```text
+IndexError
+```
+
+Why?
+
+The last index is:
+
+```text
+S r u j a n
+0 1 2 3 4 5
+```
+
+There is **no index 6**.
+
+---
+
+# Real App Connection
+
+When users upload blood reports, OCR (Optical Character Recognition) extracts **text**, not neat data.
+
+For example:
+
+```text
+Hemoglobin : 13.2 g/dL
+HbA1c : 5.8 %
+Vitamin D : 24 ng/mL
+```
+
+You'll use string methods to:
+
+* Remove extra spaces
+* Standardize capitalization
+* Search for test names
+* Extract values
+* Clean OCR mistakes
+
+Today's lesson is one of the foundations for processing those reports automatically.
+
+---
+
+# Tomorrow (Day 13)
+
+Tomorrow we'll learn **Lists**.
+
+Instead of storing one patient:
+
+```python
+patient_name = "Srujan"
+```
+
+You'll learn to store many patients:
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+```
+
+Lists are one of the most important data structures in Python, and you'll use them constantly in your app.
+
+---
+
+## Before Day 13
+
+Please send me:
+
+1. Your `day12.py` code.
+2. Output using a few different names.
+3. In your own words:
+
+> **Why is `.strip()` useful when taking user input?**
+
+---
+
+## 🌟 Mentor's Note
+
+Today may feel simpler because we're focusing on text instead of loops or calculations. Don't underestimate it.
+
+Real healthcare software spends a surprising amount of time **cleaning and organizing text** before any analysis happens. The string skills you learn today will be invaluable when we start reading blood report PDFs and OCR output.
+
+Keep the momentum going—you've already built a strong foundation over the first 11 days. 🚀
