@@ -1,0 +1,384 @@
+Absolutely! And I think this is the perfect time to revisit it.
+
+The difference now is that **you understand why functions exist**. Earlier, you were trying to memorize syntax (`def`, `return`, parameters). Now you'll learn them with a purpose.
+
+Let's restart **Day 14** from scratch, but this time at a slower pace.
+
+---
+
+# Day 14A - Functions
+
+## What is a Function?
+
+A function is simply **a named block of code that performs one specific task**.
+
+Think about the functions in your future Blood Report App:
+
+```
+Login User
+↓
+
+Upload Blood Report
+↓
+
+Check Hemoglobin
+↓
+
+Calculate BMI
+↓
+
+Save Report
+↓
+
+Show History
+```
+
+Each of these is one job.
+
+Instead of writing one huge program, we divide it into small jobs.
+
+Those small jobs are called **functions**.
+
+---
+
+# Step 1 - Your First Function
+
+Write this exactly.
+
+```python
+def welcome():
+    print("Welcome to Blood Report Analyzer")
+```
+
+Now run it.
+
+What happens?
+
+Nothing.
+
+Why?
+
+Because Python is only reading the recipe.
+
+Imagine writing this in a cookbook.
+
+```
+Recipe: Tea
+
+Step 1
+Boil water
+
+Step 2
+Add tea leaves
+
+Step 3
+Add milk
+```
+
+Did tea get made?
+
+No.
+
+You only wrote the recipe.
+
+---
+
+# Step 2 - Calling the Function
+
+Now add one line.
+
+```python
+def welcome():
+    print("Welcome to Blood Report Analyzer")
+
+welcome()
+```
+
+Output
+
+```
+Welcome to Blood Report Analyzer
+```
+
+Now Python says,
+
+> "I know a function called `welcome()`. Let me execute everything inside it."
+
+---
+
+# Step 3 - Call it Again
+
+```python
+def welcome():
+    print("Welcome to Blood Report Analyzer")
+
+welcome()
+welcome()
+welcome()
+```
+
+Output
+
+```
+Welcome to Blood Report Analyzer
+Welcome to Blood Report Analyzer
+Welcome to Blood Report Analyzer
+```
+
+Notice something.
+
+We wrote
+
+```python
+print(...)
+```
+
+only **once**.
+
+But it executed **three times**.
+
+That is the power of functions.
+
+---
+
+# Step 4 - Parameters
+
+Until now, the function always prints the same message.
+
+Suppose you want:
+
+```
+Welcome Alice
+
+Welcome Bob
+
+Welcome Charlie
+```
+
+We need to tell the function **who** to greet.
+
+So we write
+
+```python
+def welcome(name):
+    print("Welcome", name)
+```
+
+Now call it.
+
+```python
+welcome("Alice")
+welcome("Bob")
+welcome("Charlie")
+```
+
+Output
+
+```
+Welcome Alice
+Welcome Bob
+Welcome Charlie
+```
+
+Notice that the function didn't change.
+
+Only the **input** changed.
+
+---
+
+# Think of Parameters Like This
+
+Imagine I ask you:
+
+> Tell me the patient's name.
+
+You ask:
+
+> Which patient?
+
+I reply:
+
+> Alice.
+
+Tomorrow I ask again.
+
+> Which patient?
+
+> Bob.
+
+The question is the same.
+
+The answer changes.
+
+The parameter is simply **the information the function needs to do its job**.
+
+---
+
+# Step 5 - Your Blood Report App
+
+Now let's make it relevant to your project.
+
+```python
+def check_hemoglobin(value):
+
+    if value >= 12:
+        print("Hemoglobin is Normal")
+
+    else:
+        print("Hemoglobin is LOW")
+```
+
+Nothing happens yet.
+
+Now call it.
+
+```python
+check_hemoglobin(14)
+
+check_hemoglobin(11)
+
+check_hemoglobin(10.5)
+```
+
+Output
+
+```
+Hemoglobin is Normal
+Hemoglobin is LOW
+Hemoglobin is LOW
+```
+
+The function is reused for different patients.
+
+---
+
+# Why is this better?
+
+Without functions:
+
+```python
+if hemoglobin >= 12:
+    print("Normal")
+else:
+    print("Low")
+```
+
+Suppose your app checks:
+
+* Hemoglobin
+* HbA1c
+* Vitamin D
+* BMI
+
+for 1000 patients.
+
+You'll end up copying the same logic again and again.
+
+Instead:
+
+```
+check_hemoglobin()
+
+check_hba1c()
+
+check_vitamin_d()
+
+check_bmi()
+```
+
+Each function does one job.
+
+Professional software is built this way.
+
+---
+
+# We're NOT Learning `return` Yet
+
+Forget `return` for today.
+
+I introduced it too early.
+
+Let's become comfortable with:
+
+* `def`
+* calling functions
+* parameters
+
+Once these feel natural, `return` will be much easier.
+
+---
+
+# Today's Assignment
+
+Create a new `day14.py` and write these **three small programs** one after another (run each separately).
+
+### Program 1
+
+```python
+def welcome():
+    print("Welcome to Blood Report Analyzer")
+
+welcome()
+welcome()
+welcome()
+```
+
+---
+
+### Program 2
+
+```python
+def patient(name):
+    print("Patient Name:", name)
+
+patient("Srujan")
+patient("Alice")
+patient("Bob")
+```
+
+---
+
+### Program 3
+
+```python
+def check_hemoglobin(value):
+
+    if value >= 12:
+        print("Hemoglobin is Normal")
+    else:
+        print("Hemoglobin is LOW")
+
+check_hemoglobin(14)
+check_hemoglobin(11.4)
+check_hemoglobin(9.8)
+```
+
+---
+
+# Three Questions for You
+
+Don't look at the code when answering these. Try to answer in your own words.
+
+1. What does `def` mean?
+2. Why do we write `welcome()` after creating the function?
+3. In `patient(name)`, what is the purpose of `name`?
+
+If you can answer those three questions correctly, then you've understood **80% of what a beginner needs to know about functions**.
+
+---
+
+## One last thing
+
+I want you to notice something about your learning.
+
+Yesterday you said:
+
+> "I didn't understand anything."
+
+Today you said:
+
+> "I think I understood what you spoke about now."
+
+That's exactly how programming is learned. Most concepts don't click the first time. They click after you see them from a different angle and connect them to something familiar.
+
+Keep asking questions whenever something feels unclear. It's much better to build a strong foundation now than to rush through the 90-day plan. Once functions become second nature, the rest of Python will become much easier.
