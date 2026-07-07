@@ -1,0 +1,505 @@
+# 🚀 Day 13 – Lists (One of the Most Important Python Topics)
+
+Welcome to **Day 13!** 🎉
+
+Today is one of the biggest milestones in your Python journey.
+
+Up until now, you've been storing **one value** in one variable.
+
+Example:
+
+```python
+patient_name = "Srujan"
+```
+
+But what if your hospital has **100 patients?**
+
+Are you going to write:
+
+```python
+patient1 = "Srujan"
+patient2 = "Gayatri"
+patient3 = "Ishanvi"
+patient4 = "Madhavi"
+...
+```
+
+Of course not.
+
+That's why Python has **Lists**.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today you'll know:
+
+* What a list is
+* How to create one
+* Add items
+* Access items
+* Change items
+* Remove items
+* Loop through a list
+* Find the length of a list
+
+**Time:** ~1 hour
+
+---
+
+# Part 1 – What is a List?
+
+A **list** stores **multiple values in one variable**.
+
+Instead of:
+
+```python
+patient1 = "Srujan"
+patient2 = "Gayatri"
+patient3 = "Ishanvi"
+```
+
+we can write
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+```
+
+Much cleaner!
+
+---
+
+# Part 2 – Creating Your First List
+
+Create:
+
+```
+practice/day13.py
+```
+
+Write:
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+
+print(patients)
+```
+
+Output
+
+```text
+['Srujan', 'Gayatri', 'Ishanvi']
+```
+
+Notice the square brackets `[]`.
+
+They tell Python this is a list.
+
+---
+
+# Part 3 – Accessing Items
+
+Just like strings have indexes, lists also have indexes.
+
+```text
+["Srujan", "Gayatri", "Ishanvi"]
+
+     0          1          2
+```
+
+Example:
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+
+print(patients[0])
+print(patients[1])
+print(patients[2])
+```
+
+Output
+
+```text
+Srujan
+Gayatri
+Ishanvi
+```
+
+---
+
+# Part 4 – Changing an Item
+
+Lists are **mutable**, meaning they can be changed.
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+
+patients[1] = "Priya"
+
+print(patients)
+```
+
+Output
+
+```text
+['Srujan', 'Priya', 'Ishanvi']
+```
+
+---
+
+# Part 5 – Adding Items
+
+Use `.append()`.
+
+```python
+patients = ["Srujan", "Gayatri"]
+
+patients.append("Ishanvi")
+
+print(patients)
+```
+
+Output
+
+```text
+['Srujan', 'Gayatri', 'Ishanvi']
+```
+
+Think of `.append()` as:
+
+> Add one item at the end of the list.
+
+---
+
+# Part 6 – Removing Items
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+
+patients.remove("Gayatri")
+
+print(patients)
+```
+
+Output
+
+```text
+['Srujan', 'Ishanvi']
+```
+
+---
+
+# Part 7 – Length of a List
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+
+print(len(patients))
+```
+
+Output
+
+```text
+3
+```
+
+Just like `len()` works for strings, it also works for lists.
+
+---
+
+# Part 8 – Loop Through a List
+
+This is where lists become powerful.
+
+```python
+patients = ["Srujan", "Gayatri", "Ishanvi"]
+
+for patient in patients:
+    print(patient)
+```
+
+Output
+
+```text
+Srujan
+Gayatri
+Ishanvi
+```
+
+Notice:
+
+We're looping **through the values**, not the indexes.
+
+---
+
+# Part 9 – Build a Patient List
+
+```python
+patients = []
+
+total = int(input("How many patients? "))
+
+for i in range(total):
+    name = input("Enter Patient Name: ")
+    patients.append(name)
+
+print()
+
+print("Patients Registered:")
+
+for patient in patients:
+    print(patient)
+```
+
+Example
+
+Input
+
+```text
+3
+
+Srujan
+Gayatri
+Ishanvi
+```
+
+Output
+
+```text
+Patients Registered:
+
+Srujan
+Gayatri
+Ishanvi
+```
+
+This is much closer to how real applications work.
+
+---
+
+# Part 10 – Mini Project
+
+Let's build a **Patient Registration System**.
+
+```python
+print("=" * 50)
+print("Patient Registration System")
+print("=" * 50)
+
+patients = []
+
+total = int(input("How many patients? "))
+
+for i in range(total):
+    print()
+
+    name = input("Patient Name: ").strip()
+
+    patients.append(name)
+
+print()
+
+print("=" * 50)
+print("Registered Patients")
+print("=" * 50)
+
+for patient in patients:
+    print(patient)
+
+print()
+
+print("Total Patients:", len(patients))
+```
+
+Example Output
+
+```text
+==================================================
+Registered Patients
+==================================================
+
+Srujan
+Gayatri
+Ishanvi
+
+Total Patients: 3
+```
+
+---
+
+# ⭐ Challenge 1
+
+Create a list of blood groups.
+
+```python
+blood_groups = []
+```
+
+Ask the user to enter the blood group for each patient.
+
+Store it using:
+
+```python
+blood_groups.append(group)
+```
+
+After the loop, print all blood groups.
+
+---
+
+# ⭐⭐ Challenge 2
+
+Store **patient names** and **HbA1c values** in two separate lists.
+
+Example:
+
+```python
+patients = []
+
+hba1c_values = []
+```
+
+At the end print:
+
+```text
+Patient: Srujan -> HbA1c: 5.8
+
+Patient: Gayatri -> HbA1c: 6.4
+```
+
+Hint:
+
+```python
+for i in range(len(patients)):
+    print(patients[i], hba1c_values[i])
+```
+
+---
+
+# ⭐⭐⭐ Bonus Challenge
+
+Find the highest HbA1c using the list.
+
+Hint:
+
+```python
+highest = max(hba1c_values)
+
+print(highest)
+```
+
+We'll later learn how to find it manually too.
+
+---
+
+# Homework
+
+Create:
+
+```
+notes/day13.md
+```
+
+Answer these questions:
+
+1. What is a list?
+2. Why do we use lists?
+3. How do you create a list?
+4. What does `.append()` do?
+5. What does `.remove()` do?
+6. How do you find the length of a list?
+7. How do you loop through a list?
+
+---
+
+# Common Beginner Mistake
+
+❌ Wrong:
+
+```python
+patients = []
+
+patients[0] = "Srujan"
+```
+
+This gives an error because the list is empty.
+
+✅ Correct:
+
+```python
+patients = []
+
+patients.append("Srujan")
+```
+
+Now the list becomes:
+
+```text
+['Srujan']
+```
+
+---
+
+# Real App Connection
+
+Imagine your future Blood Report App.
+
+Instead of storing just one patient:
+
+```python
+patient = "Srujan"
+```
+
+You'll store many:
+
+```python
+patients = [
+    "Srujan",
+    "Gayatri",
+    "Ishanvi",
+    "Madhavi"
+]
+```
+
+Later, these lists will come from your **database**, but the concept is exactly the same.
+
+---
+
+# Tomorrow (Day 14)
+
+Tomorrow you'll learn **Functions**.
+
+Right now, your code repeats many times:
+
+```python
+if hemoglobin >= 12:
+    ...
+```
+
+We'll learn how to write that logic **once** and reuse it whenever we need it.
+
+Functions are one of the biggest steps toward writing clean, professional code.
+
+---
+
+# Before Day 14
+
+Please send me:
+
+1. Your `day13.py` code.
+2. The output using at least **4 patients**.
+3. In your own words:
+
+> **Why are lists better than creating many variables like `patient1`, `patient2`, `patient3`?**
+
+---
+
+## 🌟 Mentor's Note
+
+Today is another turning point. Yesterday you learned how to process **text**. Today you're learning how to store **collections of data**.
+
+Once you combine **loops + lists + functions**, you'll have the building blocks to create software that can handle many patients, not just one.
+
+One final challenge from me: try to complete **Challenge 2** without looking back at the solution immediately. Spend at least **10–15 minutes thinking about it first**. Learning to solve problems independently is one of the most valuable skills you'll develop as a programmer.
+
+Good luck, and I'm excited to see your `day13.py`! 🚀
