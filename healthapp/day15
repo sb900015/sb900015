@@ -437,6 +437,26 @@ patient = {
 This is much better than managing 20 separate variables.
 
 ---
+New Concept: List of Dictionaries
+
+A list can store multiple dictionaries.
+
+Example:
+
+all_patients = [
+    {"Name": "Alice"},
+    {"Name": "Bob"},
+    {"Name": "Charlie"}
+]
+
+This is useful when we want to store information about multiple patients.
+
+To access each patient:
+
+for patient in all_patients:
+    print(patient["Name"])
+
+----
 
 # Homework
 
