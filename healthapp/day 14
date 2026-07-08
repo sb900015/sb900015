@@ -1,0 +1,342 @@
+Absolutely! I think this is a great habit. By the end of 90 days, you'll have your own Python notes that are much better than copying from the internet.
+
+Here's how I would write **Day 14** in your notebook.
+
+---
+
+# Day 14/90 - Functions
+
+## Topic
+
+Functions (`def`, Parameters, Arguments, Return)
+
+---
+
+## What is a Function?
+
+A function is a **named block of code** that performs one specific task. It helps us avoid writing the same code multiple times. We execute a function whenever we need it by **calling** it.
+
+Example:
+
+```python
+def welcome():
+    print("Welcome to Blood Report Analyzer")
+
+welcome()
+```
+
+---
+
+## Why do we use Functions?
+
+Without functions:
+
+```python
+print("Welcome")
+print("Welcome")
+print("Welcome")
+```
+
+With functions:
+
+```python
+def welcome():
+    print("Welcome")
+
+welcome()
+welcome()
+welcome()
+```
+
+Advantages:
+
+* Code is reusable.
+* Code is cleaner.
+* Easier to debug.
+* Easier to update.
+
+---
+
+## Defining a Function
+
+We use the `def` keyword to create a function.
+
+Syntax:
+
+```python
+def function_name():
+    # code
+```
+
+Example:
+
+```python
+def welcome():
+    print("Hello")
+```
+
+---
+
+## Calling a Function
+
+A function does not execute when it is created.
+
+It executes only when we call it.
+
+Example:
+
+```python
+welcome()
+```
+
+---
+
+## Parameters
+
+A **parameter** is a placeholder variable inside a function definition. It receives data from the function call.
+
+Example:
+
+```python
+def patient(name):
+    print(name)
+```
+
+Here,
+
+`name` is the **parameter**.
+
+---
+
+## Arguments
+
+An **argument** is the actual value we pass to the function while calling it.
+
+Example:
+
+```python
+patient("Alice")
+```
+
+Here,
+
+`"Alice"` is the **argument**.
+
+Python internally does:
+
+```python
+name = "Alice"
+```
+
+---
+
+## Difference between Parameter and Argument
+
+| Parameter                      | Argument                      |
+| ------------------------------ | ----------------------------- |
+| Used while defining a function | Used while calling a function |
+| Placeholder variable           | Actual value passed           |
+| Example: `name`                | Example: `"Alice"`            |
+
+---
+
+## Return Statement
+
+`return` sends a value back to the place where the function was called.
+
+Example:
+
+```python
+def add(a, b):
+    return a + b
+
+answer = add(5, 10)
+
+print(answer)
+```
+
+Output:
+
+```
+15
+```
+
+---
+
+## Difference between `print()` and `return`
+
+### print()
+
+* Displays output on the screen.
+* Does not give the value back.
+* A function with only `print()` returns `None`.
+
+Example:
+
+```python
+def add(a, b):
+    print(a + b)
+```
+
+---
+
+### return
+
+* Sends the result back.
+* We can store the returned value in a variable.
+* We can use it later in the program.
+
+Example:
+
+```python
+def add(a, b):
+    return a + b
+```
+
+---
+
+## Real Project Example
+
+Instead of writing:
+
+```python
+if hemoglobin >= 12:
+    print("Normal")
+else:
+    print("LOW")
+```
+
+We created a function:
+
+```python
+def check_hemoglobin(value):
+
+    if value >= 12:
+        return "Normal"
+
+    else:
+        return "LOW"
+```
+
+Now we can use it anywhere.
+
+```python
+print(check_hemoglobin(13.5))
+print(check_hemoglobin(10.8))
+```
+
+---
+
+## Functions Created Today
+
+```python
+check_hemoglobin(value)
+```
+
+Returns:
+
+* Normal
+* LOW
+
+---
+
+```python
+check_hba1c(value)
+```
+
+Returns:
+
+* Normal
+* Pre-Diabetic
+* Diabetic
+
+---
+
+```python
+check_vitamin_d(value)
+```
+
+Returns:
+
+* Deficient
+* Insufficient
+* Normal
+
+---
+
+## Final Project
+
+Created a Blood Report Analyzer using functions.
+
+Program flow:
+
+```
+User enters patient details
+        ↓
+Hemoglobin function
+        ↓
+HbA1c function
+        ↓
+Vitamin D function
+        ↓
+Each function returns a status
+        ↓
+Program prints the report
+```
+
+---
+
+## Key Learning
+
+A function should perform **one specific task**.
+
+Example:
+
+```
+check_hemoglobin()
+
+check_hba1c()
+
+check_vitamin_d()
+
+calculate_bmi()
+
+login_user()
+
+upload_report()
+```
+
+Professional software is built using many small functions instead of one huge program.
+
+---
+
+## My Understanding (Srujan's Notes)
+
+* A function is a named block of code that performs one specific task.
+* We create a function using the `def` keyword.
+* A function executes only when it is called.
+* Parameters are placeholder variables used while defining a function.
+* Arguments are the actual values passed while calling a function.
+* `print()` only displays output.
+* `return` sends the value back so it can be stored and reused.
+* Functions make programs cleaner, reusable, and easier to maintain.
+
+---
+
+## ⭐ Mentor's Tip
+
+Day 14 is one of the most important days in the entire 90-day journey.
+
+From this day onward, **don't think of your programs as one big block of code**. Instead, think in terms of small reusable functions, where each function has **one responsibility**. This mindset is how real-world software is designed and will make building your Blood Report App much easier in the coming weeks.
+
+I actually recommend creating your notes in this exact format every day:
+
+1. Topic
+2. Theory
+3. Syntax
+4. Example
+5. Project Used Today
+6. Key Learnings
+7. My Understanding (written in your own words)
+
+By Day 90, you'll have a complete handbook that you've written yourself, and that's far more valuable than any downloaded notes.
