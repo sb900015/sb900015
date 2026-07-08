@@ -1,0 +1,524 @@
+# 🚀 Day 15/90 – Dictionaries (How Real Apps Store Data)
+
+Welcome to **Day 15**, Srujan! 🎉
+
+Today is one of the biggest milestones in your journey.
+
+Until yesterday, you stored patient information like this:
+
+```python
+name = "Alice"
+age = 24
+blood_group = "B+"
+hemoglobin = 11.8
+hba1c = 6.9
+vitamin_d = 18
+```
+
+This works, but imagine your app has **50 blood parameters**.
+
+Your code would become:
+
+```python
+name
+age
+gender
+blood_group
+hemoglobin
+hba1c
+vitamin_d
+vitamin_b12
+cholesterol
+hdl
+ldl
+triglycerides
+calcium
+...
+```
+
+Hundreds of variables!
+
+Professional developers don't do this.
+
+They use **Dictionaries**.
+
+---
+
+# What is a Dictionary?
+
+A dictionary stores **multiple pieces of related information** in one variable.
+
+Think of it like an Aadhaar card.
+
+One person has:
+
+* Name
+* Age
+* Gender
+* Address
+* Date of Birth
+
+These all belong to the **same person**.
+
+Instead of creating many variables, we store them together.
+
+---
+
+# Real Life Example
+
+Think of your wallet.
+
+Inside it you have:
+
+```
+Name          → Srujan
+Age           → 35
+Blood Group   → B+
+```
+
+Each label has a value.
+
+A dictionary works exactly like this.
+
+---
+
+# Syntax
+
+```python
+patient = {
+
+    "name": "Alice",
+
+    "age": 24,
+
+    "blood_group": "B+"
+
+}
+```
+
+Read it like this:
+
+```
+patient dictionary
+
+name → Alice
+
+age → 24
+
+blood_group → B+
+```
+
+Notice something.
+
+Everything belongs to **one patient**.
+
+---
+
+# Keys and Values
+
+Look carefully.
+
+```python
+patient = {
+
+    "name": "Alice",
+
+    "age": 24
+}
+```
+
+| Key  | Value |
+| ---- | ----- |
+| name | Alice |
+| age  | 24    |
+
+The left side is called the **key**.
+
+The right side is called the **value**.
+
+---
+
+# Accessing Values
+
+How do we get the patient's name?
+
+```python
+print(patient["name"])
+```
+
+Output
+
+```
+Alice
+```
+
+Age
+
+```python
+print(patient["age"])
+```
+
+Output
+
+```
+24
+```
+
+---
+
+# Program 1
+
+Create
+
+```text
+practice/day15.py
+```
+
+Write:
+
+```python
+patient = {
+
+    "name": "Alice",
+
+    "age": 24,
+
+    "blood_group": "B+"
+
+}
+
+print(patient)
+
+print(patient["name"])
+
+print(patient["age"])
+
+print(patient["blood_group"])
+```
+
+Output
+
+```
+{'name': 'Alice', 'age': 24, 'blood_group': 'B+'}
+
+Alice
+
+24
+
+B+
+```
+
+---
+
+# Updating Values
+
+Suppose Alice's age becomes 25.
+
+```python
+patient["age"] = 25
+```
+
+Now
+
+```python
+print(patient)
+```
+
+Output
+
+```
+{'name':'Alice','age':25,'blood_group':'B+'}
+```
+
+The old value is replaced.
+
+---
+
+# Adding New Information
+
+Initially
+
+```python
+patient = {
+
+    "name":"Alice",
+
+    "age":24
+}
+```
+
+Now add Hemoglobin.
+
+```python
+patient["hemoglobin"] = 12.4
+```
+
+Now
+
+```python
+print(patient)
+```
+
+Output
+
+```
+{
+'name':'Alice',
+'age':24,
+'hemoglobin':12.4
+}
+```
+
+We added new information without creating a new variable.
+
+---
+
+# Program 2
+
+```python
+patient = {
+
+    "name":"Srujan",
+
+    "age":35
+}
+
+patient["blood_group"]="B+"
+
+patient["hemoglobin"]=13.8
+
+patient["hba1c"]=5.6
+
+print(patient)
+```
+
+Output
+
+```
+{
+'name':'Srujan',
+'age':35,
+'blood_group':'B+',
+'hemoglobin':13.8,
+'hba1c':5.6
+}
+```
+
+---
+
+# Looping Through a Dictionary
+
+Suppose
+
+```python
+patient = {
+
+    "name":"Alice",
+
+    "age":24,
+
+    "blood_group":"B+"
+}
+```
+
+We can print everything.
+
+```python
+for key in patient:
+
+    print(key, ":", patient[key])
+```
+
+Output
+
+```
+name : Alice
+
+age : 24
+
+blood_group : B+
+```
+
+---
+
+# Mini Project
+
+Let's build your first patient record.
+
+```python
+print("="*50)
+print("Patient Dictionary")
+print("="*50)
+
+patient = {}
+
+patient["name"] = input("Patient Name: ").strip()
+
+patient["age"] = int(input("Age: "))
+
+patient["blood_group"] = input("Blood Group: ").strip()
+
+patient["hemoglobin"] = float(input("Hemoglobin: "))
+
+patient["hba1c"] = float(input("HbA1c: "))
+
+patient["vitamin_d"] = float(input("Vitamin D: "))
+
+print()
+
+print("="*50)
+
+for key in patient:
+
+    print(f"{key} : {patient[key]}")
+```
+
+Example
+
+Input
+
+```
+Name : Alice
+
+Age : 24
+
+Blood Group : B+
+
+Hemoglobin : 11.8
+
+HbA1c : 6.4
+
+Vitamin D : 18
+```
+
+Output
+
+```
+name : Alice
+
+age : 24
+
+blood_group : B+
+
+hemoglobin : 11.8
+
+hba1c : 6.4
+
+vitamin_d : 18
+```
+
+---
+
+# Why Dictionaries Matter
+
+Remember your dream app?
+
+When a user uploads a blood report, the backend will receive data that looks very similar to this:
+
+```python
+patient = {
+
+    "name":"Alice",
+
+    "age":24,
+
+    "gender":"Female",
+
+    "blood_group":"B+",
+
+    "hemoglobin":11.8,
+
+    "hba1c":6.4,
+
+    "vitamin_d":18
+}
+```
+
+This is much better than managing 20 separate variables.
+
+---
+
+# Homework
+
+Create `notes/day15.md` and answer:
+
+1. What is a dictionary?
+2. What is a key?
+3. What is a value?
+4. How do you access a value?
+5. How do you update a value?
+6. How do you add a new key?
+7. Why are dictionaries useful?
+
+---
+
+# 🧠 Today's Summary
+
+* A **dictionary** stores related information in one variable.
+* Data is stored as **key : value** pairs.
+* Keys should be unique.
+* We access values using `dictionary["key"]`.
+* We can update existing values.
+* We can add new keys anytime.
+* Dictionaries are one of the most common data structures used in web development and APIs.
+
+---
+
+# 🎯 Today's Assignment
+
+Write these **three programs**:
+
+### ✅ Program 1
+
+Create a dictionary with:
+
+* Name
+* Age
+* Blood Group
+
+Print the whole dictionary and each value individually.
+
+---
+
+### ✅ Program 2
+
+Create a dictionary, then:
+
+* Add Hemoglobin
+* Add HbA1c
+* Update Age
+
+Print the final dictionary.
+
+---
+
+### ✅ Program 3 (Mini Project)
+
+Ask the user for:
+
+* Name
+* Age
+* Blood Group
+* Hemoglobin
+* HbA1c
+* Vitamin D
+
+Store everything in **one dictionary**, then use a `for` loop to print all the information.
+
+---
+
+## 👨‍🏫 Mentor's Note
+
+Today is another important step toward your Blood Report App.
+
+Up to Day 14, you learned how to **process** information using functions.
+
+From Day 15 onward, you'll learn how to **organize** information. Functions and dictionaries together form the foundation of almost every backend application you'll build.
+
+One small clarification on terminology:
+
+* A **dictionary** is the whole collection (like a patient's file).
+* A **key** is the label (e.g., `"hemoglobin"`).
+* A **value** is the actual data (e.g., `11.8`).
+
+By the end of today's exercises, you'll see why dictionaries are so useful for storing patient records.
