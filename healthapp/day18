@@ -1,0 +1,309 @@
+Welcome to **Day 18/90**! 🎉
+
+First, let's see how far you've come.
+
+### What you've learned so far
+
+✅ Variables
+✅ Input and Output
+✅ Data Types
+✅ If / Else / Elif
+✅ Logical Operators (`and`, `or`)
+✅ While Loops
+✅ For Loops
+✅ Strings
+✅ Lists
+✅ Functions
+✅ Dictionaries
+✅ List of Dictionaries
+✅ Searching Records
+
+Your hospital system can now:
+
+* Register multiple patients
+* Store patient records
+* Analyze blood reports
+* Search for patients
+
+This is already the foundation of a real application.
+
+---
+
+# 📅 Day 18 – Updating Patient Records
+
+## Today's Goal
+
+Until now, your hospital program could:
+
+* Create patients ✔
+* Read/Search patients ✔
+
+Today we'll learn how to **Update** patient information.
+
+This is the **U** in **CRUD**.
+
+CRUD stands for:
+
+* **C** → Create
+* **R** → Read
+* **U** → Update ← Today
+* **D** → Delete (Tomorrow)
+
+These four operations are the backbone of almost every software application.
+
+---
+
+# Real-world Example
+
+Imagine a hospital has this record:
+
+```text
+Name : Alice
+Age : 24
+Blood Group : A+
+Hemoglobin : 10.5
+```
+
+After treatment, Alice takes another blood test.
+
+Her hemoglobin is now:
+
+```text
+13.2
+```
+
+The hospital **doesn't create a new patient**.
+
+Instead, it updates the existing record.
+
+---
+
+# How Updating Works
+
+Suppose we have:
+
+```python
+hospital = [
+    {
+        "Name": "ALICE",
+        "Age": 24,
+        "Hemoglobin": 10.5
+    },
+    {
+        "Name": "BOB",
+        "Age": 35,
+        "Hemoglobin": 14
+    }
+]
+```
+
+We search for Alice.
+
+When we find her:
+
+```python
+patient["Hemoglobin"] = 13.2
+```
+
+That's it.
+
+The dictionary changes.
+
+---
+
+# Visual Representation
+
+Before:
+
+```text
+ALICE
+
+Hemoglobin → 10.5
+```
+
+↓
+
+Update
+
+↓
+
+```python
+patient["Hemoglobin"] = 13.2
+```
+
+↓
+
+After:
+
+```text
+ALICE
+
+Hemoglobin → 13.2
+```
+
+---
+
+# Today's Program
+
+Write this program yourself.
+
+```python
+print("=" * 50)
+print("        UPDATE PATIENT RECORD")
+print("=" * 50)
+
+hospital = []
+
+total = int(input("Enter number of patients: "))
+
+for i in range(total):
+
+    patient = {}
+
+    patient["Name"] = input("Enter Name: ").strip().upper()
+    patient["Age"] = int(input("Enter Age: "))
+    patient["Blood Group"] = input("Enter Blood Group: ").strip().upper()
+    patient["Hemoglobin"] = float(input("Enter Hemoglobin: "))
+
+    hospital.append(patient)
+
+print("\nPatient Records Saved.\n")
+
+search_name = input("Enter patient name to update: ").strip().upper()
+
+found = False
+
+for patient in hospital:
+
+    if patient["Name"] == search_name:
+
+        found = True
+
+        print("\nCurrent Details")
+        print(patient)
+
+        new_hemo = float(input("Enter new Hemoglobin: "))
+
+        patient["Hemoglobin"] = new_hemo
+
+        print("\nRecord Updated Successfully!")
+
+        print(patient)
+
+if found == False:
+    print("Patient not found.")
+```
+
+---
+
+# What You'll Learn Today
+
+By the end of Day 18, you'll understand:
+
+### Updating values inside a dictionary
+
+```python
+patient["Hemoglobin"] = 13.2
+```
+
+---
+
+### Dictionaries are mutable
+
+This is an important Python concept.
+
+Lists and dictionaries can be changed after they are created.
+
+Example:
+
+```python
+patient["Age"] = 40
+```
+
+The dictionary changes immediately.
+
+---
+
+### Searching before updating
+
+You should never update before confirming you've found the correct patient.
+
+---
+
+# Exercise 1
+
+Instead of updating only Hemoglobin,
+
+allow the user to update:
+
+* Age
+* Blood Group
+* Hemoglobin
+
+---
+
+# Exercise 2 (Challenge)
+
+After updating,
+
+display:
+
+```text
+Before Update
+
+Hemoglobin : 10.5
+
+↓
+
+After Update
+
+Hemoglobin : 13.2
+```
+
+---
+
+# Exercise 3 (Bonus Challenge)
+
+Ask the user:
+
+```text
+What do you want to update?
+
+1. Age
+
+2. Blood Group
+
+3. Hemoglobin
+```
+
+Update only the selected field.
+
+---
+
+# 📝 Notes for Your Notebook
+
+**Day 18 – Updating Patient Records**
+
+### Topics Learned
+
+* CRUD (Create, Read, Update, Delete)
+* Updating dictionary values
+* Dictionaries are mutable (changeable)
+* Search before update
+* Modify values using dictionary keys
+
+### Key Syntax
+
+```python
+patient["Hemoglobin"] = 13.2
+```
+
+This replaces the old value with the new value.
+
+---
+
+## 👨‍🏫 Mentor's Note
+
+From Day 1 to Day 17, you built the ability to **store and organize data**. Today, you're taking the next step by learning to **modify existing data**, which is how real hospital software behaves. After today's lesson and tomorrow's (Delete), you'll have implemented the complete CRUD cycle using Python data structures. That's a significant milestone because these same ideas carry over to databases and web applications later in the course.
+
+Take your time writing the program yourself. As always, don't copy-paste it—type it out, run it, test it with different patients, and then share your code and output with me. We'll review it together before moving on to Day 19.
