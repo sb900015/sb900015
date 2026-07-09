@@ -1,0 +1,520 @@
+# 🚀 Day 16/90 – Lists of Dictionaries (Building Your First Patient Database)
+
+Welcome to **Day 16**, Srujan!
+
+Yesterday you accidentally reached today's topic by yourself. 😄
+
+You learned:
+
+* ✅ Functions
+* ✅ Dictionaries
+* ✅ List
+
+Today we're combining all three.
+
+This is the first time your program will start looking like a **real backend application**.
+
+---
+
+# 🎯 Today's Goal
+
+Build a small hospital database.
+
+Instead of storing one patient...
+
+```python
+patient = {
+    "Name": "Alice",
+    "Age": 24
+}
+```
+
+We'll store **many patients**.
+
+```python
+hospital = [
+
+    {
+        "Name": "Alice",
+        "Age":24
+    },
+
+    {
+        "Name":"Bob",
+        "Age":35
+    },
+
+    {
+        "Name":"Charlie",
+        "Age":50
+    }
+
+]
+```
+
+Notice
+
+Hospital
+
+↓
+
+contains
+
+↓
+
+Many Patients
+
+↓
+
+Each Patient
+
+↓
+
+is a Dictionary.
+
+---
+
+# Visualize It
+
+```
+hospital
+│
+├── Patient 1
+│      Name → Alice
+│      Age → 24
+│
+├── Patient 2
+│      Name → Bob
+│      Age → 35
+│
+└── Patient 3
+       Name → Charlie
+       Age → 50
+```
+
+This is exactly how your Blood Report App will store data before saving it into a database.
+
+---
+
+# Program 1
+
+```python
+hospital = []
+
+patient1 = {
+    "Name":"Alice",
+    "Age":24
+}
+
+patient2 = {
+    "Name":"Bob",
+    "Age":35
+}
+
+hospital.append(patient1)
+
+hospital.append(patient2)
+
+print(hospital)
+```
+
+Output
+
+```
+[
+ {'Name':'Alice','Age':24},
+ {'Name':'Bob','Age':35}
+]
+```
+
+---
+
+# Accessing Patients
+
+Print first patient's name
+
+```python
+print(hospital[0]["Name"])
+```
+
+Output
+
+```
+Alice
+```
+
+Second patient
+
+```python
+print(hospital[1]["Name"])
+```
+
+Output
+
+```
+Bob
+```
+
+---
+
+# Loop Through Hospital
+
+```python
+for patient in hospital:
+
+    print(patient["Name"])
+```
+
+Output
+
+```
+Alice
+Bob
+```
+
+Exactly what you answered yesterday. 😊
+
+---
+
+# Program 2
+
+```python
+hospital = []
+
+patient1 = {
+    "Name":"Alice",
+    "Age":24,
+    "Blood Group":"B+"
+}
+
+patient2 = {
+    "Name":"Bob",
+    "Age":35,
+    "Blood Group":"O+"
+}
+
+hospital.append(patient1)
+
+hospital.append(patient2)
+
+for patient in hospital:
+
+    print()
+
+    print("Name :", patient["Name"])
+
+    print("Age :", patient["Age"])
+
+    print("Blood Group :", patient["Blood Group"])
+```
+
+Output
+
+```
+Name : Alice
+Age : 24
+Blood Group : B+
+
+Name : Bob
+Age : 35
+Blood Group : O+
+```
+
+---
+
+# Program 3 (User Input)
+
+Now let's build the hospital dynamically.
+
+```python
+hospital = []
+
+total = int(input("Number of Patients: "))
+
+for i in range(total):
+
+    patient = {}
+
+    patient["Name"] = input("Name: ").strip()
+
+    patient["Age"] = int(input("Age: "))
+
+    patient["Blood Group"] = input("Blood Group: ").upper()
+
+    hospital.append(patient)
+
+print()
+
+print("="*50)
+
+for patient in hospital:
+
+    print()
+
+    for key in patient:
+
+        print(f"{key}: {patient[key]}")
+```
+
+Run it.
+
+Try entering 3 patients.
+
+---
+
+# Program 4 (Let's Add Functions)
+
+Now we combine everything you've learned.
+
+```python
+def check_hemoglobin(value):
+
+    if value >=12:
+
+        return "Normal"
+
+    return "LOW"
+```
+
+Now
+
+```python
+hospital=[]
+
+patient={}
+
+patient["Name"]="Alice"
+
+patient["Hemoglobin"]=11.5
+
+hospital.append(patient)
+
+for patient in hospital:
+
+    print(patient["Name"])
+
+    print(check_hemoglobin(patient["Hemoglobin"]))
+```
+
+Output
+
+```
+Alice
+
+LOW
+```
+
+See?
+
+Functions and dictionaries work together beautifully.
+
+---
+
+# Mini Project
+
+Build
+
+## Hospital Blood Report Analyzer
+
+Ask
+
+* Name
+* Age
+* Blood Group
+* Hemoglobin
+* HbA1c
+* Vitamin-D
+
+Store every patient inside
+
+```python
+hospital=[]
+```
+
+Then print
+
+```
+==================================
+
+Patient : Alice
+
+Hemoglobin :11.8
+Status : LOW
+
+HbA1C :6.8
+Status : Diabetic
+
+Vitamin D :18
+Status : Deficient
+```
+
+Repeat for every patient.
+
+---
+
+# ⭐ Challenge (Don't Skip!)
+
+At the end print
+
+```
+Hospital Summary
+```
+
+Example
+
+```
+Total Patients : 5
+
+Normal Hemoglobin : 3
+
+Low Hemoglobin : 2
+```
+
+Hint
+
+Create a counter.
+
+```python
+low_hemoglobin = 0
+```
+
+Whenever
+
+```python
+check_hemoglobin(...)
+```
+
+returns
+
+```
+LOW
+```
+
+increase the counter.
+
+---
+
+# 🧠 Today's Theory
+
+## List
+
+Stores multiple values.
+
+Example
+
+```python
+numbers = [10,20,30]
+```
+
+---
+
+## Dictionary
+
+Stores related information.
+
+Example
+
+```python
+patient = {
+    "Name":"Alice",
+    "Age":24
+}
+```
+
+---
+
+## List of Dictionaries
+
+Stores multiple patients.
+
+Example
+
+```python
+hospital = [
+
+    {
+        "Name":"Alice"
+    },
+
+    {
+        "Name":"Bob"
+    }
+
+]
+```
+
+---
+
+## Why is this useful?
+
+Your Blood Report App will eventually save data in a database, but before it reaches the database, your program will organize it in structures very similar to this.
+
+Think of it like:
+
+```
+User fills form
+        ↓
+Dictionary created
+        ↓
+Dictionary added to Hospital List
+        ↓
+Hospital List sent to Database
+```
+
+The database will come much later, but the mindset starts today.
+
+---
+
+# 📝 Day 16 Notes (Save These)
+
+### Topic
+
+Lists of Dictionaries
+
+### What I Learned
+
+* A list can store multiple dictionaries.
+* Each dictionary represents one patient.
+* A hospital is a list of patient dictionaries.
+* We use `.append()` to add a new patient.
+* We use a `for` loop to process every patient.
+* Functions can be called using values stored in dictionaries.
+* This structure is very similar to how backend applications organize data before saving it to a database.
+
+---
+
+# 🎯 Homework
+
+Write **three programs**.
+
+### Program 1
+
+Store two hardcoded patients inside a list and print their names.
+
+---
+
+### Program 2
+
+Take user input for multiple patients and print all details.
+
+---
+
+### Program 3 (Main Project)
+
+Build a Hospital Blood Report Analyzer that:
+
+* Uses functions from Day 14.
+* Uses dictionaries from Day 15.
+* Uses a list of dictionaries from Day 16.
+* Prints a report for every patient.
+* Prints a simple hospital summary.
+
+---
+
+## 👨‍🏫 Mentor's Feedback
+
+You're progressing faster than the original 90-day plan because you're connecting concepts instead of treating each day as isolated. That's a good sign.
+
+One small recommendation for today's coding: **don't copy the entire solution**. Try writing Program 3 yourself first. If you get stuck, compare only the part you're struggling with. That's how you'll build confidence and improve your debugging skills.
+
+I have a feeling today's mini project will be the first one that truly feels like the beginning of your Blood Report App.
