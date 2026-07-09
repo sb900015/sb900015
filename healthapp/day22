@@ -1,0 +1,406 @@
+# 🚀 Day 22 – Designing the User Experience (UX)
+
+Welcome to **Day 22**!
+
+Yesterday, we decided **what our app should do (the MVP)**.
+
+Today, we're going to answer a different question:
+
+> **"If I install this app today, what exactly will I see and tap?"**
+
+This is called **User Experience (UX) Design**.
+
+Professional companies like Google, Apple, and Microsoft design the user journey before they write code. We'll do the same.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll have:
+
+* A complete user journey
+* A list of all screens
+* An understanding of what each screen should do
+
+No coding today—just product design.
+
+---
+
+# The Complete User Journey
+
+```text
+Open App
+    │
+    ▼
+Splash Screen
+    │
+    ▼
+Login / Register
+    │
+    ▼
+Dashboard
+    │
+    ▼
+Upload Blood Report
+    │
+    ▼
+OCR Processing
+    │
+    ▼
+AI Analysis
+    │
+    ▼
+Save Report
+    │
+    ▼
+Blood Report History
+    │
+    ▼
+Compare Reports
+```
+
+This is the flow every user will follow.
+
+---
+
+# Screen 1 – Splash Screen
+
+**Purpose:**
+Show your app logo while the app loads.
+
+### Contents:
+
+* App Logo
+* App Name
+* "Loading..."
+
+Example:
+
+```text
+🩸
+
+Blood Report Analyzer
+
+Loading...
+```
+
+---
+
+# Screen 2 – Login / Register
+
+### Buttons
+
+* Login
+* Create Account
+
+Fields:
+
+* Email
+* Password
+
+Later we can also support:
+
+* Google Sign-In
+* Apple Sign-In
+
+---
+
+# Screen 3 – Dashboard
+
+This is the most important screen.
+
+The user should immediately see:
+
+```
+Welcome, Srujan
+
+Total Reports: 8
+
+Latest Report:
+15 July 2026
+
+Quick Actions
+
++ Upload Report
+
+View History
+
+Compare Reports
+```
+
+---
+
+# Screen 4 – Upload Report
+
+User chooses:
+
+✅ Camera
+
+OR
+
+✅ Gallery
+
+OR
+
+✅ PDF
+
+Example:
+
+```
+Upload Blood Report
+
+📷 Camera
+
+🖼 Gallery
+
+📄 PDF
+```
+
+---
+
+# Screen 5 – OCR Processing
+
+Instead of a blank screen, show progress.
+
+```
+Reading your report...
+
+██████████ 75%
+
+Extracting blood values...
+```
+
+This makes the app feel responsive.
+
+---
+
+# Screen 6 – Review Extracted Data
+
+OCR isn't perfect, so let the user verify the values.
+
+Example:
+
+| Test       | Value |
+| ---------- | ----- |
+| Hemoglobin | 12.8  |
+| HbA1c      | 5.9   |
+| Vitamin D  | 26    |
+
+Buttons:
+
+* Edit
+* Confirm
+
+This improves accuracy.
+
+---
+
+# Screen 7 – AI Analysis
+
+This is where your app becomes unique.
+
+Instead of showing only numbers:
+
+```
+Hemoglobin
+
+12.8
+```
+
+The app says:
+
+> Your hemoglobin is within the normal range.
+
+> HbA1c is slightly elevated and suggests prediabetes.
+
+> Vitamin D is insufficient.
+
+Then:
+
+Overall Summary
+
+```
+Overall Health Score
+
+8.5 / 10
+
+Things Improving
+
+✓ Hemoglobin
+
+Needs Attention
+
+⚠ Vitamin D
+```
+
+---
+
+# Screen 8 – Report History
+
+Example:
+
+```
+July 2026
+
+Blood Test
+
+Apollo
+
+--------------
+
+March 2026
+
+Blood Test
+
+Thyrocare
+
+--------------
+
+January 2026
+
+Blood Test
+
+Vijaya Diagnostics
+```
+
+The newest report appears first.
+
+---
+
+# Screen 9 – Report Details
+
+When the user taps a report:
+
+Show:
+
+* Original PDF
+* Extracted values
+* AI explanation
+* Date
+* Laboratory name
+
+---
+
+# Screen 10 – Compare Reports
+
+Example:
+
+| Test       | Jan  | Mar  | Jul  |
+| ---------- | ---- | ---- | ---- |
+| Hemoglobin | 10.8 | 11.9 | 12.8 |
+| HbA1c      | 6.8  | 6.2  | 5.7  |
+| Vitamin D  | 18   | 25   | 34   |
+
+This is one of the app's strongest features.
+
+---
+
+# Screen 11 – Profile
+
+User can:
+
+* Change password
+* Update profile
+* Logout
+
+Future options:
+
+* Delete account
+* Download all reports
+
+---
+
+# MVP Screen List
+
+Our Version 1 will have these screens:
+
+1. Splash Screen
+2. Login
+3. Register
+4. Dashboard
+5. Upload Report
+6. OCR Processing
+7. Review Extracted Data
+8. AI Analysis
+9. Report History
+10. Report Details
+11. Compare Reports
+12. Profile
+
+---
+
+# Homework
+
+Create a folder:
+
+```
+docs
+```
+
+Inside it, create a file:
+
+```
+screens.txt
+```
+
+Write:
+
+```
+1. Splash Screen
+
+Purpose:
+
+Features:
+
+-------------------
+
+2. Login
+
+Purpose:
+
+Features:
+
+-------------------
+
+3. Dashboard
+
+Purpose:
+
+Features:
+
+...
+```
+
+Continue until Screen 12.
+
+You don't need to write code—just describe each screen in simple English.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 22 – User Experience (UX) Design
+
+### Topics Learned
+
+* What is UX?
+* Planning app screens before coding
+* User journey
+* Screen flow
+* MVP screen list
+
+### Key Lesson
+
+> **Good apps are designed before they are built.**
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+We're now thinking like product designers.
+
+Many first-time developers start coding immediately and keep redesigning the app later. That often leads to wasted effort.
+
+By defining the screens and user journey first, we'll have a clear blueprint. When we eventually build the Flutter app or generate code with AI, we'll already know exactly what each screen should contain and how users move through the app.
+
+From Day 23 onward, we'll start turning these screen ideas into a complete technical blueprint that can guide development.
