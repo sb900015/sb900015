@@ -1,0 +1,477 @@
+# 🚀 Day 31/90 – Setting Up the Real Development Environment
+
+Welcome to **Day 31!**
+
+Today marks the beginning of **Phase 2** of your journey.
+
+**Days 1–20:** Learn Python fundamentals
+
+**Days 21–30:** Plan the product
+
+**Days 31–90:** Build a real startup
+
+From today onward, we are preparing everything required to actually build and launch your Blood Report Analyzer.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* What tools a software team uses
+* How we'll organize our project
+* Why project management is important
+* What our development workflow will look like
+
+Today is less about coding and more about **building like a professional team**.
+
+---
+
+# What Does a Startup Team Use?
+
+Imagine you're building a house.
+
+You don't just start laying bricks.
+
+You first prepare:
+
+* Blueprints
+* Materials
+* Schedule
+* Workers
+
+Software projects are exactly the same.
+
+---
+
+# Our Development Workspace
+
+Our project will have several parts.
+
+```text
+Blood Report Analyzer
+
+│
+
+├── Mobile App
+
+├── Backend
+
+├── Database
+
+├── Documents
+
+├── Designs
+
+├── API
+
+├── Testing
+
+└── Deployment
+```
+
+Everything has its own place.
+
+---
+
+# Project Folder Structure
+
+Eventually, your project will look like this:
+
+```text
+BloodReportAnalyzer/
+
+│
+
+├── mobile/
+
+├── backend/
+
+├── database/
+
+├── docs/
+
+├── designs/
+
+├── api/
+
+├── testing/
+
+├── assets/
+
+├── README.md
+
+└── LICENSE
+```
+
+You already created some of these folders during the Python phase. Now you'll understand why they exist.
+
+---
+
+# Why Do We Separate Everything?
+
+Suppose we keep everything in one folder.
+
+```text
+BloodReportAnalyzer/
+
+app.py
+
+logo.png
+
+database.sql
+
+design.pdf
+
+API.txt
+
+random.txt
+
+notes.docx
+```
+
+After six months...
+
+Nobody knows where anything is.
+
+Instead:
+
+```text
+mobile/
+
+backend/
+
+docs/
+
+database/
+
+assets/
+```
+
+Everything is organized.
+
+---
+
+# GitHub
+
+Every professional software project uses **Git** and **GitHub**.
+
+Git helps us:
+
+* Save versions of our code
+* Go back if something breaks
+* Work safely
+* Track changes
+
+GitHub helps us:
+
+* Store the project online
+* Collaborate with others
+* Back up the code
+
+Think of GitHub as **Google Drive for software projects**, but with version history.
+
+---
+
+# Project Documentation
+
+Every project needs documentation.
+
+Inside:
+
+```text
+docs/
+```
+
+We'll keep:
+
+* Product requirements
+* MVP roadmap
+* Database design
+* AI prompts
+* API documentation
+* User feedback
+* Future ideas
+
+This becomes the project's knowledge base.
+
+---
+
+# README.md
+
+Every GitHub project starts with a README.
+
+Example:
+
+```text
+Blood Report Analyzer
+
+AI-powered health report analyzer.
+
+Features:
+
+• Upload reports
+
+• OCR
+
+• AI explanations
+
+• Report history
+
+• Trend analysis
+```
+
+A good README helps anyone understand the project quickly.
+
+---
+
+# Issue Tracking
+
+As the project grows, you'll discover:
+
+* Bugs
+* New ideas
+* Improvements
+
+Instead of remembering everything, write them down.
+
+Example:
+
+```text
+Issue #1
+
+OCR misses Vitamin D values.
+
+-----------------
+
+Issue #2
+
+Improve login screen.
+
+-----------------
+
+Issue #3
+
+Add PDF export.
+```
+
+This prevents ideas from getting lost.
+
+---
+
+# Development Workflow
+
+This is how our work will happen.
+
+```text
+Idea
+
+↓
+
+Plan
+
+↓
+
+Design
+
+↓
+
+Develop
+
+↓
+
+Test
+
+↓
+
+Fix
+
+↓
+
+Launch
+
+↓
+
+Collect Feedback
+
+↓
+
+Improve
+```
+
+We'll repeat this cycle many times.
+
+---
+
+# What We Have Completed So Far
+
+```text
+Python Basics ✅
+
+↓
+
+Planning ✅
+
+↓
+
+Architecture ✅
+
+↓
+
+Business Model ✅
+
+↓
+
+Go-to-Market ✅
+```
+
+Now we move into execution.
+
+---
+
+# What Happens Next?
+
+Over the coming days, we'll begin working on:
+
+* UI design
+* Screen layouts
+* Color themes
+* User registration flow
+* Upload flow
+* OCR integration
+* AI integration
+* Backend planning
+* Testing
+* Deployment
+
+You'll see the product take shape step by step.
+
+---
+
+# Homework
+
+Create a new file:
+
+```text
+docs/project_workflow.txt
+```
+
+Write:
+
+```text
+Idea
+
+↓
+
+Plan
+
+↓
+
+Design
+
+↓
+
+Develop
+
+↓
+
+Test
+
+↓
+
+Fix
+
+↓
+
+Launch
+
+↓
+
+Collect Feedback
+
+↓
+
+Improve
+```
+
+Then write one sentence explaining each step in your own words.
+
+Also, review your project folders and make sure you have:
+
+```text
+BloodReportAnalyzer/
+
+├── mobile/
+
+├── backend/
+
+├── database/
+
+├── docs/
+
+├── assets/
+
+├── README.md
+```
+
+If any folder is missing, create it.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 31 – Development Environment & Workflow
+
+### Topics Learned
+
+* Organizing a software project
+* Purpose of Git and GitHub
+* Importance of documentation
+* Project folder structure
+* Issue tracking
+* Software development workflow
+
+### Key Lesson
+
+> **Professional software development is about organization as much as programming. A well-organized project is easier to build, maintain, and grow.**
+
+---
+
+# 🎯 Where We Are in the 90-Day Journey
+
+```text
+Days 1–20
+Python Foundations
+✅ Completed
+
+↓
+
+Days 21–30
+Product Planning
+✅ Completed
+
+↓
+
+Days 31–60
+Build Preparation & MVP Development
+⬅️ We start this phase today
+
+↓
+
+Days 61–90
+Testing, Deployment & Launch
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+Today wasn't about writing code—it was about preparing to build **like a real startup**.
+
+You've already made an important decision earlier in our journey:
+
+> **Instead of trying to become an expert developer, you'll focus on building the product and use existing technologies and open-source components where appropriate.**
+
+That changes how we'll approach the next 60 days. Rather than spending weeks writing every feature from scratch, we'll focus on **assembling a high-quality product**: designing great user experiences, integrating proven services, testing thoroughly, and making smart product decisions.
+
+I believe that's the right approach for your goal. By the end of these 90 days, the objective isn't just to know more programming—it's to have a **working Blood Report Analyzer MVP** that you can confidently show to real users.
