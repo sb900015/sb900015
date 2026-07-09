@@ -1,0 +1,327 @@
+# 🚀 Day 25 – Choosing the Technology Stack
+
+Welcome to **Day 25**!
+
+We've now designed:
+
+* ✅ The problem we're solving
+* ✅ The MVP features
+* ✅ The app screens
+* ✅ The data model
+* ✅ The app architecture
+
+Today we'll answer a practical question:
+
+> **"Which technologies should we actually use to build this app?"**
+
+The goal is not to pick the most advanced tools—it is to choose technologies that are reliable, well-supported, and suitable for a first product.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* What technology we'll use
+* Why we chose it
+* What each technology is responsible for
+
+Think of this as selecting the building materials before constructing a house.
+
+---
+
+# Our Technology Stack
+
+```text
+Flutter
+      │
+FastAPI
+      │
+PostgreSQL
+      │
+AWS S3
+      │
+Google Cloud Vision OCR
+      │
+OpenAI API
+```
+
+Every tool has one specific responsibility.
+
+---
+
+# 1. Flutter (Mobile App)
+
+## Purpose
+
+This is the application the user installs on their phone.
+
+It will display:
+
+* Login
+* Dashboard
+* Upload Report
+* AI Analysis
+* History
+* Compare Reports
+
+### Why Flutter?
+
+✅ One codebase
+
+Instead of writing:
+
+* Android App
+* iPhone App
+
+We write one application.
+
+Advantages:
+
+* Faster development
+* Large community
+* Good performance
+* Easy to maintain
+
+---
+
+# 2. FastAPI (Backend)
+
+Flutter talks to FastAPI.
+
+Example:
+
+User presses:
+
+```text
+Upload Report
+```
+
+Flutter sends the report to FastAPI.
+
+FastAPI then:
+
+* Saves the file
+* Calls OCR
+* Calls AI
+* Stores results
+* Sends everything back
+
+Think of FastAPI as the manager of the app.
+
+---
+
+# 3. PostgreSQL (Database)
+
+Purpose:
+
+Store structured information.
+
+Examples:
+
+* Users
+* Reports
+* Blood values
+* AI analyses
+
+It should **not** store the PDF itself.
+
+---
+
+# 4. AWS S3 (Cloud Storage)
+
+Large files belong here.
+
+Examples:
+
+* PDF reports
+* Images
+* Future exports
+
+Advantages:
+
+* Reliable
+* Scalable
+* Low cost for beginners
+
+---
+
+# 5. Google Cloud Vision OCR
+
+Purpose:
+
+Read text from uploaded reports.
+
+Input:
+
+```text
+Blood Report PDF
+```
+
+Output:
+
+```text
+Hemoglobin : 13.4
+
+HbA1c : 5.7
+
+Vitamin D : 26
+```
+
+This removes the need for manual typing.
+
+---
+
+# 6. OpenAI API
+
+Purpose:
+
+Convert medical values into plain-language explanations.
+
+Instead of:
+
+```text
+HbA1c : 6.8
+```
+
+The app can say:
+
+> "Your HbA1c is higher than the normal range, suggesting elevated average blood sugar over the past few months. Please discuss these results with your healthcare provider."
+
+This makes the app useful even for people who don't understand medical terminology.
+
+---
+
+# How They Work Together
+
+```text
+User
+   │
+   ▼
+Flutter App
+   │
+   ▼
+FastAPI Backend
+   │
+   ├── Save PDF → AWS S3
+   │
+   ├── Extract Text → OCR
+   │
+   ├── Generate Explanation → OpenAI
+   │
+   └── Save Results → PostgreSQL
+```
+
+Each service performs one task well.
+
+---
+
+# Why Not Build Everything Ourselves?
+
+You asked an excellent question a few days ago:
+
+> "Can we skip writing everything ourselves and use open-source code?"
+
+The answer is **yes**, and that's exactly what we're planning.
+
+For example:
+
+* We won't build an OCR engine—we'll use an existing service.
+* We won't train our own AI model—we'll use the OpenAI API.
+* We won't build a cloud storage system—we'll use AWS S3.
+* We won't write our own database engine—we'll use PostgreSQL.
+
+This lets us focus on **creating a great product** instead of reinventing technology that already exists.
+
+---
+
+# Future Integrations
+
+As the app grows, we could add:
+
+* Apple Health
+* Google Fit
+* Smartwatch data
+* Laboratory APIs
+* Hospital systems
+
+These are exciting ideas, but they belong in future versions—not the MVP.
+
+---
+
+# Homework
+
+Create a new file:
+
+```text
+docs/technology_stack.txt
+```
+
+Write:
+
+```text
+Flutter
+Purpose:
+Builds the mobile application.
+
+--------------------------------
+
+FastAPI
+Purpose:
+Handles backend logic.
+
+--------------------------------
+
+PostgreSQL
+Purpose:
+Stores structured data.
+
+--------------------------------
+
+AWS S3
+Purpose:
+Stores uploaded PDF reports.
+
+--------------------------------
+
+Google Cloud Vision OCR
+Purpose:
+Reads blood test values from reports.
+
+--------------------------------
+
+OpenAI API
+Purpose:
+Explains blood test results in simple language.
+```
+
+Try to explain each purpose in your own words.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 25 – Technology Stack
+
+### Topics Learned
+
+* What is a technology stack?
+* Choosing the right tools for the MVP.
+* Understanding the role of each service.
+* Using existing technologies instead of building everything from scratch.
+
+### Key Lesson
+
+> **A successful product is built by combining the right tools, not by building every tool yourself.**
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+This is an important mindset shift.
+
+A few weeks ago, you were trying to learn every programming concept. Today, you're learning **how to assemble a real product** using proven technologies.
+
+That's much closer to how many startups work. Teams don't create their own database, OCR engine, cloud storage, or AI model—they integrate trusted services and focus on delivering value to users.
+
+One improvement I'd make to our plan is to keep everything **modular**. If, in the future, you decide to switch from Google Cloud Vision to another OCR service, or from one AI provider to another, the rest of the app should continue working with minimal changes. Designing with that flexibility in mind from the beginning will make the app easier to maintain and grow.
