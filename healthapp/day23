@@ -1,0 +1,363 @@
+# 🚀 Day 23 – Designing the Data Model (The Brain of Your App)
+
+Welcome to **Day 23**!
+
+Yesterday, we designed **what the user sees** (the screens).
+
+Today, we'll design **what the app stores**.
+
+This is called the **Data Model**.
+
+Don't worry—we are **not** writing SQL or database code today. We are thinking like architects.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* What information your app needs to store
+* How different pieces of information are connected
+* How a real-world health app organizes data
+
+---
+
+# Think of the App as a Digital Hospital
+
+Imagine you own a hospital.
+
+What records would you keep?
+
+At the highest level:
+
+```text
+Hospital
+    │
+    ├── Users
+    ├── Patients
+    ├── Blood Reports
+    ├── AI Analyses
+    └── Uploaded Files
+```
+
+These are the main "things" (called **entities**) in your app.
+
+---
+
+# Entity 1 – User
+
+A user is the person who logs into the app.
+
+Example:
+
+```text
+User
+
+User ID: 1001
+Name: Srujan
+Email: srujan@email.com
+Password: ********
+Created On: 10-Jul-2026
+```
+
+One user can have many blood reports.
+
+---
+
+# Entity 2 – Blood Report
+
+Every uploaded report becomes a record.
+
+Example:
+
+```text
+Blood Report
+
+Report ID: 501
+Date: 10-Jul-2026
+Hospital: Apollo
+PDF File
+OCR Status
+```
+
+A user can upload hundreds of reports.
+
+---
+
+# Entity 3 – Blood Test Values
+
+Each report contains many values.
+
+Example:
+
+```text
+Blood Test
+
+Hemoglobin : 13.4
+HbA1c : 5.6
+Vitamin D : 31
+Vitamin B12 : 540
+WBC : 6800
+Platelets : 250000
+```
+
+Think of this as the medical information extracted from the uploaded report.
+
+---
+
+# Entity 4 – AI Analysis
+
+The app creates an explanation for every report.
+
+Example:
+
+```text
+AI Analysis
+
+Summary
+
+Health Score
+
+Suggestions
+
+Warnings
+
+Generated Date
+```
+
+Notice that the AI explanation is stored separately from the blood values.
+
+---
+
+# Entity 5 – Uploaded File
+
+We also keep the original document.
+
+Example:
+
+```text
+File
+
+Original PDF
+
+Upload Date
+
+File Size
+
+Storage Location
+```
+
+This lets users open the original report whenever they want.
+
+---
+
+# How Everything Connects
+
+Here's the complete picture:
+
+```text
+User
+ │
+ ├── Report 1
+ │      │
+ │      ├── Original PDF
+ │      ├── Blood Test Values
+ │      └── AI Analysis
+ │
+ ├── Report 2
+ │      │
+ │      ├── Original PDF
+ │      ├── Blood Test Values
+ │      └── AI Analysis
+ │
+ └── Report 3
+        │
+        ├── Original PDF
+        ├── Blood Test Values
+        └── AI Analysis
+```
+
+This is much cleaner than storing everything in one huge object.
+
+---
+
+# Why Is This Important?
+
+Imagine Alice uploads five reports.
+
+You don't want this:
+
+```text
+Alice
+
+Hemoglobin: 13.2
+```
+
+because it overwrites the old value.
+
+Instead, you want:
+
+```text
+Alice
+
+Report 1
+Hemoglobin: 11.4
+
+Report 2
+Hemoglobin: 12.6
+
+Report 3
+Hemoglobin: 13.2
+```
+
+Now you can show trends over time.
+
+---
+
+# Data Flow in the App
+
+When a user uploads a report:
+
+```text
+Upload PDF
+      │
+      ▼
+Store Original File
+      │
+      ▼
+OCR Reads Values
+      │
+      ▼
+Save Blood Test Values
+      │
+      ▼
+Generate AI Explanation
+      │
+      ▼
+Save AI Analysis
+      │
+      ▼
+Show Results to User
+```
+
+Every step creates data that can be used later.
+
+---
+
+# Real Example
+
+Suppose you upload this report:
+
+```text
+Hemoglobin : 10.8
+HbA1c : 6.7
+Vitamin D : 18
+```
+
+The app stores:
+
+**Original File**
+
+* report_001.pdf
+
+**Blood Values**
+
+* Hemoglobin = 10.8
+* HbA1c = 6.7
+* Vitamin D = 18
+
+**AI Analysis**
+
+* Mild anemia detected.
+* HbA1c suggests diabetes.
+* Vitamin D deficiency present.
+
+Later, if you upload another report, it becomes a **new report**, not an update to the old one.
+
+---
+
+# Homework
+
+Create a new file:
+
+```text
+docs/data_model.txt
+```
+
+Write these headings:
+
+```text
+Entity 1: User
+
+Information Stored:
+- Name
+- Email
+- Password
+
+----------------------
+
+Entity 2: Blood Report
+
+Information Stored:
+- Date
+- Hospital
+- PDF
+
+----------------------
+
+Entity 3: Blood Test Values
+
+Information Stored:
+- Hemoglobin
+- HbA1c
+- Vitamin D
+
+----------------------
+
+Entity 4: AI Analysis
+
+Information Stored:
+- Summary
+- Suggestions
+
+----------------------
+
+Entity 5: Uploaded File
+
+Information Stored:
+- File Name
+- Upload Date
+```
+
+Use your own words where possible.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 23 – Data Model Design
+
+### Topics Learned
+
+* What is a data model?
+* Identifying the main entities in an application.
+* Separating users, reports, blood test values, AI analyses, and uploaded files.
+* Why historical reports should never be overwritten.
+
+### Key Lesson
+
+> **A well-designed app keeps different kinds of information separate but connected.**
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+Today you've taken another step away from thinking only about code and toward thinking like a software architect.
+
+One small improvement I'd suggest for our app design is this:
+
+Instead of making **Patient** and **User** separate from the beginning, let's make them the same in Version 1. Each person who signs up manages **their own blood reports**.
+
+That keeps the app much simpler to build.
+
+Later, in Version 2, we can add **Family Profiles**, where one account can manage reports for a spouse, child, or parent. That gives us a clear upgrade path without making the first version unnecessarily complex.
