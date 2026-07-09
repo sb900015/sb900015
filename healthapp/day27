@@ -1,0 +1,364 @@
+# 🚀 Day 27/90 – Designing Security & Privacy
+
+Welcome to **Day 27**!
+
+By now, we've designed:
+
+* ✅ Day 21 – Problem Statement
+* ✅ Day 22 – User Experience
+* ✅ Day 23 – Data Model
+* ✅ Day 24 – App Architecture
+* ✅ Day 25 – Technology Stack
+* ✅ Day 26 – AI Engine
+
+Today we're going to design something that every healthcare app must get right:
+
+# 🔒 Security & Privacy
+
+Remember:
+
+> **People are trusting us with their personal medical information.**
+
+If users don't trust the app, they won't upload their reports.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* Why security matters
+* How we protect user data
+* What information should remain private
+* What security features our app needs before launch
+
+---
+
+# Why is Security Important?
+
+Imagine you upload your blood report.
+
+It contains:
+
+```text
+Name: Srujan
+
+Age: 35
+
+Blood Group: B+
+
+HbA1c: 6.8
+
+Vitamin D: 18
+```
+
+This is personal health information.
+
+Only **you** should be able to see it.
+
+---
+
+# Security Principle #1
+
+## Every user sees only their own reports
+
+Example:
+
+```text
+Alice
+
+↓
+
+Alice's Reports Only
+```
+
+```text
+Bob
+
+↓
+
+Bob's Reports Only
+```
+
+Alice should never be able to see Bob's reports.
+
+---
+
+# Security Principle #2
+
+## Secure Login
+
+Users must log in using:
+
+* Email
+* Password
+
+Later we can support:
+
+* Google Login
+* Apple Login
+
+Without logging in, users should not be able to access reports.
+
+---
+
+# Security Principle #3
+
+## Strong Passwords
+
+Examples:
+
+❌ Bad Password
+
+```text
+123456
+```
+
+❌ Bad Password
+
+```text
+password
+```
+
+✅ Better Password
+
+```text
+Srujan@2026
+```
+
+The app should encourage users to choose stronger passwords.
+
+---
+
+# Security Principle #4
+
+## Passwords Are Never Stored as Plain Text
+
+Suppose the user enters:
+
+```text
+MyPassword123
+```
+
+We should **never** save:
+
+```text
+MyPassword123
+```
+
+Instead, the password is transformed into a secure value (called a hash) before being stored.
+
+Even if someone gained access to the database, they should not be able to read users' passwords.
+
+---
+
+# Security Principle #5
+
+## Secure File Storage
+
+Uploaded PDFs should be stored securely.
+
+Instead of:
+
+```text
+My Documents
+
+↓
+
+bloodreport.pdf
+```
+
+They should be stored in protected cloud storage where only authorized users can access them.
+
+---
+
+# Security Principle #6
+
+## Secure Communication
+
+When the app talks to the server:
+
+```text
+Flutter
+
+↓
+
+Backend
+```
+
+the communication should be encrypted using HTTPS.
+
+This helps protect information while it travels across the internet.
+
+---
+
+# Security Principle #7
+
+## User Control
+
+Users should be able to:
+
+* View their reports
+* Download their reports
+* Delete their reports (if supported)
+* Delete their account (future feature)
+
+Users should stay in control of their own data.
+
+---
+
+# Security Principle #8
+
+## AI Privacy
+
+When we send blood values to AI:
+
+Example:
+
+```text
+Hemoglobin: 11.2
+
+HbA1c: 6.8
+```
+
+We should avoid sending unnecessary personal information whenever possible.
+
+For example, AI usually does **not** need:
+
+* Email address
+* Phone number
+* Home address
+
+It only needs the information required to explain the report.
+
+---
+
+# Security Checklist
+
+Before launching Version 1, our app should have:
+
+✅ User login
+
+✅ Secure passwords
+
+✅ HTTPS communication
+
+✅ Protected cloud storage
+
+✅ Private user accounts
+
+✅ Safe AI usage
+
+---
+
+# What Happens When a User Uploads a Report?
+
+```text
+User
+
+↓
+
+Login
+
+↓
+
+Upload PDF
+
+↓
+
+Encrypted Transfer
+
+↓
+
+Secure Cloud Storage
+
+↓
+
+OCR
+
+↓
+
+AI
+
+↓
+
+Database
+
+↓
+
+Only that User Can View It
+```
+
+This is the secure flow we want.
+
+---
+
+# Future Security Features
+
+In Version 2 or later, we can add:
+
+* Two-factor authentication (2FA)
+* Biometric login (Fingerprint / Face ID)
+* Login notifications
+* Session management (log out from all devices)
+* Automatic logout after inactivity
+* Encryption of sensitive data at rest
+
+These aren't essential for the MVP, but they make the app even more secure.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/security.txt
+```
+
+Write:
+
+```text
+Our app will protect users by:
+
+- Secure login
+- Strong passwords
+- Encrypted communication (HTTPS)
+- Secure cloud storage
+- Private user accounts
+- Safe AI usage
+```
+
+Then write one sentence explaining **why security is especially important for a health application**.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 27 – Security & Privacy
+
+### Topics Learned
+
+* Why health apps require strong security
+* Keeping user reports private
+* Secure login
+* Password protection
+* HTTPS communication
+* Secure cloud storage
+* Safe use of AI
+
+### Key Lesson
+
+> **Users trust us with their health information. Protecting that trust is just as important as building useful features.**
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+Today you learned something many first-time founders overlook: **a great app is not just functional—it must also be trustworthy.**
+
+For a Blood Report Analyzer, users are sharing some of their most personal information. Features like AI explanations and report history are valuable, but they only matter if users feel confident that their data is safe.
+
+By thinking about security now, before writing the app, you're building a stronger foundation for a product that people will be comfortable using.
+
+**Tomorrow (Day 28)**, we'll move from design into **planning the actual development process**. We'll break the MVP into milestones, decide what should be built first, and create a practical roadmap to take your app from an idea to a real product.
