@@ -1,0 +1,383 @@
+# 🚀 Day 28/90 – Building the MVP Roadmap
+
+Welcome to **Day 28!**
+
+You've now completed the planning phase of your Blood Report Analyzer.
+
+So far we've designed:
+
+* ✅ Day 21 – Problem Statement
+* ✅ Day 22 – User Experience
+* ✅ Day 23 – Data Model
+* ✅ Day 24 – App Architecture
+* ✅ Day 25 – Technology Stack
+* ✅ Day 26 – AI Engine
+* ✅ Day 27 – Security & Privacy
+
+Today we'll answer one of the biggest questions:
+
+> **"In what order should we build the app?"**
+
+A common mistake is trying to build everything at once. Successful teams build one small, working feature at a time.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* What to build first
+* What can wait until later
+* How to break a large project into manageable milestones
+
+---
+
+# Step 1 – Define the MVP
+
+Our first version should do **only these seven things**:
+
+✅ User Registration & Login
+
+✅ Upload Blood Report (PDF/Image)
+
+✅ OCR extracts blood test values
+
+✅ AI explains the report
+
+✅ Save every report
+
+✅ View report history
+
+✅ Compare reports
+
+If these work well, we already have a useful product.
+
+---
+
+# Step 2 – Break the MVP into Phases
+
+Instead of one huge project, divide it into small milestones.
+
+```text
+Phase 1
+↓
+
+User Accounts
+
+↓
+
+Phase 2
+↓
+
+Upload Reports
+
+↓
+
+Phase 3
+↓
+
+OCR
+
+↓
+
+Phase 4
+↓
+
+AI Analysis
+
+↓
+
+Phase 5
+↓
+
+History
+
+↓
+
+Phase 6
+↓
+
+Comparison
+
+↓
+
+Version 1 Launch
+```
+
+Each phase should be completed before moving to the next.
+
+---
+
+# Phase 1 – User Accounts
+
+Features:
+
+* Register
+* Login
+* Logout
+* Forgot Password (optional for MVP)
+
+Success criteria:
+
+A user can create an account and log in.
+
+---
+
+# Phase 2 – Upload Reports
+
+Features:
+
+* Select PDF
+* Select Image
+* Upload to cloud storage
+
+Success criteria:
+
+The uploaded file is stored successfully.
+
+---
+
+# Phase 3 – OCR
+
+Features:
+
+* Read uploaded report
+* Extract blood test values
+* Allow user to review extracted values
+
+Success criteria:
+
+The app correctly extracts the important blood test parameters.
+
+---
+
+# Phase 4 – AI Analysis
+
+Features:
+
+* Explain each blood test
+* Generate an overall summary
+* Provide general lifestyle suggestions
+
+Success criteria:
+
+The explanation is easy to understand and clearly states that it is not a medical diagnosis.
+
+---
+
+# Phase 5 – Report History
+
+Features:
+
+* Display all uploaded reports
+* Sort by date
+* Open any previous report
+
+Success criteria:
+
+Users can access every report they have uploaded.
+
+---
+
+# Phase 6 – Compare Reports
+
+Features:
+
+Compare:
+
+* Hemoglobin
+* HbA1c
+* Vitamin D
+* Other available tests
+
+Success criteria:
+
+Users can see how their values change over time.
+
+---
+
+# Phase 7 – Testing
+
+Before launching, check:
+
+* Can users register?
+* Can users upload reports?
+* Does OCR work?
+* Does AI generate explanations?
+* Can reports be reopened?
+* Can reports be compared?
+* Are reports private?
+
+Only after these tests pass should Version 1 be released.
+
+---
+
+# What We Will NOT Build in Version 1
+
+To keep the MVP simple, we'll postpone these ideas:
+
+* Family accounts
+* Doctor chat
+* Medicine reminders
+* Lab integrations
+* Smartwatch integration
+* Health insurance features
+* Appointment booking
+* Voice assistant
+* AI chatbot
+
+These will become Version 2 or Version 3 features.
+
+---
+
+# Development Timeline
+
+```text
+Week 1
+Planning ✅
+
+↓
+
+Week 2
+User Accounts
+
+↓
+
+Week 3
+Upload Reports
+
+↓
+
+Week 4
+OCR
+
+↓
+
+Week 5
+AI Analysis
+
+↓
+
+Week 6
+History
+
+↓
+
+Week 7
+Comparison
+
+↓
+
+Week 8
+Testing
+
+↓
+
+Version 1 Launch
+```
+
+This roadmap gives the team a clear direction.
+
+---
+
+# MVP Success Checklist
+
+Before launching, make sure users can:
+
+☑ Register
+
+☑ Log in
+
+☑ Upload a blood report
+
+☑ View extracted blood values
+
+☑ Read AI explanations
+
+☑ View report history
+
+☑ Compare reports
+
+☑ Keep their data private
+
+If all of these work, you have a solid MVP.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/mvp_roadmap.txt
+```
+
+Write:
+
+```text
+Phase 1
+User Accounts
+
+----------------
+
+Phase 2
+Upload Reports
+
+----------------
+
+Phase 3
+OCR
+
+----------------
+
+Phase 4
+AI Analysis
+
+----------------
+
+Phase 5
+History
+
+----------------
+
+Phase 6
+Comparison
+
+----------------
+
+Phase 7
+Testing
+
+----------------
+
+Version 1 Launch
+```
+
+Under each phase, write 2–3 sentences describing what needs to be completed before moving on.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 28 – MVP Roadmap
+
+### Topics Learned
+
+* Breaking a large project into phases
+* Defining the MVP scope
+* Planning a development roadmap
+* Deciding what belongs in Version 1 and what can wait
+
+### Key Lesson
+
+> **Successful products are built one milestone at a time. A working MVP is more valuable than a half-finished app with dozens of incomplete features.**
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+This is a milestone in your learning journey.
+
+On Day 1, you were learning how to print text in Python. By Day 28, you're thinking like a product manager and startup founder—planning features, prioritizing work, and defining what should and shouldn't be part of the first release.
+
+One suggestion for our roadmap is to include a **feedback phase immediately after launch**. Even if Version 1 isn't perfect, getting a small group of real users to try it will teach us far more than months of guessing. Their feedback should guide Version 2, ensuring that we build features people actually need rather than features we only assume they want.
