@@ -1,0 +1,362 @@
+# 📅 Day 19/90 – Delete a Patient Record
+
+Welcome to **Day 19**! 🎉
+
+Yesterday we learned about **Update**. Today we'll learn **Delete**, the last part of CRUD.
+
+By the end of today, your hospital system will be able to:
+
+* ✅ Create patients
+* ✅ Read/Search patients
+* ✅ Update patient details
+* ✅ Delete patient records
+
+---
+
+# Today's Goal
+
+Imagine a hospital accidentally registers the same patient twice.
+
+```text
+Patient 1
+Name: Alice
+
+Patient 2
+Name: Alice
+```
+
+One of these records is a duplicate and should be removed.
+
+Or suppose someone was added by mistake. We need a way to delete that patient.
+
+---
+
+# What is Delete?
+
+Delete means removing a record from a list.
+
+For example:
+
+Before:
+
+```text
+Hospital
+
+↓
+
+Alice
+
+Bob
+
+Charlie
+```
+
+Delete Bob
+
+↓
+
+After:
+
+```text
+Hospital
+
+↓
+
+Alice
+
+Charlie
+```
+
+Bob is no longer in the list.
+
+---
+
+# New Concept Today
+
+Today you'll learn one new Python function:
+
+```python
+list.remove(item)
+```
+
+This removes an item from a list.
+
+Example:
+
+```python
+names = ["Alice", "Bob", "Charlie"]
+
+names.remove("Bob")
+
+print(names)
+```
+
+Output:
+
+```text
+['Alice', 'Charlie']
+```
+
+---
+
+# Our Program
+
+Today we'll delete an entire patient dictionary from the hospital list.
+
+## Step 1
+
+Create the hospital list.
+
+```python
+hospital = []
+```
+
+---
+
+## Step 2
+
+Store patients exactly like Day 16 and Day 17.
+
+Each patient is a dictionary.
+
+---
+
+## Step 3
+
+Ask:
+
+```text
+Enter patient name to delete:
+```
+
+---
+
+## Step 4
+
+Search through the hospital.
+
+```python
+for patient in hospital:
+```
+
+---
+
+## Step 5
+
+If the names match
+
+```python
+patient["Name"] == search_name
+```
+
+delete that patient.
+
+---
+
+# Full Program
+
+Type this yourself.
+
+```python
+print("=" * 50)
+print("      DELETE PATIENT RECORD")
+print("=" * 50)
+
+hospital = []
+
+total = int(input("Enter total patients: "))
+
+for i in range(total):
+
+    patient = {}
+
+    patient["Name"] = input("Enter Name: ").strip().upper()
+    patient["Age"] = int(input("Enter Age: "))
+    patient["Blood Group"] = input("Enter Blood Group: ").strip().upper()
+
+    hospital.append(patient)
+
+print("\nCurrent Patients")
+
+for patient in hospital:
+    print(patient)
+
+search_name = input("\nEnter patient name to delete: ").strip().upper()
+
+found = False
+
+for patient in hospital:
+
+    if patient["Name"] == search_name:
+
+        hospital.remove(patient)
+
+        found = True
+
+        print("Patient deleted successfully.")
+
+        break
+
+if found == False:
+    print("Patient not found.")
+
+print("\nRemaining Patients")
+
+for patient in hospital:
+    print(patient)
+```
+
+---
+
+# What Does `remove()` Do?
+
+Suppose we have
+
+```python
+hospital = [
+    Alice,
+    Bob,
+    Charlie
+]
+```
+
+When Python runs
+
+```python
+hospital.remove(Bob)
+```
+
+The list becomes
+
+```python
+hospital = [
+    Alice,
+    Charlie
+]
+```
+
+---
+
+# Why do we use `break`?
+
+Suppose two patients accidentally have the same name.
+
+Without `break`, Python will continue searching through the rest of the list even after deleting one patient.
+
+```python
+break
+```
+
+tells Python:
+
+> "Stop the loop immediately."
+
+---
+
+# Exercise 1
+
+Instead of deleting by **Name**,
+
+delete using **Blood Group**.
+
+Example:
+
+```text
+Delete Blood Group:
+
+B+VE
+```
+
+Every patient with B+VE should be deleted.
+
+---
+
+# Exercise 2
+
+Before deleting, ask:
+
+```text
+Are you sure?
+
+Y/N
+```
+
+Delete only if the user enters **Y**.
+
+---
+
+# Exercise 3 (Challenge)
+
+Instead of printing:
+
+```text
+Patient deleted.
+```
+
+Print:
+
+```text
+Deleted Patient
+
+Name : Alice
+
+Age : 24
+
+Blood Group : A+
+```
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 19 – Delete Patient Record
+
+### Topics Learned
+
+* CRUD (Delete)
+* `list.remove()`
+* Removing dictionaries from a list
+* Using `break` to stop a loop
+* Confirming that a record exists before deleting
+
+---
+
+## New Function
+
+```python
+hospital.remove(patient)
+```
+
+Removes a patient dictionary from the hospital list.
+
+---
+
+## Key Takeaways
+
+* A list can store many patient dictionaries.
+* `remove()` deletes a specific item from a list.
+* `break` exits a loop immediately after the deletion.
+* Always check whether the patient exists before trying to delete.
+
+---
+
+## 👨‍🏫 Mentor's Note
+
+Today completes the basic **CRUD** operations in Python:
+
+* **Create** → Add a patient.
+* **Read** → Search and display patient details.
+* **Update** → Modify patient profile information (not blood test history).
+* **Delete** → Remove an incorrect or duplicate patient record.
+
+These four operations are the foundation of almost every software application, from hospital systems to banking apps. In the coming days, we'll start making the data model more realistic by allowing a patient to have **multiple blood tests** instead of replacing previous results, which matches the design you correctly identified yesterday.
+
+### Before writing the code
+
+One small challenge for you:
+
+Can you think of **one problem** with deleting a patient **by name**?
+
+For example, what happens if there are **two different patients named "Alice"**?
+
+Think about that before you start coding—it will help you understand why real hospital systems use a **unique patient ID** rather than relying only on names.
