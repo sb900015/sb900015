@@ -1,0 +1,306 @@
+# 🚀 Day 21 – Product Design (From Programmer to Product Builder)
+
+Welcome to **Day 21**.
+
+Today marks the beginning of the **second phase** of your journey.
+
+For the first 20 days, you learned enough Python to understand programs, read code, and build small features.
+
+From today onward, we'll focus on **building your actual Blood Report Analyzer app**.
+
+Think of yourself as the **founder** of this product, not just someone learning to code.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll have a clear vision of:
+
+* Who will use the app?
+* What problem are we solving?
+* What features belong in Version 1 (MVP)?
+* What features can wait until later?
+
+Many apps fail because they try to do too much too soon. We'll avoid that.
+
+---
+
+# Step 1 – Define the Problem
+
+Imagine a person in India who has been taking blood tests for 10 years.
+
+They might have:
+
+* PDFs in WhatsApp
+* Reports in Gmail
+* Printed reports in a file
+* Reports from different hospitals
+
+There is no single place where they can:
+
+* Store all reports
+* Track health over time
+* Compare reports
+* Understand medical terms
+
+This is the problem your app solves.
+
+---
+
+# Step 2 – Define the User
+
+Our first user is:
+
+**Primary User**
+
+* Adults who get regular blood tests.
+* People with diabetes, thyroid disorders, vitamin deficiencies, anemia, etc.
+* Families who want to manage reports for parents or children.
+
+We are **not** targeting hospitals or laboratories in Version 1.
+
+---
+
+# Step 3 – Define the MVP (Minimum Viable Product)
+
+Your first version should do only the essentials.
+
+### Feature 1
+
+👤 Register/Login
+
+---
+
+### Feature 2
+
+📄 Upload a blood report (PDF or image)
+
+---
+
+### Feature 3
+
+🤖 Automatically extract values using OCR
+
+Examples:
+
+* Hemoglobin
+* HbA1c
+* Vitamin D
+* Vitamin B12
+* WBC
+* Platelets
+* Cholesterol
+* TSH
+
+---
+
+### Feature 4
+
+🧠 AI explains the report in simple language.
+
+Example:
+
+> "Your Vitamin D is low. This may indicate a deficiency. Please consult your physician."
+
+---
+
+### Feature 5
+
+📚 Store every report.
+
+Nothing is overwritten.
+
+---
+
+### Feature 6
+
+📈 Compare reports over time.
+
+Example:
+
+```text
+Hemoglobin
+
+Jan 2026 → 10.5
+
+Mar 2026 → 11.4
+
+Jun 2026 → 12.8
+```
+
+---
+
+### Feature 7
+
+🔍 Search previous reports.
+
+---
+
+That's enough for Version 1.
+
+---
+
+# Features We'll Skip (For Now)
+
+Don't try to build everything immediately.
+
+We'll postpone:
+
+* Appointment booking
+* Video consultation
+* Medicine reminders
+* Fitness tracking
+* Insurance
+* Doctor dashboard
+* Lab integration
+* Payment gateway
+
+These can come in future versions.
+
+---
+
+# Step 4 – User Journey
+
+Here's how a typical user will interact with your app.
+
+```
+Open App
+      │
+      ▼
+Login / Register
+      │
+      ▼
+Dashboard
+      │
+      ▼
+Upload Blood Report
+      │
+      ▼
+OCR Reads Report
+      │
+      ▼
+AI Explains Results
+      │
+      ▼
+Save Report
+      │
+      ▼
+View History
+      │
+      ▼
+Compare Reports
+```
+
+Every feature we build should fit into this journey.
+
+---
+
+# Step 5 – What Will the App Need?
+
+Let's list the major components.
+
+### Mobile App (Flutter)
+
+What the user sees.
+
+---
+
+### Backend (FastAPI)
+
+Handles requests and business logic.
+
+---
+
+### Database (PostgreSQL)
+
+Stores users and blood tests.
+
+---
+
+### OCR Service
+
+Reads values from uploaded reports.
+
+---
+
+### AI Service
+
+Explains the reports.
+
+---
+
+### Cloud Storage
+
+Stores PDFs and images.
+
+---
+
+# Homework
+
+Create a text file called:
+
+```
+product_vision.txt
+```
+
+Write the following in your own words:
+
+### 1. What problem does my app solve?
+
+(3–5 sentences)
+
+---
+
+### 2. Who are the users?
+
+---
+
+### 3. Why would someone choose my app instead of just saving PDFs?
+
+---
+
+### 4. List the 7 MVP features.
+
+---
+
+### 5. List 5 features that can wait until Version 2.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 21 – Product Vision
+
+### Topics Learned
+
+* What is a product?
+* What is an MVP?
+* Identifying the target user.
+* Defining the problem.
+* Planning features before writing code.
+
+### Key Lesson
+
+> **A successful app is built by solving one problem really well—not by adding every feature you can think of.**
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+Srujan, I think today is an important turning point.
+
+For the past 20 days, you've been learning **how to write programs**.
+
+From today onward, we're going to learn **how to build a product**.
+
+That means every lesson should answer one question:
+
+> **"Does this help us launch the Blood Report Analyzer?"**
+
+If the answer is **yes**, we'll learn it.
+
+If the answer is **no**, we'll skip it or use existing tools instead.
+
+This keeps us focused on your real goal: getting a useful app into people's hands rather than becoming an expert in every programming topic.
+
+I think this approach will make the remaining journey much more motivating, because each day brings you one step closer to a real, working application.
