@@ -1,0 +1,341 @@
+# 🚀 Day 17/90 – Searching for a Patient
+
+Welcome to **Day 17**, Srujan!
+
+So far, you've learned how to:
+
+* ✅ Store one patient in a dictionary.
+* ✅ Store multiple patients in a list of dictionaries.
+* ✅ Print all patients.
+
+Now let's learn something every real application needs:
+
+> **How do we find one specific patient?**
+
+Imagine your future Blood Report App has 5,000 patients.
+
+The user searches for:
+
+```text
+Srujan
+```
+
+The app should display **only Srujan's report**.
+
+That's today's lesson.
+
+---
+
+# 🎯 Today's Goal
+
+Build a **Patient Search System**.
+
+You will:
+
+1. Store multiple patients.
+2. Ask the user for a patient's name.
+3. Search through the hospital list.
+4. Display the patient's report if found.
+
+---
+
+# Step 1 – Create the Hospital
+
+```python
+hospital = []
+
+total = int(input("Enter number of patients: "))
+
+for i in range(total):
+
+    patient = {}
+
+    patient["Name"] = input("Name: ").strip().upper()
+    patient["Age"] = int(input("Age: "))
+    patient["Blood Group"] = input("Blood Group: ").strip().upper()
+
+    hospital.append(patient)
+```
+
+Nothing new here—you already know this.
+
+---
+
+# Step 2 – Ask Which Patient to Search
+
+```python
+search_name = input("\nEnter patient name to search: ").strip().upper()
+```
+
+If the user types
+
+```
+alice
+```
+
+`.upper()` converts it to
+
+```
+ALICE
+```
+
+so the comparison works.
+
+---
+
+# Step 3 – Search Using a Loop
+
+```python
+found = False
+
+for patient in hospital:
+
+    if patient["Name"] == search_name:
+
+        print("\nPatient Found!")
+        print(patient)
+
+        found = True
+```
+
+Let's understand this carefully.
+
+Suppose:
+
+```python
+hospital = [
+    {"Name": "ALICE"},
+    {"Name": "BOB"},
+    {"Name": "CHARLIE"}
+]
+```
+
+The loop checks:
+
+```
+Is ALICE == search_name?
+```
+
+No?
+
+↓
+
+Next patient.
+
+```
+Is BOB == search_name?
+```
+
+No?
+
+↓
+
+Next patient.
+
+```
+Is CHARLIE == search_name?
+```
+
+Yes?
+
+↓
+
+Print Charlie.
+
+---
+
+# Why Do We Need `found = False`?
+
+Suppose the user searches for
+
+```
+RAHUL
+```
+
+No patient has that name.
+
+Without `found`, nothing would print.
+
+So we do this:
+
+```python
+if found == False:
+    print("Patient Not Found")
+```
+
+A shorter way is:
+
+```python
+if not found:
+    print("Patient Not Found")
+```
+
+Both mean the same thing.
+
+---
+
+# Complete Program
+
+```python
+hospital = []
+
+total = int(input("Enter number of patients: "))
+
+for i in range(total):
+
+    patient = {}
+
+    patient["Name"] = input("Name: ").strip().upper()
+    patient["Age"] = int(input("Age: "))
+    patient["Blood Group"] = input("Blood Group: ").strip().upper()
+
+    hospital.append(patient)
+
+search_name = input("\nEnter patient name to search: ").strip().upper()
+
+found = False
+
+for patient in hospital:
+
+    if patient["Name"] == search_name:
+
+        print("\nPatient Found")
+        print(f"Name: {patient['Name']}")
+        print(f"Age: {patient['Age']}")
+        print(f"Blood Group: {patient['Blood Group']}")
+
+        found = True
+
+if not found:
+    print("\nPatient Not Found")
+```
+
+---
+
+# Example Run
+
+```
+Enter number of patients: 3
+
+Name: Alice
+Age: 24
+Blood Group: B+
+
+Name: Bob
+Age: 35
+Blood Group: O+
+
+Name: Charlie
+Age: 44
+Blood Group: AB+
+
+Enter patient name to search:
+Bob
+```
+
+Output:
+
+```
+Patient Found
+
+Name: BOB
+Age: 35
+Blood Group: O+
+```
+
+---
+
+# Real App Connection
+
+Your Blood Report App will eventually have a search bar.
+
+When the user types:
+
+```
+Srujan
+```
+
+the backend will search the database.
+
+Today you're doing the same thing using a Python list.
+
+Later, the same idea becomes:
+
+```sql
+SELECT * FROM patients
+WHERE name = 'SRUJAN';
+```
+
+The concept is identical.
+
+---
+
+# 📝 Day 17 Notes (Save These)
+
+### Topic
+
+Searching in a List of Dictionaries
+
+### What I Learned
+
+* We can search for a patient using a `for` loop.
+* We compare the entered name with `patient["Name"]`.
+* We use a boolean variable (`found`) to check whether the patient exists.
+* If the patient is found, we print the details.
+* If the patient is not found, we display "Patient Not Found".
+* Searching through a Python list is similar to how databases search records.
+
+---
+
+# 🎯 Homework
+
+## Program 1
+
+Store 5 patients and search for one by name.
+
+---
+
+## Program 2
+
+If the patient is found, print:
+
+* Name
+* Age
+* Blood Group
+* Hemoglobin
+* HbA1C
+* Vitamin-D
+
+using the data you already know how to store.
+
+---
+
+## ⭐ Challenge
+
+Instead of searching by **Name**, search by **Blood Group**.
+
+Example:
+
+```
+Enter Blood Group: O+
+```
+
+Output:
+
+```
+Patient: ALICE
+Patient: RAHUL
+Patient: PRIYA
+```
+
+This will help you understand that a search can return **multiple matching records**, not just one.
+
+---
+
+## 👨‍🏫 Mentor's Feedback
+
+Today's lesson introduces a pattern you'll use constantly in software development:
+
+**Store → Search → Display**
+
+Whether you're building a blood report app, an e-commerce site, or a banking system, this pattern appears everywhere. By understanding it now with simple Python lists, you'll find it much easier to learn databases and APIs later in your journey.
