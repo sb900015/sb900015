@@ -442,3 +442,127 @@ It will include:
 * Bottom navigation
 
 By the end of Day 60, your app will start looking like the healthcare product we've been planning since Day 1.
+
+
+
+=====================================================================================
+
+WE HIT OUR FIRST BUG:
+
+=====================================================================================
+I left password and confirm password section blank. It said registration successful
+
+Excellent catch! 👏
+
+This is exactly the kind of testing a good developer (or product builder) does. You found a bug in the code I provided.
+
+Why it happened
+
+In the code, I added validation for:
+
+✅ Full Name
+✅ Email
+✅ Mobile Number
+
+But I forgot to add validators for:
+
+❌ Password
+❌ Confirm Password
+
+So when both fields are empty:
+
+passwordController.text == confirmPasswordController.text
+
+both are empty strings (""), so they are considered equal, and the app incorrectly shows:
+
+Registration Successful (UI Only)
+
+Fix 1: Password Field
+
+Replace your password field with this:
+
+TextFormField(
+  controller: passwordController,
+  obscureText: hidePassword,
+  decoration: InputDecoration(
+    labelText: "Password",
+    border: const OutlineInputBorder(),
+    suffixIcon: IconButton(
+      icon: Icon(
+        hidePassword ? Icons.visibility : Icons.visibility_off,
+      ),
+      onPressed: () {
+        setState(() {
+          hidePassword = !hidePassword;
+        });
+      },
+    ),
+  ),
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return "Enter password";
+    }
+
+    if (value.length < 8) {
+      return "Password must be at least 8 characters";
+    }
+
+    return null;
+  },
+),
+Fix 2: Confirm Password Field
+
+Replace it with:
+
+TextFormField(
+  controller: confirmPasswordController,
+  obscureText: hideConfirmPassword,
+  decoration: InputDecoration(
+    labelText: "Confirm Password",
+    border: const OutlineInputBorder(),
+    suffixIcon: IconButton(
+      icon: Icon(
+        hideConfirmPassword
+            ? Icons.visibility
+            : Icons.visibility_off,
+      ),
+      onPressed: () {
+        setState(() {
+          hideConfirmPassword = !hideConfirmPassword;
+        });
+      },
+    ),
+  ),
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return "Confirm your password";
+    }
+
+    return null;
+  },
+),
+Now test these scenarios
+Full Name	Email	Mobile	Password	Confirm Password	Expected Result
+Empty	Empty	Empty	Empty	Empty	All validation messages
+Filled	Filled	Filled	Empty	Empty	"Enter password" and "Confirm your password"
+Filled	Filled	Filled	abc12345	abc123	"Passwords do not match"
+Filled	Filled	Filled	abc12345	abc12345	Registration Successful (UI Only)
+This is exactly how we'll work from now on
+
+I don't want you to just copy code. I want you to test it like a real user.
+
+Whenever you find a bug like this:
+
+Run the app.
+Try different inputs.
+Tell me what happened.
+We'll fix it together.
+
+This is how real software gets better.
+
+🎉 Day 59 Bonus
+
+You found your first real bug during testing. That's an important milestone because testing and fixing issues is a core part of building reliable software.
+
+From now on, at the end of each day's lesson, I'll also include a "Testing Checklist" so you know exactly what scenarios to try before we move to the next day. This will help us catch issues early as the app grows.
+
