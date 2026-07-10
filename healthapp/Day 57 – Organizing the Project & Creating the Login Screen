@@ -1,0 +1,381 @@
+# 🚀 Day 57/90 – Organizing the Project & Creating the Login Screen
+
+Welcome to **Day 57!**
+
+Yesterday, you successfully replaced the Flutter demo with your own **Blood Report Analyzer** splash screen.
+
+Today, we'll make the project look like a professional Flutter application.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you will have:
+
+* ✅ A proper project structure
+* ✅ A `screens` folder
+* ✅ A separate Splash Screen file
+* ✅ A Login Screen
+* ✅ Automatic navigation from Splash → Login
+
+This is how almost every real Flutter project is organized.
+
+---
+
+# Step 1 – Create the Folder Structure
+
+Inside the `lib` folder, create these folders:
+
+```text
+lib/
+│
+├── screens/
+├── widgets/
+├── services/
+├── models/
+└── utils/
+```
+
+For today, we'll only use the `screens` folder.
+
+---
+
+# Step 2 – Create New Files
+
+Inside `lib/screens`, create:
+
+```text
+splash_screen.dart
+login_screen.dart
+```
+
+Your project should now look like:
+
+```text
+lib/
+│
+├── main.dart
+│
+├── screens/
+│      ├── splash_screen.dart
+│      └── login_screen.dart
+│
+├── widgets/
+├── services/
+├── models/
+└── utils/
+```
+
+---
+
+# Step 3 – Replace `main.dart`
+
+Delete everything inside `main.dart` and replace it with:
+
+```dart
+import 'package:flutter/material.dart';
+import 'screens/splash_screen.dart';
+
+void main() {
+  runApp(const BloodReportApp());
+}
+
+class BloodReportApp extends StatelessWidget {
+  const BloodReportApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Blood Report Analyzer',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.red,
+        ),
+      ),
+      home: const SplashScreen(),
+    );
+  }
+}
+```
+
+Notice that `main.dart` is now much smaller. Its job is only to start the app.
+
+---
+
+# Step 4 – Code for `splash_screen.dart`
+
+Paste this into `lib/screens/splash_screen.dart`:
+
+```dart
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'login_screen.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(
+      const Duration(seconds: 3),
+      () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.red.shade50,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+
+            Icon(
+              Icons.favorite,
+              size: 100,
+              color: Colors.red,
+            ),
+
+            SizedBox(height: 20),
+
+            Text(
+              "Blood Report Analyzer",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            SizedBox(height: 10),
+
+            Text(
+              "Your Health, Simplified",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 5 – Code for `login_screen.dart`
+
+Paste this into `lib/screens/login_screen.dart`:
+
+```dart
+import 'package:flutter/material.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Login"),
+        centerTitle: true,
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            const SizedBox(height: 40),
+
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text("Login"),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 6 – Run the App
+
+Run:
+
+```bash
+flutter run -d chrome
+```
+
+or if it's already running, press:
+
+```text
+r
+```
+
+for **Hot Reload**.
+
+---
+
+# What You Should See
+
+1. Splash Screen appears for **3 seconds**.
+2. Automatically opens the **Login Screen**.
+3. Login Screen contains:
+
+   * Email field
+   * Password field
+   * Login button
+
+Congratulations! You now have **two real screens** in your app.
+
+---
+
+# Understanding What You Learned
+
+## `StatefulWidget`
+
+Yesterday, the splash screen was a `StatelessWidget`.
+
+Today, it's a `StatefulWidget` because it needs to perform an action (waiting 3 seconds and navigating).
+
+---
+
+## `Timer`
+
+```dart
+Timer(
+  const Duration(seconds: 3),
+  () {
+    ...
+  },
+);
+```
+
+This waits 3 seconds before executing the navigation.
+
+---
+
+## `Navigator.pushReplacement()`
+
+This changes the current screen.
+
+```
+Splash Screen
+      ↓
+Login Screen
+```
+
+The user can't go back to the splash screen because `pushReplacement` replaces it.
+
+---
+
+## `TextField`
+
+This creates an input box.
+
+We created:
+
+* Email
+* Password
+
+Tomorrow we'll make them functional.
+
+---
+
+# Homework
+
+Complete the following:
+
+* Create the folder structure.
+* Move the splash screen into its own file.
+* Create the Login Screen.
+* Run the app.
+* Verify that the Splash Screen automatically navigates to the Login Screen.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 57 – Project Structure & Login Screen
+
+### Topics Learned
+
+* Project organization
+* Folders in Flutter
+* Multiple Dart files
+* `StatefulWidget`
+* `Timer`
+* `Navigator.pushReplacement()`
+* `TextField`
+* `ElevatedButton`
+
+### Key Lesson
+
+> **As your app grows, keeping code organized becomes just as important as writing the code itself. Separating screens into different files makes the project easier to understand and maintain.**
+
+---
+
+# 🚀 Tomorrow (Day 58)
+
+We'll improve the Login Screen by adding:
+
+* App logo
+* Better UI
+* Form validation
+* "Forgot Password?"
+* "Create Account" button
+* Navigation to the Registration Screen
+
+By the end of Day 58, your app will start looking like a real healthcare application rather than a basic demo.
