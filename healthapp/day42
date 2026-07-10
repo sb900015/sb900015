@@ -1,0 +1,628 @@
+# 🚀 Day 42/90 – Deployment & Infrastructure
+
+Welcome to **Day 42!** 🎉
+
+You've now learned:
+
+* ✅ Product Planning
+* ✅ App Design
+* ✅ Database Design
+* ✅ APIs
+* ✅ Security
+
+Today we'll answer a very practical question:
+
+> **"After developers finish building the app, how does it become available for everyone to use?"**
+
+This process is called **Deployment**.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* What deployment means
+* Where your app runs
+* What cloud infrastructure is
+* How users access your app
+* How all the pieces work together after launch
+
+---
+
+# What is Deployment?
+
+Imagine building a new hospital.
+
+Finishing the building isn't enough.
+
+You still need:
+
+* Electricity
+* Water
+* Internet
+* Staff
+* Security
+* Patients
+
+Similarly, writing code isn't enough.
+
+The application must be placed somewhere so users can access it 24/7.
+
+That process is called **deployment**.
+
+---
+
+# Before Deployment
+
+Your app exists only on a developer's computer.
+
+```text
+Developer Laptop
+
+↓
+
+Flutter App
+
+↓
+
+FastAPI Backend
+
+↓
+
+Database
+```
+
+Nobody else can use it.
+
+---
+
+# After Deployment
+
+Everything moves to the cloud.
+
+```text
+Users
+
+↓
+
+Internet
+
+↓
+
+Cloud
+
+↓
+
+Backend
+
+↓
+
+Database
+
+↓
+
+Storage
+
+↓
+
+AI
+```
+
+Now anyone can use your app from anywhere.
+
+---
+
+# What is the Cloud?
+
+Many people think "the cloud" is something magical.
+
+It's actually just computers (servers) in secure data centers that are connected to the internet.
+
+Instead of buying your own servers, you rent them from cloud providers.
+
+Examples include:
+
+* Amazon Web Services (AWS)
+* Google Cloud
+* Microsoft Azure
+
+For your MVP, AWS is a good choice because it offers services for storage, databases, and hosting.
+
+---
+
+# Our App Infrastructure
+
+Let's revisit your app architecture.
+
+```text
+                 User
+
+                   │
+
+                   ▼
+
+          📱 Flutter Mobile App
+
+                   │
+
+            Internet (HTTPS)
+
+                   │
+
+                   ▼
+
+          🌐 FastAPI Backend
+
+      ┌────────┼────────┐
+
+      ▼        ▼        ▼
+
+ PostgreSQL   S3      OCR
+
+ Database   Storage   Service
+
+                   │
+
+                   ▼
+
+               OpenAI API
+```
+
+Every component has one responsibility.
+
+---
+
+# Step 1 – Mobile App
+
+The Flutter app is installed on the user's phone.
+
+Users download it from:
+
+* Google Play Store (Android)
+* Apple App Store (iPhone)
+
+The app itself does not store all the reports permanently.
+
+Instead, it requests data from the backend.
+
+---
+
+# Step 2 – Backend Server
+
+Your FastAPI backend runs on a cloud server.
+
+Its job is to:
+
+* Receive requests
+* Verify login
+* Save reports
+* Call OCR
+* Call AI
+* Send responses
+
+Think of it as the **brain** of your application.
+
+---
+
+# Step 3 – Database
+
+Your PostgreSQL database also runs in the cloud.
+
+It stores:
+
+* User accounts
+* Report information
+* Blood test values
+* AI summaries
+
+The backend talks to the database.
+
+Users never access the database directly.
+
+---
+
+# Step 4 – File Storage
+
+PDFs and images are stored separately.
+
+Example:
+
+```text
+Cloud Storage
+
+↓
+
+Report1.pdf
+
+↓
+
+Report2.pdf
+
+↓
+
+Report3.pdf
+```
+
+This keeps the database fast and organized.
+
+---
+
+# Step 5 – OCR Service
+
+When a report is uploaded:
+
+```text
+PDF
+
+↓
+
+OCR
+
+↓
+
+Extracted Text
+```
+
+The backend sends the file to OCR and receives structured text back.
+
+---
+
+# Step 6 – AI
+
+After OCR is complete:
+
+```text
+Blood Values
+
+↓
+
+OpenAI
+
+↓
+
+Plain Language Explanation
+```
+
+The AI never talks directly to the user's phone.
+
+Everything goes through your backend.
+
+---
+
+# Step 7 – Internet
+
+Every request travels over the internet.
+
+Example:
+
+```text
+Phone
+
+↓
+
+HTTPS
+
+↓
+
+Backend
+```
+
+HTTPS keeps the communication encrypted and secure.
+
+---
+
+# What Happens When Alice Uploads a Report?
+
+Let's follow the complete journey.
+
+```text
+Alice Opens App
+
+↓
+
+Login
+
+↓
+
+Upload PDF
+
+↓
+
+Backend Receives File
+
+↓
+
+Save PDF to Cloud Storage
+
+↓
+
+Run OCR
+
+↓
+
+Extract Blood Values
+
+↓
+
+User Reviews Values
+
+↓
+
+AI Generates Summary
+
+↓
+
+Database Saves Everything
+
+↓
+
+History Updated
+
+↓
+
+Results Displayed
+```
+
+This is exactly how your MVP will work.
+
+---
+
+# Keeping the App Running
+
+A production app should always be available.
+
+That means:
+
+* The backend should stay online 24/7.
+* The database should be backed up regularly.
+* Storage should be reliable.
+* Errors should be monitored.
+
+Even if you are asleep, the app should continue working.
+
+---
+
+# Updates
+
+Suppose you improve the AI explanation.
+
+Do users need to reinstall the app?
+
+Usually, **no**.
+
+If the improvement is only on the backend, you update the server.
+
+The next time users open the app, they automatically benefit.
+
+If you change the mobile app itself (new screens or features), you'll publish a new version through the app stores.
+
+---
+
+# Scaling
+
+Imagine your app becomes popular.
+
+At first:
+
+100 users.
+
+Later:
+
+10,000 users.
+
+Eventually:
+
+1 million users.
+
+Cloud platforms let you add more computing power as demand grows.
+
+This is called **scaling**.
+
+A well-designed architecture makes scaling much easier.
+
+---
+
+# Monitoring
+
+After deployment, you should keep an eye on the system.
+
+Track things like:
+
+* Is the backend running?
+* Are uploads succeeding?
+* Is OCR working?
+* Are AI requests failing?
+* Are users experiencing errors?
+
+Monitoring helps you detect problems before many users are affected.
+
+---
+
+# Backup
+
+Healthcare data is valuable.
+
+You should regularly back up:
+
+* Database
+* Uploaded reports
+* Configuration
+
+If something goes wrong, you can restore the system.
+
+---
+
+# Disaster Recovery
+
+Imagine the main server stops working.
+
+A good production system has a recovery plan so users don't permanently lose their data.
+
+For an MVP, automated database backups are usually the first and most important step.
+
+---
+
+# Deployment Checklist
+
+Before launching your app:
+
+✅ Mobile app tested
+
+✅ Backend deployed
+
+✅ Database running
+
+✅ Cloud storage configured
+
+✅ OCR connected
+
+✅ AI connected
+
+✅ HTTPS enabled
+
+✅ Backups enabled
+
+✅ Monitoring enabled
+
+If every box is checked, you're ready for real users.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/deployment_plan.txt
+```
+
+Write:
+
+```text
+User
+
+↓
+
+Flutter App
+
+↓
+
+HTTPS
+
+↓
+
+FastAPI Backend
+
+↓
+
+PostgreSQL
+
+↓
+
+Cloud Storage
+
+↓
+
+OCR
+
+↓
+
+OpenAI
+
+↓
+
+Results Returned
+```
+
+Then write one sentence explaining the role of each component.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 42 – Deployment & Infrastructure
+
+### Topics Learned
+
+* What is deployment?
+* Cloud computing
+* Backend hosting
+* Database hosting
+* Cloud storage
+* OCR integration
+* AI integration
+* Scaling
+* Monitoring
+* Backups
+
+### Key Lesson
+
+> **Deployment is the process of making your application available to real users. A good deployment setup ensures the app is secure, reliable, scalable, and always available.**
+
+---
+
+# 🎯 Progress So Far
+
+```text
+Days 1–20
+Python Foundations
+✅
+
+↓
+
+Days 21–30
+Product Planning
+✅
+
+↓
+
+Days 31–41
+Architecture, APIs & Security
+✅
+
+↓
+
+Day 42
+Deployment & Infrastructure
+✅
+
+↓
+
+Next:
+Testing & Quality Assurance
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+You've now reached a point where you understand the **entire journey** of your product:
+
+1. A user installs the app.
+2. They create an account and log in.
+3. They upload a blood report.
+4. The backend stores the file.
+5. OCR extracts the blood test values.
+6. The user reviews and corrects any OCR mistakes.
+7. AI explains the results.
+8. Everything is saved securely.
+9. The user can view their history and compare reports over time.
+
+That's the complete lifecycle of your MVP.
+
+One improvement I'd suggest for your deployment plan is to separate **development**, **testing**, and **production** environments. Developers should experiment in a development environment, test new features in a staging environment, and only then deploy to production. This greatly reduces the risk of introducing bugs that affect real users.
+
+---
+
+## 🚀 Tomorrow (Day 43)
+
+We'll cover **Testing & Quality Assurance (QA)**, including:
+
+* Why testing is essential before launch
+* Different types of testing
+* How to test your Blood Report Analyzer
+* Common bugs to look for
+* Creating a launch checklist
+
+By the end of Day 43, you'll know how to judge whether your app is truly ready for its first users.
