@@ -201,3 +201,10 @@ flutter run
 If Flutter asks which device to use, choose your phone.
 
 The app will install automatically.
+============================
+Step 6: Flutter counter app
+============================
+default Flutter counter app should load on your terminal
+
+Xiomi asked for a SIM card to continue installation, so we are develpoing it in chrome for now (flutter run -d chrome)
+We got the home page -> flutter demo page
