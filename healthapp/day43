@@ -1,0 +1,569 @@
+# 🚀 Day 43/90 – Testing & Quality Assurance (QA)
+
+Welcome to **Day 43!** 🎉
+
+Congratulations! You're getting closer to launching your Blood Report Analyzer.
+
+So far you've learned:
+
+* ✅ Product Planning
+* ✅ MVP
+* ✅ App Design
+* ✅ Database
+* ✅ APIs
+* ✅ Security
+* ✅ Deployment
+
+Now comes one of the most overlooked parts of software development:
+
+> **Testing**
+
+A good app isn't just one that has lots of features—it's one that **works correctly**.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* What testing is
+* Why testing is important
+* Different types of testing
+* How to test your Blood Report Analyzer
+* How to know when your MVP is ready
+
+---
+
+# Why Do We Test?
+
+Imagine a laboratory gives the wrong blood report to a patient.
+
+Even a small mistake could have serious consequences.
+
+Healthcare apps must be reliable.
+
+Testing helps us find problems **before users do**.
+
+---
+
+# Think of Testing Like Buying a Car
+
+Before a car is sold, it is tested for:
+
+* Brakes
+* Engine
+* Lights
+* Steering
+* Airbags
+
+Similarly, before launching your app, every important feature should be tested.
+
+---
+
+# What Should We Test?
+
+Let's list the important parts of your app.
+
+```text
+Register
+
+↓
+
+Login
+
+↓
+
+Upload Report
+
+↓
+
+OCR
+
+↓
+
+Review OCR
+
+↓
+
+AI Explanation
+
+↓
+
+Save Report
+
+↓
+
+History
+
+↓
+
+Compare Reports
+
+↓
+
+Logout
+```
+
+Every one of these should be tested.
+
+---
+
+# 1. Registration Testing
+
+Questions to ask:
+
+✅ Can a new user create an account?
+
+✅ Does email validation work?
+
+✅ Are required fields mandatory?
+
+✅ Does the app reject duplicate email addresses?
+
+---
+
+# 2. Login Testing
+
+Test:
+
+Correct password
+
+↓
+
+Login succeeds
+
+Wrong password
+
+↓
+
+Show error message
+
+Blank password
+
+↓
+
+Ask the user to enter a password
+
+---
+
+# 3. Upload Testing
+
+Try uploading:
+
+✅ PDF
+
+✅ Image
+
+Also test invalid cases:
+
+❌ Video
+
+❌ ZIP file
+
+❌ Empty file
+
+The app should reject unsupported file types gracefully.
+
+---
+
+# 4. OCR Testing
+
+Test reports from different laboratories.
+
+Examples:
+
+* Apollo
+* Vijaya Diagnostic
+* Thyrocare
+* Dr. Lal PathLabs
+* Local hospitals
+
+Questions:
+
+Can OCR correctly detect:
+
+* Hemoglobin?
+* HbA1c?
+* Vitamin D?
+* Platelets?
+* WBC?
+
+Remember: different labs use different layouts.
+
+---
+
+# 5. OCR Review Testing
+
+Suppose OCR reads:
+
+```text
+Hemoglobin
+
+13.2
+```
+
+User changes it to:
+
+```text
+12.8
+```
+
+Does the app save the corrected value?
+
+This is very important.
+
+---
+
+# 6. AI Testing
+
+Ask:
+
+Does AI explain:
+
+* Simple language?
+* No medical jargon?
+* No diagnosis?
+* No guaranteed medical advice?
+
+Instead of saying:
+
+> "You have diabetes."
+
+It should say:
+
+> "Your HbA1c is above the reference range shown on your report. Please discuss these results with your healthcare professional."
+
+This is much safer.
+
+---
+
+# 7. Database Testing
+
+Upload several reports.
+
+Check:
+
+Does History show all reports?
+
+Does Compare work correctly?
+
+Is any report accidentally overwritten?
+
+The answer should always be **No**.
+
+---
+
+# 8. Security Testing
+
+Ask:
+
+Can Alice see Bob's reports?
+
+Expected result:
+
+❌ No.
+
+Can someone upload without logging in?
+
+❌ No.
+
+Is communication encrypted using HTTPS?
+
+✅ Yes.
+
+---
+
+# 9. Performance Testing
+
+Suppose:
+
+100 users upload reports simultaneously.
+
+Does the app still respond?
+
+Then imagine:
+
+1,000 users.
+
+Eventually:
+
+10,000 users.
+
+This helps you understand how the app behaves under load.
+
+---
+
+# 10. User Experience (UX) Testing
+
+Ask someone who has never seen your app to try it.
+
+Watch without helping.
+
+Notice where they get confused.
+
+If many people struggle at the same place, improve the design.
+
+---
+
+# Bug Reporting
+
+When you find a bug, don't just say:
+
+"The app is broken."
+
+Write:
+
+```text
+Bug Title:
+Upload fails for large PDF
+
+Steps:
+1. Login
+2. Upload 20 MB PDF
+3. Press Submit
+
+Expected:
+Upload succeeds
+
+Actual:
+Error message appears
+
+Priority:
+High
+```
+
+Good bug reports save developers a lot of time.
+
+---
+
+# Severity of Bugs
+
+### High
+
+Must fix before launch.
+
+Examples:
+
+* Login doesn't work
+* Reports disappear
+* Wrong user sees another user's reports
+
+---
+
+### Medium
+
+Should fix soon.
+
+Examples:
+
+* OCR misses some values
+* Compare screen is slow
+
+---
+
+### Low
+
+Can wait.
+
+Examples:
+
+* Typo
+* Small UI alignment issue
+* Button color inconsistency
+
+---
+
+# Our MVP Testing Checklist
+
+Before launch:
+
+| Feature         | Status |
+| --------------- | ------ |
+| Registration    | ✅      |
+| Login           | ✅      |
+| Upload PDF      | ✅      |
+| OCR             | ✅      |
+| OCR Review      | ✅      |
+| AI Explanation  | ✅      |
+| Save Report     | ✅      |
+| History         | ✅      |
+| Compare Reports | ✅      |
+| Logout          | ✅      |
+
+Only launch when every critical feature works reliably.
+
+---
+
+# Beta Testing
+
+Before releasing the app publicly, invite a small group.
+
+For example:
+
+* Family
+* Friends
+* Colleagues
+* A few doctors
+* A few laboratory staff
+
+Ask them to use the app for a week.
+
+Collect:
+
+* Bugs
+* Suggestions
+* Confusing screens
+* Missing features
+
+This is called **Beta Testing**.
+
+---
+
+# Launch Readiness Questions
+
+Before pressing the Launch button, ask:
+
+✅ Can users sign up?
+
+✅ Can they log in?
+
+✅ Can they upload reports?
+
+✅ Does OCR work?
+
+✅ Can users correct OCR mistakes?
+
+✅ Does AI generate useful explanations?
+
+✅ Are reports saved?
+
+✅ Does History work?
+
+✅ Is Compare accurate?
+
+✅ Is user data secure?
+
+If every answer is "Yes", you're much closer to a successful launch.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/testing_checklist.txt
+```
+
+Write:
+
+```text
+Registration
+
+Login
+
+Upload
+
+OCR
+
+OCR Review
+
+AI Explanation
+
+Save Report
+
+History
+
+Compare Reports
+
+Security
+
+Performance
+
+Logout
+```
+
+For each item, write:
+
+* What should happen?
+* What could go wrong?
+* How would you test it?
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 43 – Testing & Quality Assurance
+
+### Topics Learned
+
+* What is testing?
+* Functional testing
+* Security testing
+* OCR testing
+* AI testing
+* Performance testing
+* Beta testing
+* Bug reporting
+* Launch checklist
+
+### Key Lesson
+
+> **Testing is about building confidence that your app behaves correctly. Every bug you find before launch is one less problem your users will experience.**
+
+---
+
+# 🎯 Progress So Far
+
+```text
+Days 1–20
+Python Foundations
+✅
+
+↓
+
+Days 21–30
+Product Planning
+✅
+
+↓
+
+Days 31–42
+Architecture, APIs, Security & Deployment
+✅
+
+↓
+
+Day 43
+Testing & QA
+✅
+
+↓
+
+Next:
+Project Management & Team Building
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+Your Blood Report Analyzer is a healthcare product, so **accuracy matters more than speed**.
+
+One additional practice I'd strongly recommend is creating a **test library**. Collect blood reports from different laboratories (with permission and after removing personal information) and use the same set of reports every time you test a new version of the app. This ensures that future changes don't accidentally break OCR or AI explanations for reports that used to work.
+
+---
+
+## 🚀 Tomorrow (Day 44)
+
+We'll move from building the product to **building the team**.
+
+You'll learn:
+
+* How a startup team is organized
+* Which roles you'll eventually need
+* Which roles you can outsource
+* Which roles you can postpone
+* How to hire your first developer
+
+By the end of Day 44, you'll know how to plan the people needed to turn your idea into a real company.
