@@ -1,0 +1,454 @@
+# 🚀 Day 60/90 – Build the Home Dashboard (First Real App Screen)
+
+Congratulations on reaching **Day 60**! 🎉
+
+Today is another major milestone.
+
+Until now, users could:
+
+* ✅ Open the app
+* ✅ View the Splash Screen
+* ✅ Go to the Login Screen
+* ✅ Open the Registration Screen
+
+Today we'll build the screen where users will spend **90% of their time**.
+
+# 🏠 Home Dashboard
+
+This is the heart of your Blood Report Analyzer.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today you'll have a Home Dashboard with:
+
+* ✅ Welcome Message
+* ✅ Upload Blood Report Card
+* ✅ Report History Card
+* ✅ AI Health Summary Card
+* ✅ Profile Card
+* ✅ Logout Button (temporary)
+
+---
+
+# Step 1
+
+Inside
+
+```
+lib/screens
+```
+
+Create a new file:
+
+```
+home_screen.dart
+```
+
+---
+
+# Step 2
+
+Replace the **entire** contents of **home_screen.dart** with this code.
+
+```dart
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Blood Report Analyzer"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Welcome 👋",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 5),
+
+            const Text(
+              "Let's keep track of your health.",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            Expanded(
+              child: GridView.count(
+
+                crossAxisCount: 2,
+
+                crossAxisSpacing: 15,
+
+                mainAxisSpacing: 15,
+
+                children: [
+
+                  buildCard(
+                    Icons.upload_file,
+                    "Upload Report",
+                    Colors.red,
+                  ),
+
+                  buildCard(
+                    Icons.history,
+                    "Report History",
+                    Colors.blue,
+                  ),
+
+                  buildCard(
+                    Icons.health_and_safety,
+                    "AI Health Summary",
+                    Colors.green,
+                  ),
+
+                  buildCard(
+                    Icons.person,
+                    "My Profile",
+                    Colors.orange,
+                  ),
+
+                ],
+
+              ),
+            ),
+
+            SizedBox(
+
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton.icon(
+
+                onPressed: () {},
+
+                icon: const Icon(Icons.logout),
+
+                label: const Text("Logout"),
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+  }
+
+  Widget buildCard(
+      IconData icon,
+      String title,
+      Color color,
+      ) {
+
+    return Card(
+
+      elevation: 4,
+
+      child: InkWell(
+
+        onTap: () {},
+
+        borderRadius: BorderRadius.circular(12),
+
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+
+            Icon(
+              icon,
+              size: 55,
+              color: color,
+            ),
+
+            const SizedBox(height: 15),
+
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Now open
+
+```
+login_screen.dart
+```
+
+Find this section:
+
+```dart
+onPressed: () {},
+```
+
+Replace it with:
+
+```dart
+onPressed: () {
+
+  Navigator.pushReplacement(
+
+    context,
+
+    MaterialPageRoute(
+
+      builder: (context) => const HomeScreen(),
+
+    ),
+
+  );
+
+},
+```
+
+---
+
+# Step 4
+
+At the top of `login_screen.dart`
+
+add this import
+
+```dart
+import 'home_screen.dart';
+```
+
+---
+
+# Run
+
+```
+flutter run -d chrome
+```
+
+or
+
+```
+r
+```
+
+for Hot Reload.
+
+---
+
+# What Should Happen?
+
+Splash Screen
+
+↓
+
+Login Screen
+
+↓
+
+Press Login
+
+↓
+
+🏠 Home Dashboard
+
+---
+
+The dashboard will show
+
+```
+Welcome 👋
+
+Let's keep track of your health.
+```
+
+Then four cards:
+
+```
+📄 Upload Report
+
+📜 Report History
+
+🩺 AI Health Summary
+
+👤 My Profile
+```
+
+And a Logout button.
+
+---
+
+# Why are we using cards?
+
+Because every feature in our app starts from the dashboard.
+
+Later these cards will open:
+
+```
+Upload Report
+
+↓
+
+Choose PDF
+
+↓
+
+OCR
+
+↓
+
+AI Analysis
+```
+
+Another card will open
+
+```
+History
+
+↓
+
+Previous Reports
+
+↓
+
+Charts
+
+↓
+
+Health Trends
+```
+
+---
+
+# Things We'll Add Later
+
+Don't worry that the cards don't do anything yet.
+
+We'll connect them one by one.
+
+```
+Upload Report
+
+↓
+
+Open File Picker
+
+↓
+
+Upload PDF
+
+↓
+
+OCR
+
+↓
+
+Store in Cloud
+```
+
+We'll build that around **Day 68–75**.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 60 – Home Dashboard
+
+### Topics Learned
+
+* GridView
+* Cards
+* Dashboard Design
+* InkWell
+* Navigation after Login
+* App Home Screen
+
+### Key Lesson
+
+> The Home Dashboard is the central hub of the application. Every major feature should be reachable within one or two taps.
+
+---
+
+# 🧪 Testing Checklist
+
+Test these scenarios:
+
+✅ Splash Screen opens
+
+✅ Login Screen opens
+
+✅ Clicking **Login** opens the Home Dashboard
+
+✅ Four cards are displayed correctly
+
+✅ Logout button is visible
+
+✅ No overflow errors on the screen
+
+---
+
+# 📌 One Small Improvement
+
+For now, the **Login** button always navigates to the Home Dashboard, even if the email and password fields are empty. We're doing this intentionally so we can continue building the app.
+
+Later, when we connect the backend, the flow will be:
+
+* User enters email and password.
+* The app sends the credentials to the server.
+* If they're correct, the Home Dashboard opens.
+* If they're incorrect, an error message is shown.
+
+So today's navigation is a temporary placeholder that we'll replace with real authentication in a later phase.
+
+## 🎯 Tomorrow (Day 61)
+
+We'll make the dashboard interactive by creating separate screens for:
+
+* 📄 Upload Report
+* 📜 Report History
+* 👤 My Profile
+
+Instead of empty cards, tapping each one will take the user to a real screen, expanding your application's navigation structure.
