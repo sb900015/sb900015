@@ -1,0 +1,425 @@
+# 🚀 Day 47/90 – Designing the AI Prompt & Response System
+
+Welcome to **Day 47!** 🎉
+
+Over the last few days, we've designed:
+
+* ✅ User Journey
+* ✅ App Screens
+* ✅ OCR Pipeline
+
+Today we'll design the **brain of your app**:
+
+> **How should the AI analyze blood reports and generate safe, easy-to-understand explanations?**
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* What information to send to AI
+* What **not** to send
+* How to write a good prompt
+* How AI should respond
+* How to keep explanations consistent
+* How to avoid misleading medical advice
+
+---
+
+# Why Do We Need a Prompt?
+
+AI doesn't know what your app is trying to do unless you tell it.
+
+A **prompt** is simply the instruction you send to the AI.
+
+Think of it like giving instructions to a new employee.
+
+Bad instructions → inconsistent answers.
+
+Good instructions → consistent, reliable answers.
+
+---
+
+# What Should We Send to AI?
+
+Do **not** send the whole PDF if you've already extracted the data.
+
+Instead, send structured information.
+
+Example:
+
+```json
+{
+  "patient": {
+    "age": 35,
+    "gender": "Male"
+  },
+  "tests": {
+    "Hemoglobin": 13.2,
+    "HbA1c": 5.8,
+    "Vitamin D": 18
+  }
+}
+```
+
+This makes the request:
+
+* Faster
+* Cheaper
+* Easier to validate
+
+---
+
+# What Should the Prompt Say?
+
+Example prompt:
+
+```text
+You are an AI assistant that explains blood test reports.
+
+Your task is to explain the provided blood test values in simple language.
+
+Rules:
+- Use plain English.
+- Do not diagnose diseases.
+- Do not recommend medicines.
+- Explain whether each value appears within, above, or below the reference range provided by the report.
+- If a reference range is not available, state that interpretation may vary between laboratories.
+- Encourage the user to discuss concerns with a healthcare professional.
+```
+
+Notice what we're doing:
+
+We're telling the AI **exactly** how to behave.
+
+---
+
+# Should AI Diagnose Diseases?
+
+❌ No.
+
+Avoid responses like:
+
+```text
+You have diabetes.
+```
+
+Instead:
+
+```text
+Your HbA1c is above the usual reference range. This may indicate elevated blood sugar over the past few months. Please discuss these results with your healthcare provider.
+```
+
+Your app should inform, not diagnose.
+
+---
+
+# Should AI Prescribe Medicines?
+
+❌ Never.
+
+Bad:
+
+```text
+Take Vitamin D tablets.
+```
+
+Better:
+
+```text
+Your Vitamin D appears below the reference range shown on the report. Your healthcare provider can advise you on whether treatment or further evaluation is appropriate.
+```
+
+---
+
+# Tone of the AI
+
+The AI should sound:
+
+* Calm
+* Friendly
+* Professional
+* Reassuring
+
+Avoid frightening language.
+
+Instead of:
+
+```text
+Dangerously low.
+```
+
+Use:
+
+```text
+Below the reference range shown on your report.
+```
+
+---
+
+# Example AI Response
+
+```text
+Health Summary
+
+Hemoglobin:
+Your hemoglobin appears within the reference range shown on your report.
+
+HbA1c:
+Your HbA1c appears slightly above the usual normal range. This can indicate higher average blood sugar over recent months. Please discuss the result with your healthcare provider.
+
+Vitamin D:
+Your Vitamin D appears below the reference range. Your healthcare provider can advise whether any follow-up is needed.
+
+Overall Summary:
+Your report shows some values within the expected range and others that may benefit from medical review.
+
+This explanation is for educational purposes only and is not a medical diagnosis.
+```
+
+---
+
+# Make the Response Consistent
+
+Every report should follow the same structure.
+
+```text
+1. Summary
+
+2. Test-by-test explanation
+
+3. Overall observations
+
+4. Next step
+
+5. Disclaimer
+```
+
+Consistency improves user trust.
+
+---
+
+# Personalization
+
+If the user has previous reports, AI can also mention trends.
+
+Example:
+
+```text
+Compared with your last report:
+
+Hemoglobin has increased from 11.8 to 13.2.
+
+Vitamin D has improved from 18 to 28.
+
+HbA1c has decreased from 6.5 to 5.8.
+```
+
+This is much more useful than looking at a single report.
+
+---
+
+# Handling Missing Information
+
+Suppose a report doesn't include Vitamin D.
+
+AI should simply ignore it.
+
+It should **not** invent values.
+
+Good response:
+
+```text
+Vitamin D was not available in this report.
+```
+
+---
+
+# Multi-language Support (Future)
+
+For Version 2, AI could explain reports in:
+
+* English
+* Telugu
+* Hindi
+* Tamil
+* Kannada
+* Malayalam
+
+This will make your app useful to many more people across India.
+
+---
+
+# Safety Rules
+
+The AI should never:
+
+❌ Diagnose diseases
+
+❌ Prescribe medicines
+
+❌ Tell users to stop treatment
+
+❌ Promise outcomes
+
+Instead, it should:
+
+✅ Explain the reported values
+
+✅ Highlight trends
+
+✅ Encourage professional medical advice when appropriate
+
+---
+
+# Suggested Response Format
+
+```text
+Report Date:
+Hospital:
+
+-------------------------
+
+Summary
+
+-------------------------
+
+Test Results
+
+Hemoglobin
+
+Explanation
+
+-------------------------
+
+HbA1c
+
+Explanation
+
+-------------------------
+
+Vitamin D
+
+Explanation
+
+-------------------------
+
+Trend Analysis
+(if previous report exists)
+
+-------------------------
+
+Overall Observation
+
+-------------------------
+
+Disclaimer
+```
+
+This format makes every report familiar and easy to read.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/ai_prompt.txt
+```
+
+Write:
+
+1. The prompt you want to send to the AI.
+2. The rules the AI must follow.
+3. A sample AI response.
+4. A disclaimer to display at the bottom of every report.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 47 – AI Prompt & Response System
+
+### Topics Learned
+
+* What an AI prompt is
+* Structured input
+* Prompt engineering
+* Safe AI responses
+* Consistent response format
+* Trend analysis
+* Medical safety
+* Disclaimer design
+
+### Key Lesson
+
+> **A good AI system isn't just about choosing a powerful model. It's about giving it clear instructions, limiting its role, and presenting the results in a way users can trust.**
+
+---
+
+# 💡 Founder Recommendation
+
+There's one feature that I think could make your app stand out.
+
+Instead of showing users **one long paragraph**, generate **three layers of explanation**:
+
+### Layer 1 – Quick Summary (10 seconds)
+
+```text
+🟢 Hemoglobin: Within the reference range
+
+🟡 Vitamin D: Below the reference range
+
+🟢 HbA1c: Within the reference range
+```
+
+---
+
+### Layer 2 – Simple Explanation (30–60 seconds)
+
+A short explanation for each result in everyday language.
+
+---
+
+### Layer 3 – Learn More (Optional)
+
+If the user taps **"Learn More"**, show:
+
+* What the test measures
+* Why it's important
+* Common reasons it may be high or low
+* General lifestyle information (without giving personalized medical advice)
+
+This layered approach serves both users who want a quick overview and those who want to understand their reports in more depth.
+
+---
+
+# 📈 Progress
+
+You have now designed:
+
+* ✅ Product vision
+* ✅ MVP features
+* ✅ User journey
+* ✅ UI screens
+* ✅ Database
+* ✅ APIs
+* ✅ OCR pipeline
+* ✅ AI prompt strategy
+
+You're steadily building the blueprint for a real health-tech product.
+
+---
+
+# 🚀 Tomorrow (Day 48)
+
+We'll design the **Report History & Health Timeline System**.
+
+By the end of Day 48, you'll know:
+
+* How to organize years of blood reports
+* How to compare reports from different hospitals
+* How to track health trends over time
+* How to build one of the most valuable long-term features of your app: a personal health timeline.
