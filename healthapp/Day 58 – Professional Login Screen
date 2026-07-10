@@ -1,1 +1,439 @@
 =======================
+# 🚀 Day 58/90 – Professional Login Screen
+
+Welcome to **Day 58!**
+
+Yesterday, you built:
+
+* ✅ Splash Screen
+* ✅ Login Screen
+* ✅ Automatic navigation
+
+Today we'll transform the basic login page into a **professional healthcare login screen**.
+
+**We're not implementing authentication yet.** Today is purely about creating a polished UI that users will interact with.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, your Login Screen will have:
+
+* ✅ App Logo
+* ✅ Welcome Message
+* ✅ Email Field
+* ✅ Password Field
+* ✅ Show/Hide Password
+* ✅ Forgot Password
+* ✅ Login Button
+* ✅ Create Account Button
+
+---
+
+# Step 1 – Create One More Screen
+
+Inside:
+
+```text
+lib/screens
+```
+
+Create:
+
+```text
+register_screen.dart
+```
+
+We won't build it today—we'll just navigate to it.
+
+---
+
+# Step 2 – Replace `login_screen.dart`
+
+Replace the entire contents of `login_screen.dart` with:
+
+```dart
+import 'package:flutter/material.dart';
+import 'register_screen.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+  bool hidePassword = true;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Blood Report Analyzer"),
+      ),
+
+      body: SingleChildScrollView(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            const SizedBox(height: 20),
+
+            const Icon(
+              Icons.favorite,
+              size: 90,
+              color: Colors.red,
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              "Welcome Back",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Login to continue",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Email Address",
+                prefixIcon: const Icon(Icons.email),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            TextField(
+              obscureText: hidePassword,
+
+              decoration: InputDecoration(
+
+                labelText: "Password",
+
+                prefixIcon: const Icon(Icons.lock),
+
+                suffixIcon: IconButton(
+
+                  icon: Icon(
+                    hidePassword
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+
+                  onPressed: () {
+
+                    setState(() {
+
+                      hidePassword = !hidePassword;
+
+                    });
+
+                  },
+
+                ),
+
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+
+              ),
+
+            ),
+
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text("Forgot Password?"),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            SizedBox(
+
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton(
+
+                onPressed: () {},
+
+                child: const Text(
+                  "LOGIN",
+                  style: TextStyle(fontSize: 18),
+                ),
+
+              ),
+
+            ),
+
+            const SizedBox(height: 25),
+
+            Row(
+
+              mainAxisAlignment: MainAxisAlignment.center,
+
+              children: [
+
+                const Text("Don't have an account?"),
+
+                TextButton(
+
+                  onPressed: () {
+
+                    Navigator.push(
+
+                      context,
+
+                      MaterialPageRoute(
+
+                        builder: (context) => const RegisterScreen(),
+
+                      ),
+
+                    );
+
+                  },
+
+                  child: const Text("Create Account"),
+
+                ),
+
+              ],
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3 – Create `register_screen.dart`
+
+Paste this code:
+
+```dart
+import 'package:flutter/material.dart';
+
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Create Account"),
+        centerTitle: true,
+      ),
+
+      body: const Center(
+
+        child: Text(
+
+          "Registration Screen\n(Coming Tomorrow)",
+
+          textAlign: TextAlign.center,
+
+          style: TextStyle(
+            fontSize: 24,
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 4 – Run the App
+
+Run:
+
+```bash
+flutter run -d chrome
+```
+
+or press:
+
+```text
+r
+```
+
+for Hot Reload.
+
+---
+
+# What You Should See
+
+Your login screen should now include:
+
+❤️ Heart icon
+
+**Welcome Back**
+
+**Login to continue**
+
+📧 Email Address
+
+🔒 Password field
+
+👁 Show/Hide password
+
+**Forgot Password?**
+
+Large **LOGIN** button
+
+**Create Account** link
+
+Clicking **Create Account** should open the placeholder registration screen.
+
+---
+
+# What You Learned Today
+
+## `StatefulWidget`
+
+We switched from `StatelessWidget` because the password visibility changes while the app is running.
+
+---
+
+## `hidePassword`
+
+```dart
+bool hidePassword = true;
+```
+
+This variable keeps track of whether the password is hidden.
+
+---
+
+## `setState()`
+
+```dart
+setState(() {
+  hidePassword = !hidePassword;
+});
+```
+
+Whenever the value changes, Flutter redraws the screen.
+
+You'll use `setState()` frequently in Flutter.
+
+---
+
+## `Navigator.push()`
+
+```dart
+Navigator.push(...)
+```
+
+Unlike `pushReplacement()`, this allows users to return to the previous screen by pressing the back button.
+
+---
+
+# Homework
+
+* Replace `login_screen.dart`.
+* Create `register_screen.dart`.
+* Verify the password show/hide button works.
+* Verify **Create Account** opens the new screen.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 58 – Professional Login Screen
+
+### Topics Learned
+
+* Stateful widgets
+* `setState()`
+* Password visibility toggle
+* `TextField`
+* `IconButton`
+* `Navigator.push()`
+* UI alignment
+* Multiple screens
+
+### Key Lesson
+
+> **Good UI isn't just about appearance—it should be intuitive and responsive. Today you added interactivity by letting users show or hide their password and navigate to another screen.**
+
+---
+
+# 🎯 Milestone
+
+Your app now has a basic navigation flow:
+
+```text
+Splash Screen
+       │
+       ▼
+Login Screen
+       │
+       ▼
+Register Screen
+```
+
+This is the first real user journey in your application.
+
+---
+
+# 🚀 Tomorrow (Day 59)
+
+We'll build the **Registration Screen** properly.
+
+It will include:
+
+* Full Name
+* Email
+* Mobile Number
+* Password
+* Confirm Password
+* Register Button
+* Validation for required fields
+
+By the end of Day 59, users will be able to move between the Login and Registration screens just like in a real app.
