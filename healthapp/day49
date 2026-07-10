@@ -1,0 +1,416 @@
+# 🚀 Day 49/90 – Notifications & User Engagement System
+
+Welcome to **Day 49!** 🎉
+
+You've already designed how users:
+
+* ✅ Upload reports
+* ✅ Read AI summaries
+* ✅ View report history
+* ✅ Track health trends
+
+Today we'll answer an important business question:
+
+> **"How do we encourage users to keep using the app without becoming annoying?"**
+
+A user who uploads only one report may forget about your app. Smart, helpful notifications can bring them back when they need it.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* Which notifications to send
+* When to send them
+* Which notifications to avoid
+* How users should control notifications
+
+---
+
+# Why Notifications Matter
+
+Blood tests are not done every day.
+
+Most people get them:
+
+* Every 3 months
+* Every 6 months
+* Once a year
+
+Without reminders, users may simply forget to upload their next report.
+
+---
+
+# Types of Notifications
+
+For your MVP, keep notifications simple and useful.
+
+### 1. Report Upload Reminder
+
+Example:
+
+```text
+📄 It's been about 6 months since your last blood report.
+
+Upload your latest report to continue tracking your health.
+```
+
+---
+
+### 2. OCR Processing Complete
+
+```text
+✅ Your blood report has been processed.
+
+Tap to view your AI summary.
+```
+
+---
+
+### 3. AI Summary Ready
+
+```text
+🩸 Your health summary is ready.
+
+Open the app to review your report.
+```
+
+---
+
+### 4. Monthly Health Reminder
+
+```text
+📅 No new reports this month.
+
+Remember to upload your next blood report after your next lab test.
+```
+
+Only send this if appropriate—not every month for everyone.
+
+---
+
+# Notifications We Should NOT Send
+
+Avoid messages like:
+
+```text
+⚠ Your Vitamin D is dangerously low!
+```
+
+Or:
+
+```text
+You may have diabetes.
+```
+
+Notifications appear on the lock screen and may be seen by others. They should never reveal sensitive health details.
+
+---
+
+# Notification Settings
+
+Users should have full control.
+
+Example:
+
+```text
+Notifications
+
+☑ Report Upload Reminders
+
+☑ AI Summary Notifications
+
+☑ Product Updates
+
+☐ Marketing Messages
+```
+
+For the MVP, don't include marketing messages.
+
+---
+
+# Choosing Reminder Frequency
+
+Don't remind everyone at the same interval.
+
+Instead, let users choose.
+
+Example:
+
+```text
+Reminder Frequency
+
+○ Every 3 months
+
+○ Every 6 months
+
+○ Every 12 months
+
+○ No reminders
+```
+
+---
+
+# Smart Reminder Logic
+
+Instead of sending reminders based on the installation date:
+
+Use the **date of the last uploaded report**.
+
+Example:
+
+```text
+Last Report
+
+15 Jul 2026
+
+↓
+
+Reminder after 6 months
+
+↓
+
+15 Jan 2027
+```
+
+This makes reminders much more relevant.
+
+---
+
+# Notification Workflow
+
+```text
+User Uploads Report
+        │
+        ▼
+Store Report Date
+        │
+        ▼
+Reminder Schedule Created
+        │
+        ▼
+Time Reached?
+        │
+     Yes ▼
+Send Reminder
+        │
+        ▼
+User Opens App
+        │
+        ▼
+Uploads New Report
+        │
+        ▼
+Reminder Schedule Updated
+```
+
+---
+
+# Push Notification vs In-App Notification
+
+### Push Notification
+
+Appears on the phone even when the app is closed.
+
+Example:
+
+```text
+📄 Time to upload your latest blood report.
+```
+
+---
+
+### In-App Notification
+
+Only appears after opening the app.
+
+Example:
+
+```text
+Welcome back!
+
+You uploaded your last report 7 months ago.
+
+Ready to upload your latest report?
+```
+
+For the MVP, support both.
+
+---
+
+# Notification History
+
+Users should also be able to view past notifications.
+
+Example:
+
+```text
+Notification Center
+
+15 Jan
+
+Upload Reminder
+
+----------------
+
+10 Jul
+
+AI Summary Ready
+
+----------------
+
+05 Jan
+
+Welcome
+```
+
+---
+
+# Respect User Privacy
+
+Never include detailed health information in a push notification.
+
+Good:
+
+```text
+Your report summary is ready.
+```
+
+Bad:
+
+```text
+Your HbA1c is high.
+```
+
+---
+
+# Future Features
+
+In later versions, you could add:
+
+* Annual health check reminders
+* Vaccination reminders
+* Medicine reminders
+* Doctor appointment reminders
+* Personalized health tips
+
+These are **not** part of the MVP.
+
+---
+
+# Complete Notification Flow
+
+```text
+User Uploads Report
+        │
+        ▼
+Save Report Date
+        │
+        ▼
+Schedule Reminder
+        │
+        ▼
+Reminder Time Arrives
+        │
+        ▼
+Send Push Notification
+        │
+        ▼
+User Opens App
+        │
+        ▼
+Upload New Report
+        │
+        ▼
+Update Reminder Date
+```
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/notifications.txt
+```
+
+Write:
+
+1. Which notifications should the app send?
+2. Which notifications should never be sent?
+3. How often should reminders be sent?
+4. Where should notification settings be located?
+5. How should users view past notifications?
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 49 – Notifications & User Engagement
+
+### Topics Learned
+
+* Push notifications
+* In-app notifications
+* Reminder scheduling
+* Notification settings
+* Privacy in notifications
+* Notification history
+* User engagement
+
+### Key Lesson
+
+> **Notifications should help users remember important actions—not create anxiety or reveal private health information.**
+
+---
+
+# 💡 Founder Recommendation
+
+I think your app can provide much more value with **personalized reminders** instead of fixed reminders.
+
+For example:
+
+* If a user's doctor recommends a repeat test in **3 months**, let them set a custom reminder.
+* If they want an **annual health check-up**, let them schedule a yearly reminder.
+* If they don't want reminders, let them turn them off completely.
+
+This keeps the app flexible and respects individual healthcare plans.
+
+---
+
+# 📈 Progress
+
+You've now designed:
+
+* ✅ Product vision
+* ✅ MVP features
+* ✅ User journey
+* ✅ UI screens
+* ✅ Database structure
+* ✅ APIs
+* ✅ OCR pipeline
+* ✅ AI prompt strategy
+* ✅ Report history
+* ✅ Notification system
+
+You're building not just a report viewer, but a product that users can continue using for years.
+
+---
+
+# 🚀 Tomorrow (Day 50)
+
+We'll design the **Security, Privacy & Data Protection System**.
+
+This is especially important because your app stores sensitive medical information.
+
+You'll learn:
+
+* How user data should be protected
+* How reports should be stored securely
+* Authentication and access control
+* Backup and recovery
+* Privacy features users expect in a health application
+
+By the end of Day 50, you'll have a security blueprint suitable for a health-tech MVP.
