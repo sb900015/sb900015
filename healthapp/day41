@@ -1,0 +1,591 @@
+# 🚀 Day 41/90 – Security & Authentication
+
+Welcome to **Day 41!** 🎉
+
+You've now designed:
+
+* ✅ The app
+* ✅ The database
+* ✅ The APIs
+
+Now let's answer an important question:
+
+> **"How do we make sure only the right person can see a user's blood reports?"**
+
+This is where **Security & Authentication** comes in.
+
+Since your app stores **personal health information**, security is one of the most important parts of the product.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* What authentication is
+* What authorization is
+* How login works
+* How users stay logged in
+* How passwords are protected
+* Basic security rules for healthcare apps
+
+---
+
+# Step 1 – What is Authentication?
+
+Authentication answers one question:
+
+> **"Who are you?"**
+
+Example:
+
+You go to a hospital.
+
+Reception asks:
+
+* Name
+* Date of Birth
+* Patient ID
+
+If everything matches,
+
+You are allowed to continue.
+
+Your app works the same way.
+
+---
+
+# Step 2 – Authentication in Our App
+
+User enters:
+
+```text
+Email
+
+Password
+```
+
+↓
+
+App sends Login API
+
+↓
+
+Backend checks database
+
+↓
+
+Correct?
+
+↓
+
+Yes
+
+↓
+
+User Logged In
+
+---
+
+Wrong?
+
+↓
+
+Show Error
+
+````
+
+Simple.
+
+---
+
+# Step 3 – What is Authorization?
+
+Authentication asks:
+
+> Who are you?
+
+Authorization asks:
+
+> **What are you allowed to access?**
+
+Example:
+
+Alice logs in.
+
+Can Alice see Bob's blood reports?
+
+❌ No.
+
+Alice should only see:
+
+- Her profile
+- Her reports
+- Her history
+
+This is authorization.
+
+---
+
+# Step 4 – Login Flow
+
+Imagine Alice opens the app.
+
+```text
+Alice
+
+↓
+
+Email
+
+↓
+
+Password
+
+↓
+
+POST /login
+
+↓
+
+Backend checks password
+
+↓
+
+Login Successful
+
+↓
+
+App opens Home Screen
+````
+
+---
+
+# Step 5 – Staying Logged In
+
+Imagine logging into WhatsApp every 5 minutes.
+
+That would be annoying.
+
+Instead,
+
+after login,
+
+the backend gives the app a **secure session token**.
+
+Think of it as a temporary digital ID card.
+
+```text
+Login
+
+↓
+
+Backend
+
+↓
+
+Session Token
+
+↓
+
+Phone Saves Token
+
+↓
+
+Future Requests
+
+↓
+
+Token Sent Automatically
+```
+
+As long as the token is valid, the user stays logged in.
+
+---
+
+# Step 6 – Password Security
+
+One of the biggest mistakes is storing passwords directly.
+
+❌ Never store:
+
+```text
+Password
+
+apple123
+```
+
+Instead,
+
+store an encrypted version (called a **hash**).
+
+Example:
+
+```text
+Password
+
+apple123
+
+↓
+
+Hash
+
+83hd82js83hd91...
+```
+
+Even if someone accesses the database, they should not be able to read users' passwords.
+
+---
+
+# Step 7 – Upload Security
+
+When Alice uploads a report,
+
+the backend should first verify:
+
+Is Alice logged in?
+
+If yes:
+
+Allow upload.
+
+If not:
+
+Reject the request.
+
+Never allow anonymous uploads.
+
+---
+
+# Step 8 – Viewing Reports
+
+Alice requests:
+
+```text
+GET /report/123
+```
+
+Backend checks:
+
+Does Report 123 belong to Alice?
+
+If yes:
+
+Return report.
+
+If no:
+
+Return:
+
+```text
+Access Denied
+```
+
+This prevents users from seeing someone else's data.
+
+---
+
+# Step 9 – Secure Communication
+
+Imagine sending passwords over an open Wi-Fi network.
+
+To protect data,
+
+the app should always communicate over **HTTPS**.
+
+HTTPS encrypts data while it travels between the phone and the server.
+
+Think of it as sending information inside a locked envelope instead of an open postcard.
+
+---
+
+# Step 10 – Protecting Uploaded Reports
+
+Blood reports are personal.
+
+Your cloud storage should **not** allow public access.
+
+Correct:
+
+```text
+Cloud Storage
+
+↓
+
+Private
+
+↓
+
+Only Backend Can Access
+```
+
+Wrong:
+
+```text
+Anyone with the link
+
+↓
+
+Can View Report
+```
+
+Always keep reports private.
+
+---
+
+# Step 11 – User Logout
+
+When the user taps:
+
+Logout
+
+The app should:
+
+* Remove the saved session token
+* Return to the login screen
+
+Now the user must log in again.
+
+---
+
+# Step 12 – If Someone Forgets Their Password
+
+A safe reset flow looks like this:
+
+```text
+Forgot Password
+
+↓
+
+Enter Email
+
+↓
+
+Verification Link or Code
+
+↓
+
+Create New Password
+
+↓
+
+Login Again
+```
+
+Never display the user's existing password.
+
+---
+
+# Step 13 – Common Security Mistakes
+
+Avoid these:
+
+❌ Saving passwords in plain text
+
+❌ Public cloud storage
+
+❌ Weak passwords like "123456"
+
+❌ Allowing users to access another user's reports
+
+❌ Sending sensitive information over HTTP instead of HTTPS
+
+---
+
+# Security Checklist for Our App
+
+Before launch, ask:
+
+✅ Login works
+
+✅ Passwords are securely stored
+
+✅ HTTPS is enabled
+
+✅ Reports are private
+
+✅ Users only see their own reports
+
+✅ Secure logout works
+
+✅ Password reset works
+
+If all are true, your app has a solid security foundation.
+
+---
+
+# Real-World Example
+
+Alice uploads her report.
+
+```text
+Alice
+
+↓
+
+Login
+
+↓
+
+Receives Session Token
+
+↓
+
+Uploads PDF
+
+↓
+
+Backend Verifies Token
+
+↓
+
+Stores Report Securely
+
+↓
+
+Only Alice Can View It
+```
+
+Bob logs in.
+
+He tries to open Alice's report.
+
+Backend checks ownership.
+
+Result:
+
+```text
+Access Denied
+```
+
+Exactly what we want.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/security_plan.txt
+```
+
+Write:
+
+```text
+Authentication
+
+↓
+
+Login
+
+↓
+
+Session Token
+
+↓
+
+Upload Report
+
+↓
+
+Verify User
+
+↓
+
+Store Securely
+
+↓
+
+View Only Own Reports
+
+↓
+
+Logout
+```
+
+Then answer these questions in your own words:
+
+1. What is authentication?
+2. What is authorization?
+3. Why shouldn't passwords be stored in plain text?
+4. Why should blood reports be private?
+5. Why do we use HTTPS?
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 41 – Security & Authentication
+
+### Topics Learned
+
+* Authentication
+* Authorization
+* Login process
+* Session tokens
+* Password hashing
+* HTTPS
+* Private cloud storage
+* Logout
+* Password reset
+* Healthcare security basics
+
+### Key Lesson
+
+> **Security is not just a technical feature—it is the foundation of user trust. If users don't trust your app with their health information, they won't use it.**
+
+---
+
+# 🎯 Progress So Far
+
+```text
+Days 1–20
+Python Foundations
+✅
+
+↓
+
+Days 21–30
+Product Planning
+✅
+
+↓
+
+Days 31–40
+Architecture & APIs
+✅
+
+↓
+
+Day 41
+Security & Authentication
+✅
+
+↓
+
+Next:
+Deployment & Infrastructure
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+You've now reached the stage where you're thinking like a **health-tech founder** rather than just someone building an app.
+
+One additional feature I'd recommend for your product is **email verification** during registration. Before allowing a new user to upload reports, ask them to verify their email address. This reduces fake accounts and makes password recovery much easier.
+
+As your app grows, you'll also want to think about features like audit logs (keeping track of important account actions) and backups, but for your MVP, what you've learned today is a strong starting point.
+
+## 🚀 Tomorrow (Day 42)
+
+We'll learn about **Deployment & Infrastructure**, including:
+
+* Where your app actually runs
+* What happens after developers finish coding
+* How users download your app
+* How the backend stays online 24/7
+* How cloud services like AWS fit into your product
+
+By the end of Day 42, you'll understand what it takes to move your Blood Report Analyzer from a developer's computer to a real app that people can use.
