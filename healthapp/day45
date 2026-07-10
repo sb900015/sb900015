@@ -1,0 +1,707 @@
+# 🚀 Day 45/90 – Designing Every Screen of Your App (UI Blueprint)
+
+Welcome to **Day 45!** 🎉
+
+From today onward, we'll design your app exactly as if we were preparing it for development.
+
+Today's goal is not coding.
+
+Today's goal is to answer:
+
+> **"What screens should my app have, and what should be on each screen?"**
+
+Once we finish today, you'll have a complete UI blueprint that can later be built in Flutter.
+
+---
+
+# 🎯 Today's Goal
+
+Design the screens for Version 1 (MVP).
+
+We'll keep the design:
+
+* Simple
+* Clean
+* Easy for all age groups
+* Focused on health information
+
+---
+
+# 📱 Screen 1 – Splash Screen
+
+This is the first screen users see.
+
+```
+--------------------------------
+
+        🩸 Blood Report Analyzer
+
+      Understand Your Health
+
+             Loading...
+
+--------------------------------
+```
+
+### Purpose
+
+* Show app branding
+* Check if the user is already logged in
+
+If logged in:
+
+➡ Home Screen
+
+Otherwise:
+
+➡ Login Screen
+
+---
+
+# 📱 Screen 2 – Welcome Screen (First Time Only)
+
+```
+--------------------------------
+
+Welcome 👋
+
+Understand blood reports easily.
+
+Track health over time.
+
+Compare reports.
+
+       [ Get Started ]
+
+--------------------------------
+```
+
+Show this only the first time someone opens the app.
+
+---
+
+# 📱 Screen 3 – Login
+
+```
+--------------------------------
+
+Login
+
+Email
+
+_________________
+
+Password
+
+_________________
+
+[ Login ]
+
+Forgot Password?
+
+Create Account
+
+--------------------------------
+```
+
+Very clean.
+
+Nothing unnecessary.
+
+---
+
+# 📱 Screen 4 – Create Account
+
+```
+--------------------------------
+
+Create Account
+
+Name
+
+Email
+
+Password
+
+Confirm Password
+
+[ Create Account ]
+
+--------------------------------
+```
+
+After successful signup:
+
+➡ Verify Email
+
+---
+
+# 📱 Screen 5 – Home Screen
+
+This is the heart of the app.
+
+```
+--------------------------------
+
+Hello, Srujan 👋
+
+Upload New Report
+
+Recent Reports
+
+Health Trends
+
+Profile
+
+--------------------------------
+```
+
+Notice:
+
+Only **four** options.
+
+We don't want users to feel overwhelmed.
+
+---
+
+# 📱 Screen 6 – Upload Screen
+
+```
+--------------------------------
+
+Upload Blood Report
+
+📄 Upload PDF
+
+📷 Camera
+
+🖼 Gallery
+
+[ Continue ]
+
+--------------------------------
+```
+
+This gives users flexibility.
+
+---
+
+# 📱 Screen 7 – Processing Screen
+
+```
+--------------------------------
+
+Uploading Report...
+
+██████████░░
+
+Reading Blood Values...
+
+Please wait...
+
+--------------------------------
+```
+
+This reassures users that something is happening.
+
+---
+
+# 📱 Screen 8 – OCR Review Screen
+
+One of the most important screens.
+
+```
+--------------------------------
+
+Hemoglobin
+
+13.2
+
+✏ Edit
+
+------------------
+
+HbA1c
+
+5.8
+
+✏ Edit
+
+------------------
+
+Vitamin D
+
+18
+
+✏ Edit
+
+------------------
+
+[ Confirm ]
+
+--------------------------------
+```
+
+Users can correct OCR mistakes before AI analysis.
+
+---
+
+# 📱 Screen 9 – AI Summary Screen
+
+```
+--------------------------------
+
+AI Health Summary
+
+✅ Hemoglobin is within the
+reference range.
+
+⚠ Vitamin D appears low.
+
+✅ HbA1c is within the
+normal range.
+
+------------------
+
+[ Save Report ]
+
+--------------------------------
+```
+
+Avoid medical jargon.
+
+Use plain language.
+
+---
+
+# 📱 Screen 10 – Report Details
+
+```
+--------------------------------
+
+July 2026
+
+Apollo Hospital
+
+------------------
+
+Hemoglobin
+
+13.2
+
+HbA1c
+
+5.8
+
+Vitamin D
+
+18
+
+------------------
+
+AI Summary
+
+--------------------------------
+```
+
+Users can view all details of one report.
+
+---
+
+# 📱 Screen 11 – History
+
+```
+--------------------------------
+
+Report History
+
+July 2026
+
+Apollo Hospital
+
+----------------
+
+April 2026
+
+Vijaya Diagnostics
+
+----------------
+
+January 2026
+
+Thyrocare
+
+--------------------------------
+```
+
+Newest reports should always appear first.
+
+---
+
+# 📱 Screen 12 – Compare Reports
+
+```
+--------------------------------
+
+Compare Reports
+
+January
+
+↓
+
+July
+
+----------------------------
+
+Hemoglobin
+
+11.8 → 13.2
+
+↑ Improved
+
+----------------------------
+
+HbA1c
+
+6.5 → 5.8
+
+↓ Improved
+
+--------------------------------
+```
+
+One of the biggest reasons users will keep coming back.
+
+---
+
+# 📱 Screen 13 – Health Trends
+
+```
+--------------------------------
+
+Health Trends
+
+Hemoglobin
+
+11.8
+
+↓
+
+12.4
+
+↓
+
+13.2
+
+----------------
+
+HbA1c
+
+6.8
+
+↓
+
+6.1
+
+↓
+
+5.8
+
+--------------------------------
+```
+
+Graphs will eventually replace these arrows.
+
+---
+
+# 📱 Screen 14 – Profile
+
+```
+--------------------------------
+
+Profile
+
+Name
+
+Email
+
+Change Password
+
+Logout
+
+--------------------------------
+```
+
+Simple.
+
+---
+
+# 📱 Screen 15 – Settings
+
+Only essential settings.
+
+```
+--------------------------------
+
+Settings
+
+Dark Mode
+
+Notifications
+
+Privacy Policy
+
+Terms & Conditions
+
+--------------------------------
+```
+
+---
+
+# 📱 Bottom Navigation Bar
+
+Instead of many menus, use **four tabs**.
+
+```
+Home
+
+History
+
+Trends
+
+Profile
+```
+
+Users can reach any important feature with one tap.
+
+---
+
+# Screen Flow
+
+```
+Splash
+
+↓
+
+Login
+
+↓
+
+Home
+
+↓
+
+Upload
+
+↓
+
+OCR Review
+
+↓
+
+AI Summary
+
+↓
+
+Save
+
+↓
+
+History
+
+↓
+
+Report Details
+
+↓
+
+Compare
+
+↓
+
+Health Trends
+```
+
+---
+
+# 🎨 Design Principles
+
+### 1. Large Buttons
+
+Many users may be older adults.
+
+Buttons should be easy to tap.
+
+---
+
+### 2. Large Fonts
+
+Health information must be easy to read.
+
+---
+
+### 3. White Background
+
+Healthcare apps should feel clean.
+
+---
+
+### 4. Limited Colors
+
+Use colors with meaning:
+
+🟢 Normal
+
+🟡 Borderline
+
+🔴 Needs attention
+
+Don't overuse colors.
+
+---
+
+### 5. Avoid Medical Jargon
+
+Instead of:
+
+> "Hypovitaminosis D"
+
+Use:
+
+> "Your Vitamin D is below the reference range shown on the report."
+
+---
+
+# Features We'll Add Later (Version 2)
+
+Not part of the MVP:
+
+❌ Family accounts
+
+❌ Doctor sharing
+
+❌ Medicine reminders
+
+❌ Diet recommendations
+
+❌ Wearable integration
+
+❌ Insurance support
+
+Keep the first version focused.
+
+---
+
+# Homework
+
+Create a file:
+
+```
+docs/ui_screens.txt
+```
+
+List the screens in order:
+
+```
+1. Splash
+
+2. Welcome
+
+3. Login
+
+4. Create Account
+
+5. Home
+
+6. Upload
+
+7. Processing
+
+8. OCR Review
+
+9. AI Summary
+
+10. Report Details
+
+11. History
+
+12. Compare
+
+13. Health Trends
+
+14. Profile
+
+15. Settings
+```
+
+For each screen, write:
+
+* Purpose
+* Buttons
+* Information shown
+* Where it goes next
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 45 – UI Blueprint
+
+### Topics Learned
+
+* Screen planning
+* User interface (UI)
+* Navigation
+* Home screen design
+* OCR review screen
+* AI summary screen
+* History screen
+* Compare screen
+* Profile screen
+* Design principles
+
+### Key Lesson
+
+> **A well-designed app guides users naturally from one screen to the next. Every screen should have a clear purpose and avoid unnecessary complexity.**
+
+---
+
+# 💡 One Improvement I'd Recommend
+
+I would add a **floating "Upload Report" button** on the Home screen.
+
+Instead of making users search for the upload option, a prominent button at the bottom-right makes the app's primary action immediately obvious. Since uploading reports is the core purpose of your app, that action should always be easy to find.
+
+---
+
+# 📈 Where We Are Now
+
+You've already planned:
+
+* ✅ Product vision
+* ✅ MVP
+* ✅ User journey
+* ✅ Database
+* ✅ APIs
+* ✅ Security
+* ✅ Deployment
+* ✅ Testing
+* ✅ Complete screen flow
+
+This is enough planning to begin building the first working version.
+
+---
+
+# 🚀 Tomorrow (Day 46)
+
+We'll design the **OCR + AI processing pipeline**, which is the core of your application.
+
+We'll answer questions like:
+
+* How does the app know which lab test is which?
+* What if OCR reads a value incorrectly?
+* How should AI receive the extracted data?
+* How do we support different laboratory report formats?
+* How do we make the system reliable?
+
+By the end of Day 46, you'll understand the complete technical workflow from **uploading a report to generating an AI explanation**, which is the most important feature of your Blood Report Analyzer.
