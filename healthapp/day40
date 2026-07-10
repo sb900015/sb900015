@@ -1,0 +1,573 @@
+# 🚀 Day 40/90 – Understanding APIs (The Language Between Apps)
+
+Welcome to **Day 40!** 🎉
+
+Yesterday, you learned how your app stores information in a database.
+
+Today, we'll learn something every startup founder hears about:
+
+> **API (Application Programming Interface)**
+
+Don't worry about the long name. By the end of today, you'll understand APIs using a very simple example.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* What an API is
+* Why apps need APIs
+* How your mobile app talks to the backend
+* Which APIs your Blood Report Analyzer needs
+
+---
+
+# What is an API?
+
+Imagine you're in a restaurant.
+
+There are three people:
+
+👨 Customer
+
+👩 Waiter
+
+👨‍🍳 Chef
+
+The customer **doesn't go into the kitchen**.
+
+Instead:
+
+Customer
+
+↓
+
+Waiter
+
+↓
+
+Chef
+
+↓
+
+Waiter
+
+↓
+
+Customer
+
+The **waiter is the API**.
+
+The waiter carries requests and brings back responses.
+
+---
+
+# API in Our App
+
+Your app works exactly the same way.
+
+```text
+User
+
+↓
+
+Mobile App
+
+↓
+
+API
+
+↓
+
+Backend
+
+↓
+
+Database / AI / OCR
+
+↓
+
+API
+
+↓
+
+Mobile App
+
+↓
+
+User
+```
+
+The mobile app never talks directly to the database.
+
+Everything goes through APIs.
+
+---
+
+# Example 1 – User Login
+
+The user enters:
+
+```text
+Email
+
+Password
+```
+
+The mobile app sends:
+
+```text
+POST /login
+```
+
+The backend checks:
+
+* Does this user exist?
+* Is the password correct?
+
+If yes:
+
+```text
+Login Successful
+```
+
+If not:
+
+```text
+Invalid Email or Password
+```
+
+---
+
+# Example 2 – Upload Report
+
+The user presses:
+
+**Upload Report**
+
+The app sends:
+
+```text
+POST /upload-report
+```
+
+The backend:
+
+* Saves the PDF
+* Starts OCR
+* Returns:
+
+```text
+Upload Successful
+```
+
+---
+
+# Example 3 – OCR
+
+After uploading:
+
+The backend calls the OCR service.
+
+OCR returns:
+
+```text
+Hemoglobin
+
+13.2
+
+HbA1c
+
+5.9
+
+Vitamin D
+
+18
+```
+
+The backend then sends these values to the mobile app.
+
+---
+
+# Example 4 – User Reviews OCR
+
+The user edits:
+
+Vitamin D
+
+18 → 28
+
+The app sends:
+
+```text
+POST /confirm-values
+```
+
+The backend saves the corrected values.
+
+---
+
+# Example 5 – AI Explanation
+
+The backend sends the confirmed values to AI.
+
+AI replies:
+
+> "Your Hemoglobin is within the reference range shown on the report. Your Vitamin D is below the reference range."
+
+The backend stores this summary and sends it to the app.
+
+---
+
+# Example 6 – History
+
+The user taps:
+
+**History**
+
+The app asks:
+
+```text
+GET /reports
+```
+
+The backend replies:
+
+```text
+January
+
+March
+
+July
+
+October
+```
+
+The app displays the list.
+
+---
+
+# Example 7 – View One Report
+
+The user taps:
+
+**July Report**
+
+The app sends:
+
+```text
+GET /report/123
+```
+
+The backend returns:
+
+* Test values
+* AI Summary
+* Upload date
+
+The app displays them.
+
+---
+
+# Example 8 – Compare Reports
+
+The user chooses:
+
+January vs July
+
+The app sends:
+
+```text
+GET /compare
+```
+
+The backend compares the stored values and returns:
+
+```text
+Hemoglobin
+
+11.8 → 13.0
+
+Improved
+
+HbA1c
+
+6.5 → 5.8
+
+Improved
+```
+
+---
+
+# The APIs Our App Needs
+
+For the MVP, we need these APIs:
+
+| API                  | Purpose                   |
+| -------------------- | ------------------------- |
+| POST /register       | Create a new account      |
+| POST /login          | User login                |
+| POST /upload-report  | Upload PDF/photo          |
+| POST /confirm-values | Save corrected OCR values |
+| GET /reports         | View report history       |
+| GET /report/{id}     | View one report           |
+| GET /compare         | Compare reports           |
+| GET /profile         | View profile              |
+| PUT /profile         | Update profile            |
+
+Notice how each API has **one clear responsibility**.
+
+---
+
+# Types of API Requests
+
+The two most important types you'll hear about are:
+
+### GET
+
+Used to **retrieve** information.
+
+Examples:
+
+```text
+GET /reports
+
+GET /profile
+```
+
+Think:
+
+> "Give me information."
+
+---
+
+### POST
+
+Used to **send** information.
+
+Examples:
+
+```text
+POST /login
+
+POST /upload-report
+```
+
+Think:
+
+> "Here is some new information."
+
+---
+
+# Simple Rule to Remember
+
+| Action        | API Type |
+| ------------- | -------- |
+| Read data     | GET      |
+| Send new data | POST     |
+
+Later, developers may also use:
+
+* PUT → Update data
+* DELETE → Remove data
+
+But for now, remember GET and POST.
+
+---
+
+# The Complete API Flow
+
+```text
+User Uploads Report
+
+↓
+
+Mobile App
+
+↓
+
+POST /upload-report
+
+↓
+
+Backend
+
+↓
+
+Store PDF
+
+↓
+
+OCR
+
+↓
+
+Return Values
+
+↓
+
+User Reviews
+
+↓
+
+POST /confirm-values
+
+↓
+
+AI Analysis
+
+↓
+
+Database Saves Everything
+
+↓
+
+History Updated
+```
+
+Every action in your app follows a similar pattern.
+
+---
+
+# Why APIs Are Powerful
+
+Imagine one day you build:
+
+* Android app
+* iPhone app
+* Website
+
+Do you need three different backends?
+
+**No.**
+
+All three can use the same APIs.
+
+That's why APIs are so important—they allow different applications to communicate with the same system.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/api_design.txt
+```
+
+Write:
+
+```text
+POST /register
+
+POST /login
+
+POST /upload-report
+
+POST /confirm-values
+
+GET /reports
+
+GET /report/{id}
+
+GET /compare
+
+GET /profile
+
+PUT /profile
+```
+
+Then, for each API, write one sentence explaining **when the mobile app would call it**.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 40 – APIs
+
+### Topics Learned
+
+* What is an API?
+* API as a waiter between the app and backend
+* GET requests
+* POST requests
+* Login API
+* Upload API
+* OCR confirmation
+* History API
+* Compare API
+
+### Key Lesson
+
+> **An API is the communication bridge between different parts of a system. The mobile app asks for information through APIs, and the backend responds with the data or performs the requested action.**
+
+---
+
+# 🎯 Progress So Far
+
+```text
+Days 1–20
+Python Foundations
+✅
+
+↓
+
+Days 21–30
+Product Planning
+✅
+
+↓
+
+Days 31–39
+Design, Architecture & Database
+✅
+
+↓
+
+Day 40
+API Design
+✅
+
+↓
+
+Next:
+Security & Authentication
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+At this stage, you don't need to memorize API syntax. What matters is understanding **what each API should do**.
+
+As the founder of this app, you'll often tell developers things like:
+
+* "We need an API to upload reports."
+* "We need an API to fetch report history."
+* "We need an API to compare two reports."
+
+That's exactly the level of understanding you should have right now.
+
+One thing I'd also recommend for your app is that **every uploaded report gets a unique Report ID**. Instead of asking for "Alice's July report," the app can request something like:
+
+```text
+GET /report/8472
+```
+
+This is faster, avoids confusion if two reports have similar names, and is how most production systems are designed.
+
+---
+
+## 🚀 Tomorrow (Day 41)
+
+We'll cover **Security & Authentication**, including:
+
+* Why healthcare apps need strong security
+* How users stay logged in safely
+* Password protection
+* User sessions
+* Basic privacy principles
+* Security best practices for a health application
+
+By the end of Day 41, you'll understand how to design your app so that users can trust it with their personal health information.
