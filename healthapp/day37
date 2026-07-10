@@ -1,0 +1,444 @@
+# 🚀 Day 37/90 – Defining the MVP (Minimum Viable Product)
+
+Welcome to **Day 37!** 🎉
+
+Over the past week, you've planned your app, designed the screens, created the user journey, and defined the brand.
+
+Today we'll answer one of the most important questions every startup founder faces:
+
+> **"What should we build first?"**
+
+This is called defining the **MVP**.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* What an MVP is
+* Which features belong in Version 1
+* Which features should wait
+* How to avoid building unnecessary features
+
+---
+
+# What is an MVP?
+
+MVP stands for:
+
+> **Minimum Viable Product**
+
+It means:
+
+* Build the **smallest useful version** of your app.
+* Launch it.
+* Get real users.
+* Improve it based on feedback.
+
+Many startups fail because they spend years building features that nobody asked for.
+
+---
+
+# Think of It Like This
+
+Imagine opening a restaurant.
+
+You don't start with 200 dishes.
+
+You start with:
+
+* 10 excellent dishes.
+
+If customers love them, then you expand.
+
+Apps work the same way.
+
+---
+
+# Our Vision
+
+Eventually, your app could include:
+
+* AI analysis
+* Blood report history
+* Trend graphs
+* Family accounts
+* Doctor sharing
+* Health reminders
+* Medicine tracking
+* Wearable integration
+* Nutrition suggestions
+* Appointment booking
+
+That's a lot.
+
+Should Version 1 include all of this?
+
+**No.**
+
+---
+
+# MVP Rule
+
+Ask one question for every feature:
+
+> **"Can users still solve their main problem without this?"**
+
+If the answer is **Yes**, the feature can wait.
+
+---
+
+# The User's Main Problem
+
+Why will someone install your app?
+
+Not because they want graphs.
+
+Not because they want reminders.
+
+They want:
+
+> **"I have a blood report. Help me understand it and keep it safe."**
+
+Everything in the MVP should support that goal.
+
+---
+
+# ✅ Features for Version 1 (Must Have)
+
+## 1. User Registration
+
+* Create account
+* Login
+* Logout
+
+---
+
+## 2. Upload Blood Report
+
+Support:
+
+* PDF upload
+* Photo upload
+
+---
+
+## 3. OCR
+
+Extract blood test values from the uploaded report.
+
+---
+
+## 4. OCR Review
+
+Allow users to correct mistakes before saving.
+
+This improves trust.
+
+---
+
+## 5. AI Explanation
+
+Explain:
+
+* Hemoglobin
+* HbA1c
+* Vitamin D
+* Other extracted values
+
+Use plain language.
+
+---
+
+## 6. Save Reports
+
+Every uploaded report should be stored securely.
+
+---
+
+## 7. Report History
+
+Users can view previous reports.
+
+---
+
+## 8. Compare Reports
+
+Show how values change over time.
+
+Example:
+
+```text
+Hemoglobin
+
+Jan: 11.2
+
+↓
+
+Jul: 13.4
+```
+
+This is one of your strongest features.
+
+---
+
+## 9. Profile
+
+Basic user information.
+
+---
+
+# 🚫 Features for Version 2
+
+These are valuable, but not required for launch.
+
+* Doctor sharing
+* Family accounts
+* Medicine reminders
+* Appointment booking
+* Notifications
+* Dark mode
+* Multi-language support
+* Smart health goals
+
+---
+
+# 🚀 Features for Version 3
+
+Even later, you might add:
+
+* Wearable device integration
+* AI chatbot
+* Nutrition recommendations
+* Fitness tracking
+* Automatic lab integrations
+* Predictive health insights
+
+These are exciting, but they should come after you've validated the core product.
+
+---
+
+# Prioritizing Features
+
+We can divide ideas into three groups.
+
+## Must Have
+
+Without these, the app doesn't solve the user's problem.
+
+Examples:
+
+* Upload report
+* OCR
+* AI explanation
+* History
+
+---
+
+## Should Have
+
+Helpful, but not essential.
+
+Examples:
+
+* Trend charts
+* Compare reports
+* Profile editing
+
+---
+
+## Nice to Have
+
+Interesting additions.
+
+Examples:
+
+* Themes
+* Custom avatars
+* Achievement badges
+
+---
+
+# Our MVP Checklist
+
+Before launch, ask:
+
+✅ Can a user create an account?
+
+✅ Can they upload a report?
+
+✅ Can OCR extract values?
+
+✅ Can they review and correct values?
+
+✅ Can AI explain the report?
+
+✅ Can they save it?
+
+✅ Can they view it later?
+
+If all answers are "Yes," your MVP is ready.
+
+---
+
+# What We Will NOT Do
+
+We won't spend months building features nobody requested.
+
+We'll launch early.
+
+Listen to users.
+
+Then improve.
+
+That's how successful startups grow.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/mvp_features.txt
+```
+
+Write:
+
+```text
+Version 1 (MVP)
+
+✔ User Registration
+
+✔ Login
+
+✔ Upload PDF
+
+✔ Upload Photo
+
+✔ OCR
+
+✔ OCR Review
+
+✔ AI Explanation
+
+✔ Save Report
+
+✔ Report History
+
+✔ Compare Reports
+
+✔ Profile
+
+------------------------
+
+Version 2
+
+Doctor Sharing
+
+Family Accounts
+
+Medicine Reminders
+
+Notifications
+
+Multi-language
+
+------------------------
+
+Version 3
+
+Wearables
+
+Nutrition AI
+
+Fitness Tracking
+
+Lab Integration
+
+Predictive Insights
+```
+
+Then answer:
+
+> **If I could only launch with five features, which five would I choose?**
+
+This exercise forces you to focus on what truly matters.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 37 – MVP Planning
+
+### Topics Learned
+
+* What is an MVP?
+* Why startups build MVPs
+* Feature prioritization
+* Must Have vs Should Have vs Nice to Have
+* Planning Version 1, 2, and 3
+
+### Key Lesson
+
+> **A successful startup doesn't build everything. It builds the right things first.**
+
+---
+
+# 🎯 Progress So Far
+
+```text
+Days 1–20
+Python Fundamentals
+✅
+
+↓
+
+Days 21–30
+Product Planning
+✅
+
+↓
+
+Days 31–36
+Product Design & Branding
+✅
+
+↓
+
+Day 37
+MVP Definition
+✅
+
+↓
+
+Next:
+Technical Architecture
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+You've reached an important milestone.
+
+Many founders believe success comes from adding more features. In reality, successful products often succeed because they solve **one problem exceptionally well**.
+
+For your Blood Report Analyzer, I'd define the **core promise** like this:
+
+> **"Upload your blood report, understand it in plain language, and track your results over time."**
+
+If Version 1 does those three things well, you've already created something valuable.
+
+## Tomorrow (Day 38)
+
+We'll design the **technical architecture** of the app in a simple, non-programmer-friendly way. You'll learn:
+
+* How the mobile app communicates with the backend
+* Where reports are stored
+* How OCR fits into the flow
+* How AI generates explanations
+* How everything works together behind the scenes
+
+By the end of Day 38, you'll understand the complete system architecture of your startup without needing to be a software engineer.
