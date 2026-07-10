@@ -1,0 +1,587 @@
+# 🚀 Day 48/90 – Designing the Report History & Health Timeline
+
+Welcome to **Day 48!** 🎉
+
+So far you've designed:
+
+* ✅ User Journey
+* ✅ UI Screens
+* ✅ OCR Pipeline
+* ✅ AI Response System
+
+Today we'll design one of the biggest reasons users will **keep using your app**:
+
+> **The Report History & Health Timeline**
+
+Most apps explain one blood report.
+
+Your app will help users understand **their health over months and years**.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* How reports should be stored
+* How users browse old reports
+* How to compare reports
+* How to visualize health trends
+* How to make your app valuable over the long term
+
+---
+
+# Why Report History Matters
+
+Imagine a user uploads reports every 6 months.
+
+Without history:
+
+```text
+July 2026 Report
+
+Hemoglobin = 13.2
+```
+
+Useful?
+
+Only a little.
+
+Now imagine:
+
+```text
+Jan 2025 → 11.2
+
+Jul 2025 → 12.0
+
+Jan 2026 → 12.8
+
+Jul 2026 → 13.2
+```
+
+Now the user immediately sees:
+
+**"My hemoglobin has been improving."**
+
+That is much more valuable.
+
+---
+
+# How Reports Should Be Stored
+
+Never overwrite old reports.
+
+Every upload becomes a new record.
+
+Example:
+
+```text
+User
+
+↓
+
+Reports
+
+↓
+
+Report 1
+
+↓
+
+Report 2
+
+↓
+
+Report 3
+
+↓
+
+Report 4
+```
+
+Every report should have:
+
+* Upload Date
+* Report Date
+* Hospital
+* Original PDF
+* Extracted Values
+* AI Summary
+
+---
+
+# History Screen
+
+The History screen should be simple.
+
+Example:
+
+```text
+────────────────────────────
+
+Report History
+
+🗓 15 Jul 2026
+Apollo Hospital
+
+────────────────────────────
+
+🗓 10 Jan 2026
+Thyrocare
+
+────────────────────────────
+
+🗓 18 Jul 2025
+Vijaya Diagnostics
+
+────────────────────────────
+
+🗓 12 Jan 2025
+Apollo Hospital
+
+────────────────────────────
+```
+
+Sort by **newest first**.
+
+---
+
+# Search
+
+Users with many reports should be able to search.
+
+Example:
+
+```text
+Search
+
+Apollo
+```
+
+Result:
+
+```text
+Apollo Hospital
+
+Jul 2026
+
+Jan 2025
+```
+
+---
+
+# Filters
+
+Useful filters:
+
+```text
+All Reports
+
+↓
+
+Hospital
+
+↓
+
+Year
+
+↓
+
+Blood Test
+```
+
+Example:
+
+Show only:
+
+* Vitamin D reports
+
+or
+
+* Reports from 2026
+
+---
+
+# Report Details
+
+When the user taps a report:
+
+Show:
+
+```text
+Report Date
+
+Hospital
+
+Original PDF
+
+Blood Values
+
+AI Summary
+
+Compare
+
+Download PDF
+```
+
+Everything should be accessible from one screen.
+
+---
+
+# Compare Two Reports
+
+Example:
+
+User selects:
+
+```text
+January 2025
+
+↓
+
+July 2026
+```
+
+Display:
+
+| Test       | Jan 2025 | Jul 2026 | Trend      |
+| ---------- | -------- | -------- | ---------- |
+| Hemoglobin | 11.2     | 13.2     | ↑ Improved |
+| HbA1c      | 6.4      | 5.8      | ↓ Improved |
+| Vitamin D  | 14       | 28       | ↑ Improved |
+
+---
+
+# Trend Graphs
+
+Numbers are useful.
+
+Graphs are even better.
+
+Example:
+
+```text
+Hemoglobin
+
+13.5 │
+
+13.0 │              ●
+
+12.5 │         ●
+
+12.0 │     ●
+
+11.5 │ ●
+
+      ─────────────────
+
+       Jan  Jul  Jan  Jul
+```
+
+Users immediately understand trends.
+
+---
+
+# Show Trends Per Test
+
+Instead of one huge graph,
+
+allow users to choose:
+
+```text
+Select Test
+
+↓
+
+Hemoglobin
+
+↓
+
+Vitamin D
+
+↓
+
+HbA1c
+```
+
+This keeps the UI simple.
+
+---
+
+# Health Timeline
+
+Imagine a timeline like this:
+
+```text
+2025
+
+↓
+
+January
+
+↓
+
+July
+
+↓
+
+2026
+
+↓
+
+January
+
+↓
+
+July
+```
+
+Tap any date.
+
+Open the report.
+
+Very intuitive.
+
+---
+
+# Important Feature: Manual Notes
+
+Allow users to add notes.
+
+Example:
+
+```text
+July 2026
+
+Started Vitamin D supplements.
+```
+
+Later they can remember:
+
+*"This was before I changed my diet."*
+
+---
+
+# Hospital Information
+
+Each report should show:
+
+```text
+Hospital
+
+Apollo Hospital
+
+Report Date
+
+15 Jul 2026
+
+Uploaded
+
+16 Jul 2026
+```
+
+Notice:
+
+**Report Date** and **Upload Date** are different.
+
+---
+
+# Favorite Reports
+
+Future feature:
+
+⭐ Favorite important reports
+
+Example:
+
+```text
+⭐ Annual Health Checkup
+
+⭐ Pregnancy Profile
+
+⭐ Diabetes Follow-up
+```
+
+Not needed in MVP.
+
+---
+
+# Report Deletion
+
+Users should be able to delete reports.
+
+But ask first.
+
+Example:
+
+```text
+Delete Report?
+
+This action cannot be undone.
+
+[Cancel]
+
+[Delete]
+```
+
+---
+
+# Export History
+
+Future feature:
+
+Generate a PDF containing:
+
+* All reports
+* Trend charts
+* AI summaries
+
+Useful for doctor visits.
+
+---
+
+# Complete Workflow
+
+```text
+Upload Report
+
+↓
+
+Save Report
+
+↓
+
+History Updated
+
+↓
+
+Open Report
+
+↓
+
+Compare Reports
+
+↓
+
+View Trend
+
+↓
+
+Add Notes
+
+↓
+
+Share with Doctor (Future)
+```
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/report_history.txt
+```
+
+Write:
+
+1. What information should each report store?
+2. How should reports be sorted?
+3. What filters should be available?
+4. How should report comparison work?
+5. What trend graphs should the app support?
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 48 – Report History & Health Timeline
+
+### Topics Learned
+
+* Report history
+* Report details
+* Search
+* Filters
+* Report comparison
+* Health timeline
+* Trend graphs
+* Manual notes
+* Report deletion
+* Future export feature
+
+### Key Lesson
+
+> **The real value of your app increases with every new report a user uploads. A clear history and timeline transform isolated lab results into a long-term view of health.**
+
+---
+
+# 💡 Founder Recommendation
+
+I think there's one feature that could make your app stand out from many competitors.
+
+## Introduce a "Health Journey" page
+
+Instead of simply listing reports, show the user's progress over time.
+
+Example:
+
+```text
+🩸 Your Health Journey
+
+First Report:
+12 Jan 2025
+
+Latest Report:
+15 Jul 2026
+
+Reports Uploaded:
+8
+
+Tests Tracked:
+42
+
+Most Improved:
+✅ Hemoglobin
+
+Needs Attention:
+⚠ Vitamin D
+
+Latest AI Summary:
+Your overall blood markers have improved compared with your first report.
+```
+
+This gives users a sense of progress and encourages them to keep using the app over the years.
+
+---
+
+# 📈 Progress So Far
+
+You have now designed:
+
+* ✅ Product vision
+* ✅ MVP features
+* ✅ User journey
+* ✅ UI screens
+* ✅ Database structure
+* ✅ APIs
+* ✅ OCR pipeline
+* ✅ AI prompt strategy
+* ✅ Report history & health timeline
+
+You're no longer just planning an app—you've designed the foundation of a personal health record system.
+
+---
+
+# 🚀 Tomorrow (Day 49)
+
+We'll design the **Notifications & User Engagement System**.
+
+We'll answer questions like:
+
+* When should the app remind users to upload a new report?
+* How do we avoid sending annoying notifications?
+* How can we encourage long-term engagement without overwhelming users?
+
+These decisions will help your app stay useful even between blood tests.
