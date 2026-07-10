@@ -1,0 +1,444 @@
+==================
+# 🚀 Day 59/90 – Build the Registration Screen
+
+Welcome to **Day 59!**
+
+Yesterday, users could navigate from the Login Screen to a placeholder Registration Screen.
+
+Today, we'll build the **first real registration page** for your Blood Report Analyzer.
+
+> **Important:** Today we're only building the user interface (UI). We are **not** saving users to a database yet. We'll connect it to the backend later.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, your Registration Screen will have:
+
+* ✅ Full Name
+* ✅ Email Address
+* ✅ Mobile Number
+* ✅ Password
+* ✅ Confirm Password
+* ✅ Register Button
+* ✅ Back to Login Button
+* ✅ Basic validation for empty fields
+
+---
+
+# Step 1 – Replace `register_screen.dart`
+
+Replace the entire file with this code:
+
+```dart
+import 'package:flutter/material.dart';
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+
+  final _formKey = GlobalKey<FormState>();
+
+  bool hidePassword = true;
+  bool hideConfirmPassword = true;
+
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Create Account"),
+        centerTitle: true,
+      ),
+
+      body: SingleChildScrollView(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Form(
+
+          key: _formKey,
+
+          child: Column(
+
+            children: [
+
+              const Icon(
+                Icons.person_add,
+                size: 90,
+                color: Colors.red,
+              ),
+
+              const SizedBox(height: 20),
+
+              const Text(
+                "Create Your Account",
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              TextFormField(
+                controller: fullNameController,
+                decoration: const InputDecoration(
+                  labelText: "Full Name",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Enter your name";
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 20),
+
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Enter your email";
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 20),
+
+              TextFormField(
+                controller: mobileController,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: "Mobile Number",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Enter mobile number";
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 20),
+
+              TextFormField(
+                controller: passwordController,
+                obscureText: hidePassword,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      hidePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        hidePassword = !hidePassword;
+                      });
+                    },
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              TextFormField(
+                controller: confirmPasswordController,
+                obscureText: hideConfirmPassword,
+                decoration: InputDecoration(
+                  labelText: "Confirm Password",
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      hideConfirmPassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        hideConfirmPassword = !hideConfirmPassword;
+                      });
+                    },
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+
+                child: ElevatedButton(
+
+                  onPressed: () {
+
+                    if (_formKey.currentState!.validate()) {
+
+                      if (passwordController.text !=
+                          confirmPasswordController.text) {
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+
+                          const SnackBar(
+                            content:
+                                Text("Passwords do not match"),
+                          ),
+
+                        );
+
+                        return;
+                      }
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+
+                        const SnackBar(
+                          content: Text("Registration Successful (UI Only)"),
+                        ),
+
+                      );
+
+                    }
+
+                  },
+
+                  child: const Text(
+                    "REGISTER",
+                    style: TextStyle(fontSize: 18),
+                  ),
+
+                ),
+
+              ),
+
+              const SizedBox(height: 20),
+
+              TextButton(
+
+                onPressed: () {
+
+                  Navigator.pop(context);
+
+                },
+
+                child: const Text("Already have an account? Login"),
+
+              ),
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2 – Run the App
+
+```bash
+flutter run -d chrome
+```
+
+Or press:
+
+```text
+r
+```
+
+for Hot Reload.
+
+---
+
+# What You Should Test
+
+Try these scenarios:
+
+### ✅ Leave all fields empty
+
+Expected:
+
+```
+Enter your name
+
+Enter your email
+
+Enter mobile number
+```
+
+---
+
+### ✅ Enter different passwords
+
+Expected:
+
+```
+Passwords do not match
+```
+
+---
+
+### ✅ Enter matching passwords
+
+Expected:
+
+```
+Registration Successful (UI Only)
+```
+
+---
+
+### ✅ Click "Already have an account? Login"
+
+Expected:
+
+Returns to the Login Screen.
+
+---
+
+# What You Learned Today
+
+## `Form`
+
+A `Form` groups related input fields together.
+
+Instead of validating each field separately, you can validate the entire form.
+
+---
+
+## `GlobalKey<FormState>`
+
+```dart
+final _formKey = GlobalKey<FormState>();
+```
+
+This gives us access to the form so we can call:
+
+```dart
+_formKey.currentState!.validate();
+```
+
+---
+
+## `TextEditingController`
+
+Each input field has a controller.
+
+Example:
+
+```dart
+emailController.text
+```
+
+This retrieves the text the user entered.
+
+Later, we'll send these values to the backend.
+
+---
+
+## `SnackBar`
+
+Instead of printing to the console, we show feedback to the user.
+
+Example:
+
+```
+Registration Successful
+```
+
+or
+
+```
+Passwords do not match
+```
+
+---
+
+# Homework
+
+* Replace `register_screen.dart`.
+* Test every validation scenario.
+* Verify navigation back to the Login Screen.
+* Make sure both password visibility icons work.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 59 – Registration Screen
+
+### Topics Learned
+
+* `Form`
+* `GlobalKey<FormState>`
+* `TextEditingController`
+* Form validation
+* Password confirmation
+* `SnackBar`
+* Returning to the previous screen with `Navigator.pop()`
+
+### Key Lesson
+
+> **A good registration form doesn't just collect information—it guides users by validating their input and providing clear feedback.**
+
+---
+
+# 🎉 Progress So Far
+
+Your application now has:
+
+* ✅ Splash Screen
+* ✅ Login Screen
+* ✅ Registration Screen
+* ✅ Navigation between screens
+* ✅ Basic form validation
+
+This is the beginning of a real application.
+
+---
+
+# 🚀 Tomorrow (Day 60)
+
+We'll build the **Home Dashboard**, which users will see after logging in.
+
+It will include:
+
+* Welcome message
+* Upload Blood Report card
+* Report History card
+* AI Health Summary card
+* Profile card
+* Bottom navigation
+
+By the end of Day 60, your app will start looking like the healthcare product we've been planning since Day 1.
