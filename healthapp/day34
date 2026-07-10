@@ -1,0 +1,629 @@
+# 🚀 Day 34/90 – Wireframing Your Blood Report Analyzer
+
+Welcome to **Day 34!** 🎉
+
+Yesterday, we designed **the user journey**.
+
+Today, we'll design something that every professional product team creates before writing code:
+
+> **Wireframes**
+
+A wireframe is a **simple sketch of your app screens**.
+
+Think of it as the **blueprint of a house**.
+
+Before building a house, an architect creates a blueprint.
+
+Before building an app, a product designer creates wireframes.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll know:
+
+* What a wireframe is
+* Why every app starts with wireframes
+* How to sketch each screen
+* Where every button should go
+
+---
+
+# What is a Wireframe?
+
+A wireframe is a **black-and-white layout** of an app screen.
+
+It doesn't include:
+
+* Colors
+* Fancy icons
+* Beautiful graphics
+
+It only shows:
+
+* Buttons
+* Text
+* Images
+* Navigation
+* Screen layout
+
+Example:
+
+```
+----------------------------
+
+LOGO
+
+Welcome
+
+[ Login ]
+
+[ Register ]
+
+----------------------------
+```
+
+Simple.
+
+---
+
+# Why Create Wireframes?
+
+Suppose we immediately start coding.
+
+Later we realize:
+
+> "The Upload button should be at the bottom."
+
+Now we need to change many screens.
+
+Instead...
+
+We fix it in the wireframe.
+
+Changing a sketch takes seconds.
+
+Changing code can take hours.
+
+---
+
+# Screen 1 – Splash Screen
+
+```
+----------------------------------
+
+            🩸
+
+Blood Report Analyzer
+
+Loading...
+
+----------------------------------
+```
+
+Purpose:
+
+Show branding while the app loads.
+
+---
+
+# Screen 2 – Login
+
+```
+----------------------------------
+
+Email
+
+_________________
+
+Password
+
+_________________
+
+[ Login ]
+
+------------------
+
+Create Account
+
+Forgot Password
+
+----------------------------------
+```
+
+Only one main action:
+
+Login.
+
+---
+
+# Screen 3 – Dashboard
+
+```
+----------------------------------
+
+Hello Srujan 👋
+
+------------------
+
+[ Upload Report ]
+
+------------------
+
+Latest Report
+
+July Blood Report
+
+------------------
+
+History
+
+Compare Reports
+
+Profile
+
+----------------------------------
+```
+
+The Upload button should be the largest button.
+
+---
+
+# Screen 4 – Upload Report
+
+```
+----------------------------------
+
+Upload Blood Report
+
+------------------
+
+[ Select PDF ]
+
+OR
+
+[ Take Photo ]
+
+------------------
+
+[ Upload ]
+
+----------------------------------
+```
+
+Don't add unnecessary buttons.
+
+---
+
+# Screen 5 – OCR Review
+
+This screen is very important.
+
+```
+----------------------------------
+
+Review Values
+
+Hemoglobin
+
+13.2
+
+[ Edit ]
+
+------------------
+
+HbA1c
+
+5.9
+
+[ Edit ]
+
+------------------
+
+Vitamin D
+
+18
+
+[ Edit ]
+
+------------------
+
+Continue
+
+----------------------------------
+```
+
+Users can correct OCR mistakes.
+
+---
+
+# Screen 6 – AI Analysis
+
+```
+----------------------------------
+
+Blood Report Summary
+
+------------------
+
+Hemoglobin
+
+Normal
+
+------------------
+
+HbA1c
+
+Pre-Diabetic
+
+------------------
+
+Vitamin D
+
+Deficient
+
+------------------
+
+Overall Summary
+
+Your Vitamin D level is below
+the reference range shown on
+this report. Consider discussing
+the results with your doctor.
+
+----------------------------------
+```
+
+Simple language.
+
+No complicated medical terminology.
+
+---
+
+# Screen 7 – History
+
+```
+----------------------------------
+
+History
+
+------------------
+
+July 2026
+
+Blood Report
+
+------------------
+
+March 2026
+
+Blood Report
+
+------------------
+
+January 2026
+
+Blood Report
+
+----------------------------------
+```
+
+Users tap any report.
+
+---
+
+# Screen 8 – Compare Reports
+
+```
+----------------------------------
+
+Compare Reports
+
+------------------
+
+Hemoglobin
+
+Jan 11.4
+
+↓
+
+Jul 13.0
+
+Improved
+
+------------------
+
+HbA1c
+
+Jan 6.8
+
+↓
+
+Jul 5.9
+
+Improved
+
+----------------------------------
+```
+
+Users should instantly understand whether they're improving.
+
+---
+
+# Screen 9 – Profile
+
+```
+----------------------------------
+
+Name
+
+Email
+
+Age
+
+Blood Group
+
+Settings
+
+Logout
+
+----------------------------------
+```
+
+Keep it simple.
+
+---
+
+# Navigation Between Screens
+
+```
+Splash
+
+↓
+
+Login
+
+↓
+
+Dashboard
+
+↓
+
+Upload
+
+↓
+
+OCR Review
+
+↓
+
+AI Analysis
+
+↓
+
+History
+
+↓
+
+Compare
+
+↓
+
+Profile
+```
+
+No confusing paths.
+
+---
+
+# Good Wireframe Rules
+
+## Rule 1
+
+Every screen should answer:
+
+> **"What is the user supposed to do here?"**
+
+---
+
+## Rule 2
+
+One primary button.
+
+Example:
+
+```
+Upload Report
+```
+
+Should be bigger than:
+
+```
+History
+```
+
+---
+
+## Rule 3
+
+Important information goes near the top.
+
+Users shouldn't have to scroll to see essential details.
+
+---
+
+## Rule 4
+
+Keep forms short.
+
+Instead of asking for 15 fields:
+
+Ask for only what's necessary.
+
+---
+
+## Rule 5
+
+Consistency
+
+If the Upload button is blue on one screen...
+
+It should be blue everywhere.
+
+Buttons shouldn't change style randomly.
+
+---
+
+# Common Wireframe Mistakes
+
+❌ Too many buttons
+
+❌ Too much text
+
+❌ Small fonts
+
+❌ Hidden menus
+
+❌ Too many colors
+
+❌ Confusing navigation
+
+---
+
+# MVP Wireframe Checklist
+
+Before building, every screen should answer:
+
+✅ What is the screen's purpose?
+
+✅ What information is shown?
+
+✅ What button should users press?
+
+✅ Where do they go next?
+
+If all four questions have clear answers, your wireframe is ready.
+
+---
+
+# Homework
+
+Create a folder:
+
+```
+designs/
+```
+
+Inside it, create a file:
+
+```
+wireframes.txt
+```
+
+Sketch each screen using simple text, just like today's examples.
+
+For every screen, write:
+
+```
+Purpose:
+
+Buttons:
+
+Information Displayed:
+
+Next Screen:
+```
+
+Don't worry about making it look beautiful. The goal is to make the layout and flow clear.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 34 – Wireframing
+
+### Topics Learned
+
+* What is a wireframe?
+* Why wireframes are important
+* Designing screen layouts
+* Planning navigation
+* Creating consistent user interfaces
+
+### Key Lesson
+
+> **A wireframe is the blueprint of an app. It helps you solve design problems before writing code, saving time and reducing mistakes.**
+
+---
+
+# 🎯 Progress So Far
+
+```
+Days 1–20
+Python Fundamentals
+✅
+
+↓
+
+Days 21–30
+Product Planning
+✅
+
+↓
+
+Day 31
+Project Setup
+✅
+
+↓
+
+Day 32
+UI Design
+✅
+
+↓
+
+Day 33
+User Journey
+✅
+
+↓
+
+Day 34
+Wireframes
+✅
+
+↓
+
+Next:
+Visual Design & Design System
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+You're no longer just learning Python—you've started thinking like a **product builder**.
+
+Here's how professional teams typically work:
+
+1. **Product Manager** defines the features.
+2. **UX Designer** maps the user journey.
+3. **UI Designer** creates wireframes.
+4. **Visual Designer** adds colors, typography, and branding.
+5. **Developers** build the app.
+6. **QA Engineers** test it.
+7. **Users** provide feedback.
+
+You've already completed the first three steps conceptually.
+
+**Tomorrow (Day 35)**, we'll create the **Design System** for your Blood Report Analyzer:
+
+* Choosing colors that inspire trust
+* Selecting fonts
+* Defining button styles
+* Designing cards
+* Picking icons
+* Creating a consistent look and feel
+
+This ensures every screen feels like part of the same professional application.
