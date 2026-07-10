@@ -1,0 +1,572 @@
+# 🚀 Day 44/90 – Designing the Complete User Journey (User Flow)
+
+Welcome to **Day 44!** 🎉
+
+From today onwards, we're no longer learning generic software engineering concepts.
+
+We're going to **build your actual Blood Report Analyzer app**, one decision at a time.
+
+Today we'll answer:
+
+> **"What exactly happens from the moment a user installs the app until they understand their blood report?"**
+
+This is called the **User Journey** or **User Flow**.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll have the complete workflow of your app.
+
+This will become the blueprint for development.
+
+---
+
+# Step 1 – User Downloads the App
+
+The user opens Google Play Store.
+
+↓
+
+Searches
+
+**Blood Report Analyzer**
+
+↓
+
+Installs the app.
+
+↓
+
+Opens it for the first time.
+
+---
+
+# Step 2 – Welcome Screen
+
+The app should introduce itself.
+
+Example:
+
+```
+Welcome to Blood Report Analyzer
+
+Understand your blood reports
+in simple language.
+
+Track your health over time.
+
+Compare reports.
+
+Powered by AI.
+
+[ Get Started ]
+```
+
+Simple.
+
+No clutter.
+
+---
+
+# Step 3 – Sign Up
+
+New users create an account.
+
+Information:
+
+* Name
+* Email
+* Password
+
+↓
+
+Create Account
+
+↓
+
+Verify Email
+
+↓
+
+Account Ready
+
+---
+
+# Step 4 – Login
+
+Returning users simply enter:
+
+* Email
+* Password
+
+↓
+
+Home Screen
+
+---
+
+# Step 5 – Home Screen
+
+This is the first screen users see.
+
+It should have only the important actions.
+
+```
+Hello, Srujan 👋
+
+Upload Report
+
+Recent Reports
+
+Health Trends
+
+Profile
+```
+
+No unnecessary buttons.
+
+---
+
+# Step 6 – Upload Report
+
+User taps
+
+**Upload Report**
+
+Choose:
+
+📄 PDF
+
+or
+
+📷 Camera
+
+or
+
+🖼 Gallery
+
+↓
+
+Upload
+
+---
+
+# Step 7 – OCR Processing
+
+After upload,
+
+show a progress screen.
+
+```
+Uploading...
+
+Extracting blood values...
+
+Please wait...
+```
+
+Usually 5–15 seconds depending on the report.
+
+---
+
+# Step 8 – Review Extracted Values
+
+This is one of the most important screens.
+
+The app should display:
+
+```
+Hemoglobin
+
+13.2
+
+✏ Edit
+
+----------------
+
+HbA1c
+
+5.8
+
+✏ Edit
+
+----------------
+
+Vitamin D
+
+18
+
+✏ Edit
+```
+
+The user can correct OCR mistakes.
+
+Only after confirmation do we continue.
+
+---
+
+# Step 9 – AI Analysis
+
+Now the backend sends the confirmed values to AI.
+
+AI generates:
+
+```
+Summary
+
+Hemoglobin appears within
+the reference range shown on
+your report.
+
+Vitamin D is below the
+reference range.
+
+HbA1c is within the normal
+range.
+```
+
+Keep the language simple and understandable.
+
+---
+
+# Step 10 – Save Report
+
+Everything is saved.
+
+* PDF
+* Blood values
+* AI summary
+* Upload date
+
+Nothing is overwritten.
+
+Every upload becomes part of the user's history.
+
+---
+
+# Step 11 – Report History
+
+The user taps:
+
+History
+
+Example:
+
+```
+July 2026
+
+Apollo Hospital
+
+----------------
+
+April 2026
+
+Vijaya Diagnostics
+
+----------------
+
+January 2026
+
+Thyrocare
+```
+
+Newest reports should appear first.
+
+---
+
+# Step 12 – Open a Report
+
+User taps:
+
+July Report
+
+The app displays:
+
+* Original PDF
+* Blood values
+* AI explanation
+* Upload date
+* Hospital name
+
+Everything on one screen.
+
+---
+
+# Step 13 – Compare Reports
+
+The user selects:
+
+January
+
+↓
+
+July
+
+The app shows:
+
+| Test       | January | July | Trend      |
+| ---------- | ------- | ---- | ---------- |
+| Hemoglobin | 11.8    | 13.2 | ⬆ Improved |
+| HbA1c      | 6.5     | 5.8  | ⬇ Improved |
+| Vitamin D  | 18      | 28   | ⬆ Improved |
+
+This is one of the biggest value propositions of your app.
+
+---
+
+# Step 14 – Health Trends
+
+Instead of just tables,
+
+show graphs.
+
+Example:
+
+```
+Hemoglobin
+
+11.8
+
+↓
+
+12.5
+
+↓
+
+13.2
+```
+
+Users understand trends much faster visually.
+
+---
+
+# Step 15 – Profile
+
+The profile page should be simple.
+
+```
+Name
+
+Email
+
+Password
+
+Logout
+```
+
+Nothing more is needed for the MVP.
+
+---
+
+# Complete User Journey
+
+```
+Install App
+
+↓
+
+Sign Up
+
+↓
+
+Login
+
+↓
+
+Home
+
+↓
+
+Upload Report
+
+↓
+
+OCR
+
+↓
+
+Review OCR
+
+↓
+
+AI Analysis
+
+↓
+
+Save Report
+
+↓
+
+History
+
+↓
+
+Compare Reports
+
+↓
+
+Health Trends
+```
+
+This is the complete journey of your first version.
+
+---
+
+# Features We Will NOT Build in MVP
+
+To launch faster, we'll postpone:
+
+❌ Doctor appointments
+
+❌ Medicine reminders
+
+❌ Fitness tracking
+
+❌ Diet planning
+
+❌ Smartwatch integration
+
+❌ Family sharing
+
+❌ Chat with doctors
+
+❌ Insurance integration
+
+These can become Version 2 or Version 3.
+
+---
+
+# Homework
+
+Create a file:
+
+```
+docs/user_flow.txt
+```
+
+Write:
+
+```
+Install
+
+↓
+
+Sign Up
+
+↓
+
+Login
+
+↓
+
+Upload Report
+
+↓
+
+OCR
+
+↓
+
+Review OCR
+
+↓
+
+AI
+
+↓
+
+Save
+
+↓
+
+History
+
+↓
+
+Compare
+
+↓
+
+Health Trends
+```
+
+Then, for each step, write **one sentence describing what the user does and what the app does**.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 44 – User Journey
+
+### Topics Learned
+
+* User onboarding
+* Registration
+* Login
+* Upload workflow
+* OCR review
+* AI explanation
+* Report history
+* Compare reports
+* Health trends
+* Profile
+
+### Key Lesson
+
+> **A great app isn't just a collection of features. It provides a smooth, logical journey that helps users achieve their goal with as little effort as possible.**
+
+---
+
+# 💡 One Improvement I'd Recommend
+
+Instead of showing users a blank home screen after they sign up, show a friendly message like:
+
+```
+Welcome!
+
+You haven't uploaded any blood reports yet.
+
+Upload your first report
+to begin tracking your health.
+
+[ Upload My First Report ]
+```
+
+This guides first-time users and reduces confusion.
+
+---
+
+# 📱 Your App Is Becoming Real
+
+At this point, we've already designed:
+
+* ✅ MVP features
+* ✅ Database
+* ✅ APIs
+* ✅ Security
+* ✅ Deployment
+* ✅ Testing
+* ✅ Complete user journey
+
+These are the same kinds of planning documents that many software teams create **before writing production code**.
+
+---
+
+# 🚀 Tomorrow (Day 45)
+
+We'll design the **actual screens** of your app.
+
+We'll decide:
+
+* Splash screen
+* Login screen
+* Home screen
+* Upload screen
+* OCR review screen
+* AI results screen
+* History screen
+* Compare screen
+* Profile screen
+
+By the end of Day 45, you'll have the complete UI blueprint for your Blood Report Analyzer, making it much easier to build with Flutter.
