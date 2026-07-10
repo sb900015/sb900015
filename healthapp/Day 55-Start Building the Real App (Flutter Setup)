@@ -1,1 +1,203 @@
-=================================================================
+============================
+Step 1 – Install Flutter
+============================
+Download Flutter SDK from the official website:
+
+https://flutter.dev/docs/get-started/install
+
+Choose:
+
+Windows
+
+Download the latest stable version.
+============================
+Step 2 – Extract Flutter
+============================
+Example:
+
+C:\flutter
+
+Do NOT extract it inside:
+
+Downloads
+Desktop
+Documents
+
+Use a simple path like:
+
+C:\flutter
+============================
+Step 3 – Add Flutter to PATH
+============================
+Add:
+
+C:\flutter\bin
+
+to your Windows Environment Variables.
+============================
+Step 4 – Verify Installation
+============================
+Open Command Prompt.
+
+Run:
+
+flutter doctor
+
+Initially, you'll probably see some warnings.
+
+That's normal.
+============================
+Step 5 – Install Android Studio
+============================
+Download:
+
+https://developer.android.com/studio
+
+During installation, make sure you install:
+
+Android SDK
+Android SDK Platform
+Android Emulator
+============================
+Step 6 – Run Flutter Doctor Again
+============================
+flutter doctor
+
+Ideally, you'll see:
+
+✓ Flutter
+
+✓ Android Toolchain
+
+✓ Android Studio
+
+✓ Visual Studio Code
+
+✓ Connected Device
+
+Don't worry if everything isn't green on the first try—we'll fix issues one by one.
+============================
+Step 7 – Create the Project
+============================
+Open a terminal.
+
+Navigate to your project folder.
+
+Example:
+
+cd Desktop/BloodReportsApp
+
+Create the Flutter app:
+
+flutter create blood_report_app
+
+Flutter creates the project automatically.
+============================
+Step 8 – Open in VS Code
+============================
+Open the new folder:
+
+blood_report_app
+
+You should see folders like:
+
+android/
+
+ios/
+
+lib/
+
+test/
+
+pubspec.yaml
+============================
+Step 9 – Run the App
+============================
+Inside the project folder:
+
+flutter run
+
+If an emulator or device is connected, Flutter will build the default app.
+
+You should see:
+
+Flutter Demo Home Page
+
+This is your first running Flutter application.
+============================
+One-Time Phone Setup
+============================
+Step 1: Enable Developer Options
+============================
+On your Android phone:
+
+Settings
+↓
+About Phone
+↓
+Tap "Build Number" 7 times
+
+You'll see:
+
+"You are now a developer."
+============================
+Step 2: Enable USB Debugging
+============================
+Settings
+
+↓
+
+Developer Options
+
+↓
+
+USB Debugging
+
+↓
+
+Enable
+============================
+Step 3: Connect the Phone
+============================
+
+Connect it with a USB data cable (not a charge-only cable).
+
+When the phone asks:
+
+Allow USB Debugging?
+
+Tap:
+
+Allow
+
+☑ Always allow from this computer
+============================
+Step 4: Verify Flutter Detects the Phone
+============================
+Run:
+
+flutter devices
+
+You should see something similar to:
+
+Found 4 connected devices:
+
+Windows
+
+Chrome
+
+Edge
+
+SM-A546E (mobile)
+
+The exact device name will depend on your phone.
+============================
+Step 5: Run the App
+============================
+Then simply run:
+
+flutter run
+
+If Flutter asks which device to use, choose your phone.
+
+The app will install automatically.
