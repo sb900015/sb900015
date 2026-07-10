@@ -1,0 +1,589 @@
+# 🚀 Day 35/90 – Creating the Design System
+
+Welcome to **Day 35!** 🎉
+
+Yesterday, you created the **wireframes** (the blueprint of the app).
+
+Today, we'll create something that every professional app has:
+
+> **A Design System**
+
+A design system is a collection of rules that define how your app looks and feels.
+
+It ensures that every screen has the same style, making the app look professional and trustworthy.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* How to choose colors
+* How to select fonts
+* How to design buttons
+* How to style cards
+* How to choose icons
+* How to keep every screen consistent
+
+---
+
+# What is a Design System?
+
+Imagine a hospital.
+
+Every doctor wears a similar uniform.
+
+Every sign uses the same colors.
+
+Every room follows the same style.
+
+This consistency helps people feel comfortable.
+
+Apps work the same way.
+
+If every screen has different colors, fonts, and buttons, users feel confused.
+
+A Design System keeps everything consistent.
+
+---
+
+# Our Brand Personality
+
+Your Blood Report Analyzer should feel:
+
+* ✅ Trustworthy
+* ✅ Professional
+* ✅ Calm
+* ✅ Clean
+* ✅ Easy to use
+
+It should **not** feel:
+
+* ❌ Like a game
+* ❌ Overly colorful
+* ❌ Busy or cluttered
+
+Healthcare apps should reduce anxiety, not create it.
+
+---
+
+# Step 1 – Choose Primary Colors
+
+For healthcare, colors should communicate trust.
+
+### Primary Color
+
+🟦 Blue
+
+Purpose:
+
+* Main buttons
+* Header
+* Navigation
+
+Blue is widely associated with trust and reliability.
+
+---
+
+### Success Color
+
+🟢 Green
+
+Purpose:
+
+* Normal test results
+* Success messages
+
+Example:
+
+```text
+Hemoglobin
+
+Normal
+```
+
+---
+
+### Warning Color
+
+🟡 Orange
+
+Purpose:
+
+* Borderline values
+* Needs Attention
+
+Example:
+
+```text
+Vitamin D
+
+Insufficient
+```
+
+---
+
+### Alert Color
+
+🔴 Red
+
+Purpose:
+
+* Critical values
+* Errors
+
+Example:
+
+```text
+HbA1c
+
+High
+```
+
+---
+
+### Neutral Colors
+
+⚪ White
+
+Background
+
+⚫ Dark Gray
+
+Text
+
+Light Gray
+
+Cards and dividers
+
+These colors make the app easier to read.
+
+---
+
+# Step 2 – Typography
+
+Use one clean font throughout the app.
+
+Recommended:
+
+* Roboto (Android)
+* Inter
+* SF Pro (iPhone)
+
+For Flutter, **Roboto** is a great default.
+
+---
+
+# Font Sizes
+
+| Element         | Size |
+| --------------- | ---- |
+| App Title       | 28   |
+| Screen Title    | 22   |
+| Section Heading | 18   |
+| Normal Text     | 16   |
+| Small Text      | 14   |
+
+Avoid fonts smaller than 14 for important content.
+
+---
+
+# Step 3 – Buttons
+
+Every button should have a consistent style.
+
+### Primary Button
+
+```text
+------------------------
+
+Upload Report
+
+------------------------
+```
+
+Use for the main action.
+
+---
+
+### Secondary Button
+
+```text
+History
+```
+
+Use for less important actions.
+
+---
+
+# Button Rules
+
+Buttons should:
+
+* Have rounded corners
+* Be large enough to tap easily
+* Have consistent spacing
+* Use the same style across the app
+
+---
+
+# Step 4 – Cards
+
+Cards help organize information.
+
+Example:
+
+```text
+------------------------
+
+Hemoglobin
+
+13.2
+
+Normal
+
+------------------------
+```
+
+Each blood test result should be shown inside its own card.
+
+---
+
+# Step 5 – Icons
+
+Use simple, universally recognized icons.
+
+| Feature    | Suggested Icon |
+| ---------- | -------------- |
+| Upload     | 📤             |
+| History    | 📄             |
+| Compare    | 📊             |
+| Profile    | 👤             |
+| AI Summary | 🤖             |
+| Search     | 🔍             |
+| Settings   | ⚙️             |
+
+Avoid decorative icons that don't add meaning.
+
+---
+
+# Step 6 – Spacing
+
+Good spacing makes the app feel less crowded.
+
+Example:
+
+❌ Bad
+
+```text
+NameAgeBloodGroup
+```
+
+✅ Good
+
+```text
+Name
+
+Age
+
+Blood Group
+```
+
+Leave enough space between sections.
+
+---
+
+# Step 7 – Result Cards
+
+Every blood test should look the same.
+
+Example:
+
+```text
+--------------------------------
+
+Hemoglobin
+
+13.2 g/dL
+
+🟢 Normal
+
+--------------------------------
+```
+
+Another example:
+
+```text
+--------------------------------
+
+Vitamin D
+
+18 ng/mL
+
+🟡 Insufficient
+
+--------------------------------
+```
+
+Consistent formatting helps users compare results quickly.
+
+---
+
+# Step 8 – AI Summary Box
+
+This should stand out from the test results.
+
+Example:
+
+```text
+--------------------------------
+
+AI Summary
+
+Your report shows that most values
+are within the reference ranges.
+Vitamin D is below the reference
+range shown on the report.
+Discuss these findings with your
+doctor if you have concerns.
+
+--------------------------------
+```
+
+Keep the language simple and supportive.
+
+---
+
+# Step 9 – Navigation Bar
+
+Bottom navigation is familiar to most users.
+
+```text
+--------------------------------
+
+🏠 Home
+
+📄 History
+
+📊 Compare
+
+👤 Profile
+
+--------------------------------
+```
+
+Use the same navigation on every main screen.
+
+---
+
+# Step 10 – Loading Screen
+
+When AI is analyzing the report:
+
+```text
+--------------------------------
+
+Analyzing Report...
+
+Please wait.
+
+⏳
+
+--------------------------------
+```
+
+Users should always know that work is in progress.
+
+---
+
+# Accessibility
+
+Remember that many users may be older adults.
+
+Design with:
+
+* Large text
+* High contrast
+* Big buttons
+* Clear labels
+* Minimal typing
+
+This makes the app usable for a wider audience.
+
+---
+
+# Design Principles for Our App
+
+Our app should always be:
+
+* Simple
+* Consistent
+* Readable
+* Trustworthy
+* Fast
+* Calm
+
+If a design choice doesn't support these goals, reconsider it.
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+designs/design_system.txt
+```
+
+Write:
+
+```text
+Primary Color:
+Blue
+
+----------------
+
+Success:
+Green
+
+----------------
+
+Warning:
+Orange
+
+----------------
+
+Alert:
+Red
+
+----------------
+
+Background:
+White
+
+----------------
+
+Text:
+Dark Gray
+
+----------------
+
+Primary Font:
+Roboto
+
+----------------
+
+Primary Button:
+Rounded Blue
+
+----------------
+
+Navigation:
+Bottom Navigation Bar
+```
+
+Then add one sentence explaining **why** each choice fits a healthcare application.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 35 – Design System
+
+### Topics Learned
+
+* What is a Design System?
+* Choosing colors
+* Typography
+* Buttons
+* Cards
+* Icons
+* Navigation
+* Accessibility
+* Consistency
+
+### Key Lesson
+
+> **Users trust apps that look consistent and easy to use. A good design system makes every screen feel like part of the same product.**
+
+---
+
+# 🎯 Progress So Far
+
+```text
+Days 1–20
+Python Basics
+✅
+
+↓
+
+Days 21–30
+Product Planning
+✅
+
+↓
+
+Day 31
+Project Setup
+✅
+
+↓
+
+Day 32
+UI Design
+✅
+
+↓
+
+Day 33
+User Journey
+✅
+
+↓
+
+Day 34
+Wireframes
+✅
+
+↓
+
+Day 35
+Design System
+✅
+
+↓
+
+Next:
+Brand Identity & App Assets
+```
+
+---
+
+# 👨‍🏫 Mentor's Note
+
+Today you created the **visual identity** of your app.
+
+Many new founders focus only on features. But users often judge quality within the first few seconds of opening an app. A consistent design builds confidence before they even upload their first report.
+
+For your Blood Report Analyzer, I would add one more rule to the design system:
+
+> **Every health status should include both a color and text.**
+
+For example:
+
+* 🟢 **Normal**
+* 🟡 **Needs Attention**
+* 🔴 **Consult a Doctor**
+
+This makes the app easier to understand for users with color vision deficiencies and ensures the meaning is always clear.
+
+**Tomorrow (Day 36)** we'll define the **Brand Identity** of your app:
+
+* App name
+* Logo concept
+* Tagline
+* Mission
+* Vision
+* Brand values
+
+These elements will make your Blood Report Analyzer feel like a real healthcare product rather than just a software project.
