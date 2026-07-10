@@ -1,0 +1,574 @@
+# 🚀 Day 50/90 – Security, Privacy & Data Protection
+
+Welcome to **Day 50!** 🎉
+
+Congratulations! You've reached the halfway point of your 90-day roadmap.
+
+So far, you've designed:
+
+* ✅ MVP
+* ✅ UI Screens
+* ✅ OCR Pipeline
+* ✅ AI System
+* ✅ Report History
+* ✅ Notifications
+
+Today we'll design something every health-tech product must get right:
+
+> **Security and Privacy**
+
+Users will trust your app with their **blood reports**, so protecting that information is one of your most important responsibilities.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll understand:
+
+* How to store reports securely
+* How users log in safely
+* How data should be protected
+* What to do if a phone is lost
+* How to prepare your app for future growth
+
+---
+
+# Why Security Matters
+
+Your app stores:
+
+* Blood reports
+* Personal information
+* AI summaries
+* Health history
+
+Users should feel confident that only they can access their data.
+
+---
+
+# Security Flow
+
+```text
+User Opens App
+        │
+        ▼
+Login
+        │
+        ▼
+Authentication
+        │
+        ▼
+Access Granted
+        │
+        ▼
+View Reports
+```
+
+If authentication fails:
+
+```text
+Wrong Password
+
+↓
+
+Show Error
+
+↓
+
+Try Again
+```
+
+---
+
+# User Authentication
+
+For the MVP, support:
+
+* Email + Password
+
+In future versions, you can add:
+
+* Google Sign-In
+* Apple Sign-In
+* Phone OTP
+
+---
+
+# Password Rules
+
+Encourage strong passwords.
+
+Example:
+
+```text
+Minimum 8 characters
+
+At least:
+
+✓ One uppercase letter
+
+✓ One lowercase letter
+
+✓ One number
+
+✓ One special character
+```
+
+Example:
+
+```text
+Health@2026
+```
+
+---
+
+# Password Storage
+
+Never store passwords as plain text.
+
+Bad:
+
+```text
+Password
+
+Health123
+```
+
+Good:
+
+```text
+Encrypted Password Hash
+```
+
+Even if someone accessed the database, they shouldn't be able to read passwords.
+
+---
+
+# Report Storage
+
+Every uploaded PDF should be stored securely.
+
+```text
+User
+
+↓
+
+Report
+
+↓
+
+Secure Cloud Storage
+```
+
+Users should never be able to access another user's reports.
+
+---
+
+# Access Control
+
+Example:
+
+```text
+User A
+
+↓
+
+Can View
+
+↓
+
+User A Reports
+```
+
+But:
+
+```text
+User A
+
+↓
+
+Cannot View
+
+↓
+
+User B Reports
+```
+
+Every request should verify the logged-in user.
+
+---
+
+# Data Encryption
+
+Sensitive information should be encrypted while stored.
+
+Examples:
+
+* Blood reports
+* Personal details
+* AI summaries
+
+Encryption protects data even if storage is compromised.
+
+---
+
+# Secure Communication
+
+All communication between:
+
+* Mobile App
+* Backend
+* AI Service
+* Cloud Storage
+
+should use encrypted connections (HTTPS).
+
+```text
+App
+
+⇄ HTTPS ⇄
+
+Backend
+
+⇄ HTTPS ⇄
+
+Cloud
+```
+
+---
+
+# Session Management
+
+After login:
+
+The app receives a secure session or access token.
+
+```text
+Login
+
+↓
+
+Access Token
+
+↓
+
+Open App
+```
+
+When the token expires:
+
+```text
+Ask user to log in again.
+```
+
+---
+
+# Logout
+
+When the user taps:
+
+```text
+Logout
+```
+
+The app should:
+
+* Remove the session
+* Return to the Login screen
+
+Simple but important.
+
+---
+
+# If the Phone is Lost
+
+A common question:
+
+> "What happens if someone steals my phone?"
+
+The answer:
+
+Without the account password (or future biometric authentication), they shouldn't be able to access the user's reports.
+
+---
+
+# Delete Account
+
+Users should always have the option to delete their account.
+
+Example:
+
+```text
+Delete Account
+
+Are you sure?
+
+This will permanently delete:
+
+• Reports
+
+• AI Summaries
+
+• Account Information
+
+[Cancel]
+
+[Delete]
+```
+
+---
+
+# Privacy Policy
+
+Your app should clearly explain:
+
+* What data is collected
+* Why it is collected
+* How it is stored
+* Whether it is shared
+* How users can request deletion
+
+Transparency builds trust.
+
+---
+
+# Backups
+
+Imagine your server crashes.
+
+Without backups:
+
+Everything is lost.
+
+With backups:
+
+```text
+Database
+
+↓
+
+Automatic Backup
+
+↓
+
+Restore
+```
+
+Even for an MVP, regular backups are essential.
+
+---
+
+# Audit Log (Future)
+
+Keep a record of important actions.
+
+Example:
+
+```text
+15 Jul 2026
+
+Report Uploaded
+
+------------------
+
+15 Jul 2026
+
+OCR Completed
+
+------------------
+
+15 Jul 2026
+
+User Edited Hemoglobin
+
+------------------
+
+15 Jul 2026
+
+AI Summary Generated
+```
+
+This is useful for debugging and improving the app.
+
+---
+
+# Security Checklist
+
+Before launch, verify:
+
+```text
+☑ Secure Login
+
+☑ Strong Password Rules
+
+☑ Encrypted Storage
+
+☑ HTTPS
+
+☑ User Isolation
+
+☑ Secure Cloud Storage
+
+☑ Account Deletion
+
+☑ Backups
+
+☑ Privacy Policy
+```
+
+---
+
+# Complete Security Flow
+
+```text
+User Registers
+        │
+        ▼
+Email Verification
+        │
+        ▼
+Login
+        │
+        ▼
+Authentication
+        │
+        ▼
+Access Token Issued
+        │
+        ▼
+Upload Report
+        │
+        ▼
+Encrypted Storage
+        │
+        ▼
+View Reports
+        │
+        ▼
+Logout
+```
+
+---
+
+# Homework
+
+Create a file:
+
+```text
+docs/security.txt
+```
+
+Write:
+
+1. How should users log in?
+2. How should passwords be stored?
+3. How should reports be protected?
+4. Why is HTTPS important?
+5. What should happen when a user deletes their account?
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 50 – Security, Privacy & Data Protection
+
+### Topics Learned
+
+* User authentication
+* Password security
+* Secure cloud storage
+* Access control
+* Data encryption
+* HTTPS
+* Session management
+* Logout
+* Account deletion
+* Privacy policy
+* Database backups
+
+### Key Lesson
+
+> **People will only trust a health app if they trust that their personal medical information is safe. Security isn't just a technical feature—it's a product feature.**
+
+---
+
+# 💡 Founder Recommendation
+
+Since your app stores sensitive health information, I'd suggest adding a feature to the roadmap:
+
+## App Lock (Version 2)
+
+When enabled, the app asks for:
+
+* Fingerprint
+* Face unlock
+* Device PIN
+
+before opening.
+
+Flow:
+
+```text
+Open App
+
+↓
+
+Biometric Authentication
+
+↓
+
+Success?
+
+↓
+
+Home Screen
+```
+
+This provides an extra layer of privacy if someone else has access to the user's phone.
+
+---
+
+# 📈 Halfway Milestone – Days 1–50
+
+You've now completed the planning for:
+
+### Product
+
+* ✅ Vision
+* ✅ MVP
+* ✅ Features
+* ✅ User journey
+
+### Technical Design
+
+* ✅ Screens
+* ✅ OCR pipeline
+* ✅ AI workflow
+* ✅ Database planning
+* ✅ APIs
+* ✅ Security
+
+### User Experience
+
+* ✅ Report history
+* ✅ Trends
+* ✅ Notifications
+* ✅ Privacy
+
+At this stage, you have enough planning to begin building a functional MVP.
+
+---
+
+# 🚀 Tomorrow (Day 51)
+
+We'll shift from **planning** to **execution strategy**.
+
+We'll design the complete **Development Roadmap**, covering:
+
+* Which feature to build first
+* What can be built in parallel
+* How to test each feature
+* When to release an MVP
+* How to gather feedback from the first users
+
+By the end of Day 51, you'll have a practical step-by-step implementation plan for turning all of this design work into a working application.
