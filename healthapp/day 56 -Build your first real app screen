@@ -1,1 +1,321 @@
 ===========================
+# 🚀 Day 56/90 – Build Your First Real App Screen
+
+Welcome to **Day 56!**
+
+Today is one of the biggest milestones in your journey.
+
+For the first time, we're going to **replace the Flutter demo application** with **your own Blood Report Analyzer**.
+
+From today onward, every screen we build will remain part of the final application.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, you'll have:
+
+* ✅ Your own app name
+* ✅ Your own app theme
+* ✅ A Splash Screen
+* ✅ Navigation ready for future screens
+
+---
+
+# Before We Start
+
+From today onward, I want to change how we work.
+
+Earlier, I was teaching you concepts.
+
+Now I'll act like your **technical co-founder**.
+
+That means I'll tell you exactly:
+
+* Which file to open
+* What code to replace
+* Why we're writing that code
+* How it fits into the overall app
+
+We'll keep explanations, but we'll focus on building.
+
+---
+
+# Step 1 – Open the Project
+
+Open:
+
+```text
+blood_report_app
+```
+
+in **VS Code**.
+
+---
+
+# Step 2 – Open the `lib` Folder
+
+You'll see:
+
+```text
+lib
+ └── main.dart
+```
+
+For today, we only need to edit **`main.dart`**.
+
+---
+
+# Step 3 – Replace Everything in `main.dart`
+
+Delete everything in `main.dart` and replace it with:
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const BloodReportApp());
+}
+
+class BloodReportApp extends StatelessWidget {
+  const BloodReportApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Blood Report Analyzer',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.red,
+        ),
+      ),
+      home: const SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.red.shade50,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(
+              Icons.favorite,
+              color: Colors.red,
+              size: 100,
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Blood Report Analyzer",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Your Health, Simplified",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 4 – Save the File
+
+Press:
+
+```text
+Ctrl + S
+```
+
+---
+
+# Step 5 – Run the App
+
+Since Chrome works well on your machine, run:
+
+```bash
+flutter run -d chrome
+```
+
+If the app is already running, simply press:
+
+```text
+r
+```
+
+for **Hot Reload**.
+
+---
+
+# What You Should See
+
+A simple splash screen with:
+
+❤️ A red heart icon
+
+**Blood Report Analyzer**
+
+**Your Health, Simplified**
+
+A light red background.
+
+---
+
+# Understanding the Code
+
+## `main()`
+
+```dart
+void main() {
+  runApp(const BloodReportApp());
+}
+```
+
+Every Flutter app starts here.
+
+`runApp()` launches the application.
+
+---
+
+## `MaterialApp`
+
+This is the root of your application.
+
+It controls:
+
+* App title
+* Theme
+* Navigation
+* Initial screen
+
+---
+
+## `theme`
+
+We set the primary color to red because it's related to blood and healthcare.
+
+We'll improve the design later.
+
+---
+
+## `home`
+
+```dart
+home: const SplashScreen(),
+```
+
+This tells Flutter:
+
+> "When the app starts, show the Splash Screen."
+
+---
+
+## `Scaffold`
+
+A `Scaffold` is the basic page structure.
+
+Think of it as the canvas for each screen.
+
+Every major screen in our app will use a `Scaffold`.
+
+---
+
+# Folder Structure (Coming Soon)
+
+Today everything is in one file to keep it simple.
+
+Over the next few days, we'll organize it like this:
+
+```text
+lib/
+│
+├── main.dart
+│
+├── screens/
+│     ├── splash_screen.dart
+│     ├── login_screen.dart
+│     ├── register_screen.dart
+│     ├── home_screen.dart
+│     └── profile_screen.dart
+│
+├── widgets/
+│
+├── services/
+│
+├── models/
+│
+└── utils/
+```
+
+This is how professional Flutter apps are structured.
+
+---
+
+# Homework
+
+1. Replace the code in `main.dart`.
+2. Run the app.
+3. Verify the splash screen appears.
+4. Take a screenshot if you'd like to keep a record of your progress.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 56 – First Real Flutter Screen
+
+### Topics Learned
+
+* `main()` function
+* `runApp()`
+* `MaterialApp`
+* `ThemeData`
+* `Scaffold`
+* `Center`
+* `Column`
+* `Icon`
+* `Text`
+* Flutter project entry point
+
+### Key Lesson
+
+> **Every Flutter app starts with `main()`, which launches a `MaterialApp`. Today you replaced the default demo with the first screen of your own application.**
+
+---
+
+# 🎯 Milestone
+
+Today is the day your project stopped being a sample app and became **your Blood Report Analyzer**.
+
+From tomorrow onward, every screen we build will be a permanent part of the final application.
+
+---
+
+## Tomorrow (Day 57)
+
+We'll take the next professional step:
+
+* Move the Splash Screen into its own file.
+* Create a proper `screens` folder.
+* Add a **Login Screen**.
+* Automatically navigate from the Splash Screen to the Login Screen after a short delay.
+
+This will introduce you to a clean project structure while continuing to build the actual app.
