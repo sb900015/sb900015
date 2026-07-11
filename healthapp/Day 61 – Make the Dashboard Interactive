@@ -1,0 +1,426 @@
+# 🚀 Day 61/90 – Make the Dashboard Interactive
+
+Welcome to **Day 61!** 🎉
+
+Yesterday, you built the **Home Dashboard**.
+
+Today we'll make it feel like a real application by connecting the dashboard cards to actual screens.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, your app will have:
+
+* ✅ Upload Report Screen
+* ✅ Report History Screen
+* ✅ AI Health Summary Screen
+* ✅ My Profile Screen
+* ✅ Dashboard cards open the correct screen
+
+---
+
+# Step 1 - Create 4 New Files
+
+Inside
+
+```text
+lib/screens
+```
+
+Create these files:
+
+```text
+upload_report_screen.dart
+report_history_screen.dart
+ai_summary_screen.dart
+profile_screen.dart
+```
+
+---
+
+# Step 2 - Upload Report Screen
+
+Paste this into **upload_report_screen.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class UploadReportScreen extends StatelessWidget {
+  const UploadReportScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Upload Blood Report"),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text(
+          "Upload Report Screen\n(Coming Soon)",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 3 - Report History Screen
+
+Paste this into **report_history_screen.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class ReportHistoryScreen extends StatelessWidget {
+  const ReportHistoryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Report History"),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text(
+          "Report History\n(Coming Soon)",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 4 - AI Summary Screen
+
+Paste this into **ai_summary_screen.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class AiSummaryScreen extends StatelessWidget {
+  const AiSummaryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("AI Health Summary"),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text(
+          "AI Health Summary\n(Coming Soon)",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 5 - Profile Screen
+
+Paste this into **profile_screen.dart**
+
+```dart
+import 'package:flutter/material.dart';
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("My Profile"),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text(
+          "My Profile\n(Coming Soon)",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 6 - Replace the Entire `home_screen.dart`
+
+Replace the whole file with this:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'upload_report_screen.dart';
+import 'report_history_screen.dart';
+import 'ai_summary_screen.dart';
+import 'profile_screen.dart';
+import 'login_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Blood Report Analyzer"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Welcome 👋",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const Text(
+              "Let's keep track of your health.",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+
+                children: [
+
+                  dashboardCard(
+                    context,
+                    Icons.upload_file,
+                    "Upload Report",
+                    Colors.red,
+                    const UploadReportScreen(),
+                  ),
+
+                  dashboardCard(
+                    context,
+                    Icons.history,
+                    "Report History",
+                    Colors.blue,
+                    const ReportHistoryScreen(),
+                  ),
+
+                  dashboardCard(
+                    context,
+                    Icons.health_and_safety,
+                    "AI Health Summary",
+                    Colors.green,
+                    const AiSummaryScreen(),
+                  ),
+
+                  dashboardCard(
+                    context,
+                    Icons.person,
+                    "My Profile",
+                    Colors.orange,
+                    const ProfileScreen(),
+                  ),
+
+                ],
+              ),
+            ),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton.icon(
+
+                onPressed: () {
+
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+
+                },
+
+                icon: const Icon(Icons.logout),
+
+                label: const Text("Logout"),
+
+              ),
+
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget dashboardCard(
+    BuildContext context,
+    IconData icon,
+    String title,
+    Color color,
+    Widget screen,
+  ) {
+    return Card(
+      elevation: 4,
+
+      child: InkWell(
+
+        borderRadius: BorderRadius.circular(12),
+
+        onTap: () {
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => screen,
+            ),
+          );
+
+        },
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+
+            Icon(
+              icon,
+              color: color,
+              size: 55,
+            ),
+
+            const SizedBox(height: 15),
+
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# What to Test
+
+Run:
+
+```bash
+flutter run -d chrome
+```
+
+or press:
+
+```text
+r
+```
+
+### Test every card
+
+Tap:
+
+* 📄 Upload Report → opens Upload Report Screen
+* 📜 Report History → opens Report History Screen
+* 🩺 AI Health Summary → opens AI Summary Screen
+* 👤 My Profile → opens Profile Screen
+* 🚪 Logout → returns to Login Screen
+
+Every button in your app should now navigate somewhere.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 61 – Interactive Dashboard
+
+### Topics Learned
+
+* Navigation between multiple screens
+* Reusing widgets with parameters
+* `Navigator.push()`
+* `Navigator.pushReplacement()`
+* Creating placeholder screens
+
+### Key Lesson
+
+> **A dashboard is the central hub of an app. Instead of putting all features on one page, each dashboard card opens its own dedicated screen. This keeps the app organized and easier to expand.**
+
+---
+
+# 🎉 Progress So Far
+
+Your app now has this navigation flow:
+
+```text
+Splash Screen
+      │
+      ▼
+Login Screen
+      │
+      ├────────────► Register Screen
+      │
+      ▼
+Home Dashboard
+      │
+      ├──► Upload Report
+      ├──► Report History
+      ├──► AI Health Summary
+      └──► My Profile
+```
+
+This is the first version of a **multi-screen Flutter application**, and it's a solid foundation for the features we'll build next.
+
+## 🚀 Day 62 Preview
+
+Tomorrow we'll replace the placeholder **Upload Report** screen with a real interface that lets users:
+
+* Choose how to upload a report (PDF or image)
+* See clear upload options
+* Prepare for integrating file selection in the following days
+
+We'll still avoid backend work for now, but the UI will closely match what users will eventually use in the finished app.
