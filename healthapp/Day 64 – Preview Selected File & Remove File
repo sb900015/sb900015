@@ -1,0 +1,376 @@
+# 🚀 Day 64 – Preview Selected File & Remove File
+
+Congratulations on completing **Day 63**. Today we'll improve the upload experience so it feels much closer to a production app.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, your app will:
+
+* ✅ Show whether the selected file is a PDF or an Image.
+* ✅ Display a different icon based on the file type.
+* ✅ Show a green success message after selecting a file.
+* ✅ Allow the user to remove the selected file.
+* ✅ Prevent uploading if no file is selected.
+
+This is exactly how many real apps behave before uploading a file.
+
+---
+
+# What We'll Build
+
+Current flow:
+
+```text
+Select PDF
+      ↓
+Show filename
+```
+
+Today's flow:
+
+```text
+Select PDF/Image
+        ↓
+Show file icon
+        ↓
+Show filename
+        ↓
+Remove File (optional)
+        ↓
+Continue
+```
+
+---
+
+# Step 1
+
+Open:
+
+```text
+lib/screens/upload_report_screen.dart
+```
+
+Replace the **entire file** with the code below.
+
+```dart
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class UploadReportScreen extends StatefulWidget {
+  const UploadReportScreen({super.key});
+
+  @override
+  State<UploadReportScreen> createState() => _UploadReportScreenState();
+}
+
+class _UploadReportScreenState extends State<UploadReportScreen> {
+  String selectedFile = "";
+  bool isPdf = false;
+
+  Future<void> pickPdf() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+      setState(() {
+        selectedFile = result.files.single.name;
+        isPdf = true;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("PDF selected successfully."),
+        ),
+      );
+    }
+  }
+
+  Future<void> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (image != null) {
+      setState(() {
+        selectedFile = image.name;
+        isPdf = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Image selected successfully."),
+        ),
+      );
+    }
+  }
+
+  void removeFile() {
+    setState(() {
+      selectedFile = "";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Upload Blood Report"),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Upload Your Blood Report",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Choose PDF or Image",
+              style: TextStyle(color: Colors.grey),
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                onPressed: pickPdf,
+                icon: const Icon(Icons.picture_as_pdf),
+                label: const Text("Select PDF"),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                onPressed: pickImage,
+                icon: const Icon(Icons.photo),
+                label: const Text("Select Image"),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            const Text(
+              "Selected File",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Card(
+              elevation: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: selectedFile.isEmpty
+                    ? const Row(
+                        children: [
+                          Icon(Icons.insert_drive_file, size: 40),
+                          SizedBox(width: 15),
+                          Text("No file selected"),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          Icon(
+                            isPdf
+                                ? Icons.picture_as_pdf
+                                : Icons.image,
+                            color: isPdf
+                                ? Colors.red
+                                : Colors.blue,
+                            size: 40,
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                            child: Text(
+                              selectedFile,
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: removeFile,
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (selectedFile.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Please select a report first.",
+                        ),
+                      ),
+                    );
+                    return;
+                  }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Ready to upload: $selectedFile",
+                      ),
+                    ),
+                  );
+                },
+                child: const Text("CONTINUE"),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# 🧪 Testing Checklist
+
+Test all of these:
+
+### Test 1
+
+Open Upload Report.
+
+Expected:
+
+```text
+No file selected
+```
+
+---
+
+### Test 2
+
+Select a PDF.
+
+Expected:
+
+* 📄 PDF icon
+* Filename displayed
+* Success SnackBar
+
+---
+
+### Test 3
+
+Select an image.
+
+Expected:
+
+* 🖼️ Image icon
+* Image filename displayed
+
+---
+
+### Test 4
+
+Tap the 🗑 Delete icon.
+
+Expected:
+
+```text
+No file selected
+```
+
+---
+
+### Test 5
+
+Press **CONTINUE** without selecting a file.
+
+Expected:
+
+```text
+Please select a report first.
+```
+
+---
+
+### Test 6
+
+Select a file and press **CONTINUE**.
+
+Expected:
+
+```text
+Ready to upload:
+filename.pdf
+```
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 64 – File Preview & Remove
+
+### Topics Learned
+
+* Conditional UI (`selectedFile.isEmpty`)
+* Changing icons dynamically
+* Delete button
+* Updating the UI with `setState()`
+* Better user experience
+
+### Key Lesson
+
+> **Good apps don't just let users select files—they clearly show what has been selected and let users change their mind before uploading.**
+
+---
+
+# 🚀 Day 65 Preview
+
+Tomorrow we'll build the **real upload progress screen**.
+
+The user experience will be:
+
+```text
+Select File
+      ↓
+Press Continue
+      ↓
+Uploading...
+      ↓
+Progress Indicator
+      ↓
+Upload Complete
+```
+
+It will still simulate the upload (we'll connect it to cloud storage later), but it will behave like a real production app and prepare us for integrating OCR and AI analysis.
