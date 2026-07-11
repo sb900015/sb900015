@@ -1,0 +1,342 @@
+# 🚀 Day 62/90 – Build the Upload Report Screen (Professional UI)
+
+Welcome to **Day 62!**
+
+Today we're replacing the placeholder **Upload Report** screen with the first real feature of your app.
+
+This screen is one of the most important screens because every user's journey starts here.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, your Upload Report screen will have:
+
+* ✅ Professional design
+* ✅ Upload PDF card
+* ✅ Upload Image card
+* ✅ Instructions section
+* ✅ Upload button (placeholder)
+* ✅ Success message (temporary)
+
+> **Note:** Today we're building the interface only. In the next few days, we'll connect it to real file selection.
+
+---
+
+# Step 1
+
+Open:
+
+```text
+lib/screens/upload_report_screen.dart
+```
+
+Delete everything and replace it with this complete code.
+
+---
+
+```dart
+import 'package:flutter/material.dart';
+
+class UploadReportScreen extends StatelessWidget {
+  const UploadReportScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Upload Blood Report"),
+        centerTitle: true,
+      ),
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Upload Your Blood Report",
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 8),
+
+            const Text(
+              "Choose how you want to upload your report.",
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            uploadOptionCard(
+              icon: Icons.picture_as_pdf,
+              title: "Upload PDF Report",
+              subtitle: "Choose a PDF from your device",
+              color: Colors.red,
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("PDF selection will be added tomorrow."),
+                  ),
+                );
+              },
+            ),
+
+            const SizedBox(height: 20),
+
+            uploadOptionCard(
+              icon: Icons.photo_camera,
+              title: "Upload Image",
+              subtitle: "Take a photo or choose from gallery",
+              color: Colors.blue,
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Image selection will be added tomorrow."),
+                  ),
+                );
+              },
+            ),
+
+            const SizedBox(height: 30),
+
+            const Text(
+              "Before Uploading",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            const ListTile(
+              leading: Icon(Icons.check_circle, color: Colors.green),
+              title: Text("Report should be clearly visible"),
+            ),
+
+            const ListTile(
+              leading: Icon(Icons.check_circle, color: Colors.green),
+              title: Text("Upload complete report"),
+            ),
+
+            const ListTile(
+              leading: Icon(Icons.check_circle, color: Colors.green),
+              title: Text("PDF or Image formats are supported"),
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton.icon(
+
+                onPressed: () {
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+
+                    const SnackBar(
+                      content: Text(
+                        "Upload feature coming tomorrow!",
+                      ),
+                    ),
+
+                  );
+
+                },
+
+                icon: const Icon(Icons.upload),
+
+                label: const Text(
+                  "UPLOAD REPORT",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+  }
+
+  Widget uploadOptionCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+
+    return Card(
+
+      elevation: 5,
+
+      child: InkWell(
+
+        borderRadius: BorderRadius.circular(12),
+
+        onTap: onTap,
+
+        child: Padding(
+
+          padding: const EdgeInsets.all(18),
+
+          child: Row(
+
+            children: [
+
+              CircleAvatar(
+                radius: 28,
+                backgroundColor: color.withOpacity(0.15),
+                child: Icon(
+                  icon,
+                  color: color,
+                  size: 30,
+                ),
+              ),
+
+              const SizedBox(width: 20),
+
+              Expanded(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+
+                    const SizedBox(height: 5),
+
+                    Text(
+                      subtitle,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+
+                  ],
+
+                ),
+
+              ),
+
+              const Icon(Icons.arrow_forward_ios),
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# What You Should See
+
+When you tap **Upload Report** on the dashboard, you'll now see:
+
+```
+Upload Your Blood Report
+
+Choose how you want to upload your report.
+
+📄 Upload PDF Report
+
+📷 Upload Image
+
+-----------------------
+
+Before Uploading
+
+✔ Report should be clearly visible
+
+✔ Upload complete report
+
+✔ PDF or Image formats are supported
+
+-----------------------
+
+UPLOAD REPORT
+```
+
+---
+
+# 🧪 Testing Checklist
+
+Test these actions:
+
+* ✅ Open the Upload Report screen from the dashboard.
+* ✅ Tap **Upload PDF Report** → SnackBar appears.
+* ✅ Tap **Upload Image** → SnackBar appears.
+* ✅ Tap **UPLOAD REPORT** → SnackBar appears.
+* ✅ Ensure the screen scrolls properly if needed.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 62 – Upload Report Screen (UI)
+
+### Topics Learned
+
+* `Card`
+* `InkWell`
+* `ListTile`
+* `CircleAvatar`
+* Reusable widgets (`uploadOptionCard`)
+* `SnackBar` for temporary feedback
+
+### Key Lesson
+
+> **A good upload screen should clearly guide users before they upload anything. Clear instructions reduce mistakes and improve the quality of uploaded reports.**
+
+---
+
+# 🚀 Tomorrow (Day 63)
+
+Tomorrow we'll make this screen functional by integrating a **real file picker**.
+
+You'll be able to:
+
+* 📄 Select a PDF from your phone.
+* 🖼️ Select an image from your gallery.
+* 📋 Display the selected file name on the screen.
+
+This will be the first time your app interacts with the device's storage, making it feel much closer to a real production app.
