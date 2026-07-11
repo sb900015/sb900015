@@ -1,0 +1,446 @@
+# 🚀 Day 63/90 – Select a Real PDF or Image from Your Phone
+
+Welcome to **Day 63!**
+
+Today is a major milestone.
+
+For the first time, your app will interact with your phone's storage.
+
+Instead of showing a placeholder message, users will actually be able to:
+
+* 📄 Select a PDF
+* 🖼️ Select an image
+* 👀 See the selected file name
+
+> **Important:** Today we're only selecting the file. We are **not uploading it to the cloud yet.**
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today:
+
+* ✅ Select PDF from device
+* ✅ Select Image from gallery
+* ✅ Display selected file name
+* ✅ Show "No file selected" initially
+
+---
+
+# Step 1 – Add Required Packages
+
+Open:
+
+```text
+pubspec.yaml
+```
+
+Find:
+
+```yaml
+dependencies:
+```
+
+Add these two packages:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  file_picker: ^8.1.2
+  image_picker: ^1.1.2
+```
+
+Save the file.
+
+Then run:
+
+```bash
+flutter pub get
+```
+
+---
+
+# Step 2 – Replace `upload_report_screen.dart`
+
+Replace the **entire file** with the code below.
+
+```dart
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+class UploadReportScreen extends StatefulWidget {
+  const UploadReportScreen({super.key});
+
+  @override
+  State<UploadReportScreen> createState() => _UploadReportScreenState();
+}
+
+class _UploadReportScreenState extends State<UploadReportScreen> {
+
+  String selectedFile = "No file selected";
+
+  Future<void> pickPdf() async {
+
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+
+      setState(() {
+
+        selectedFile = result.files.single.name;
+
+      });
+
+    }
+
+  }
+
+  Future<void> pickImage() async {
+
+    final ImagePicker picker = ImagePicker();
+
+    final XFile? image =
+        await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (image != null) {
+
+      setState(() {
+
+        selectedFile = image.name;
+
+      });
+
+    }
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Upload Blood Report"),
+        centerTitle: true,
+      ),
+
+      body: SingleChildScrollView(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            const Text(
+              "Upload Your Blood Report",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Choose PDF or Image",
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+
+              width: double.infinity,
+              height: 60,
+
+              child: ElevatedButton.icon(
+
+                onPressed: pickPdf,
+
+                icon: const Icon(Icons.picture_as_pdf),
+
+                label: const Text(
+                  "Select PDF",
+                ),
+
+              ),
+
+            ),
+
+            const SizedBox(height: 20),
+
+            SizedBox(
+
+              width: double.infinity,
+              height: 60,
+
+              child: ElevatedButton.icon(
+
+                onPressed: pickImage,
+
+                icon: const Icon(Icons.photo),
+
+                label: const Text(
+                  "Select Image",
+                ),
+
+              ),
+
+            ),
+
+            const SizedBox(height: 40),
+
+            const Text(
+              "Selected File",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Card(
+
+              child: Padding(
+
+                padding: const EdgeInsets.all(20),
+
+                child: Row(
+
+                  children: [
+
+                    const Icon(
+                      Icons.insert_drive_file,
+                      size: 40,
+                    ),
+
+                    const SizedBox(width: 15),
+
+                    Expanded(
+
+                      child: Text(
+                        selectedFile,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+
+                    ),
+
+                  ],
+
+                ),
+
+              ),
+
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  if (selectedFile == "No file selected") {
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+
+                      const SnackBar(
+                        content: Text(
+                          "Please select a report first.",
+                        ),
+                      ),
+
+                    );
+
+                    return;
+
+                  }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+
+                    SnackBar(
+                      content: Text(
+                        "$selectedFile selected successfully!",
+                      ),
+                    ),
+
+                  );
+
+                },
+
+                child: const Text(
+                  "CONTINUE",
+                ),
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3 – Run the App
+
+```bash
+flutter run
+```
+
+---
+
+# What You Should Test
+
+### Test 1
+
+Open Upload Report
+
+Expected:
+
+```text
+No file selected
+```
+
+---
+
+### Test 2
+
+Tap
+
+```text
+Select PDF
+```
+
+Choose any PDF.
+
+Expected:
+
+```text
+bloodreport.pdf
+```
+
+(or whatever file you selected)
+
+---
+
+### Test 3
+
+Tap
+
+```text
+Select Image
+```
+
+Choose a photo.
+
+Expected:
+
+```text
+IMG_20260711.jpg
+```
+
+---
+
+### Test 4
+
+Press
+
+```text
+CONTINUE
+```
+
+Expected:
+
+```text
+bloodreport.pdf selected successfully!
+```
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 63 – File Selection
+
+### Topics Learned
+
+* `file_picker`
+* `image_picker`
+* `Future`
+* `async`
+* `await`
+* `setState()`
+* Displaying selected file names
+
+### Key Lesson
+
+> **Instead of typing information manually, your app can now access files stored on the user's device. This is the first step toward uploading and analyzing blood reports.**
+
+---
+
+# 🎉 Milestone
+
+This is the first time your app interacts with real device data instead of just showing static screens.
+
+Your app now has:
+
+* Splash Screen ✅
+* Login ✅
+* Register ✅
+* Dashboard ✅
+* Upload Screen ✅
+* Real PDF selection ✅
+* Real Image selection ✅
+
+---
+
+# 🚀 Day 64 Preview
+
+Tomorrow we'll make the upload flow feel more realistic by:
+
+* Showing the selected file with an appropriate icon.
+* Adding a "Remove File" option.
+* Displaying file details.
+* Preparing the screen so it can later upload the report to cloud storage with minimal changes.
+
+### ⚠️ One important note
+
+Because you're building a real product (not just learning Flutter), I'll start introducing packages like `file_picker` and `image_picker` when they're needed. I'll always tell you:
+
+1. What package to add.
+2. Where to add it.
+3. Give you the complete updated file.
+
+That way you can focus on building the app without getting stuck on project configuration.
