@@ -1,0 +1,592 @@
+# 🚀 Day 71/90 – Connect the App to the OCR Service
+
+Welcome to **Day 71!**
+
+Yesterday we created the `OCRService`.
+
+Today we'll make the app actually **use** that service.
+
+Right now:
+
+```text
+Report Screen
+      ↓
+sample_report.dart
+```
+
+After today:
+
+```text
+Report Screen
+      ↓
+OCR Service
+      ↓
+BloodReport Object
+```
+
+This is a big architectural improvement because when we later integrate Google Cloud Vision, **only the OCR service will change**.
+
+---
+
+# 🎯 Today's Goal
+
+Instead of reading from:
+
+```text
+sample_report.dart
+```
+
+we'll read from:
+
+```text
+OCRService
+```
+
+---
+
+# Step 1
+
+Open:
+
+```text
+lib/models/blood_report.dart
+```
+
+Replace the **entire file** with this:
+
+```dart
+class BloodReport {
+  final String patientName;
+  final String bloodGroup;
+
+  final double hemoglobin;
+  final double hba1c;
+  final double vitaminD;
+
+  BloodReport({
+    required this.patientName,
+    required this.bloodGroup,
+    required this.hemoglobin,
+    required this.hba1c,
+    required this.vitaminD,
+  });
+}
+```
+
+*(This is the same structure as before, so if your file already matches, you don't need to change it.)*
+
+---
+
+# Step 2
+
+Open:
+
+```text
+lib/screens/report_details_screen.dart
+```
+
+Replace the **entire file** with this.
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../models/blood_report.dart';
+
+class ReportDetailsScreen extends StatelessWidget {
+
+  final String fileName;
+
+  final BloodReport report;
+
+  const ReportDetailsScreen({
+
+    super.key,
+
+    required this.fileName,
+
+    required this.report,
+
+  });
+
+  Widget resultCard(
+
+    String test,
+
+    String value,
+
+    String status,
+
+    Color color,
+
+  ) {
+
+    return Card(
+
+      margin: const EdgeInsets.only(bottom: 12),
+
+      child: ListTile(
+
+        title: Text(
+
+          test,
+
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+
+        ),
+
+        subtitle: Text(value),
+
+        trailing: Text(
+
+          status,
+
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+  String hemoglobinStatus() {
+
+    if (report.hemoglobin >= 12) {
+
+      return "Normal";
+
+    }
+
+    return "Low";
+
+  }
+
+  String hba1cStatus() {
+
+    if (report.hba1c < 5.7) {
+
+      return "Normal";
+
+    }
+
+    if (report.hba1c < 6.5) {
+
+      return "Pre-Diabetic";
+
+    }
+
+    return "Diabetic";
+
+  }
+
+  String vitaminDStatus() {
+
+    if (report.vitaminD >= 30) {
+
+      return "Normal";
+
+    }
+
+    return "Low";
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Blood Report Analysis"),
+
+        centerTitle: true,
+
+      ),
+
+      body: SingleChildScrollView(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            Text(
+
+              report.patientName,
+
+              style: const TextStyle(
+
+                fontSize: 28,
+
+                fontWeight: FontWeight.bold,
+
+              ),
+
+            ),
+
+            const SizedBox(height: 5),
+
+            Text(fileName),
+
+            const SizedBox(height: 25),
+
+            resultCard(
+
+              "Hemoglobin",
+
+              "${report.hemoglobin} g/dL",
+
+              hemoglobinStatus(),
+
+              Colors.green,
+
+            ),
+
+            resultCard(
+
+              "HbA1c",
+
+              "${report.hba1c} %",
+
+              hba1cStatus(),
+
+              Colors.orange,
+
+            ),
+
+            resultCard(
+
+              "Vitamin D",
+
+              "${report.vitaminD} ng/mL",
+
+              vitaminDStatus(),
+
+              Colors.red,
+
+            ),
+
+            resultCard(
+
+              "Blood Group",
+
+              report.bloodGroup,
+
+              "Normal",
+
+              Colors.green,
+
+            ),
+
+            const SizedBox(height: 30),
+
+            const Text(
+
+              "AI Health Summary",
+
+              style: TextStyle(
+
+                fontSize: 24,
+
+                fontWeight: FontWeight.bold,
+
+              ),
+
+            ),
+
+            const SizedBox(height: 15),
+
+            Card(
+
+              child: Padding(
+
+                padding: const EdgeInsets.all(16),
+
+                child: Text(
+
+                  "Hemoglobin: ${hemoglobinStatus()}\n\n"
+
+                  "HbA1c: ${hba1cStatus()}\n\n"
+
+                  "Vitamin D: ${vitaminDStatus()}",
+
+                ),
+
+              ),
+
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+
+              width: double.infinity,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  Navigator.popUntil(
+
+                    context,
+
+                    (route) => route.isFirst,
+
+                  );
+
+                },
+
+                child: const Text(
+
+                  "Back to Dashboard",
+
+                ),
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Now open:
+
+```text
+lib/screens/upload_progress_screen.dart
+```
+
+Replace the **entire file** with this.
+
+```dart
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import '../models/blood_report.dart';
+import '../services/ocr_service.dart';
+import 'report_details_screen.dart';
+
+class UploadProgressScreen extends StatefulWidget {
+
+  final String fileName;
+
+  const UploadProgressScreen({
+
+    super.key,
+
+    required this.fileName,
+
+  });
+
+  @override
+  State<UploadProgressScreen> createState() =>
+      _UploadProgressScreenState();
+
+}
+
+class _UploadProgressScreenState
+    extends State<UploadProgressScreen> {
+
+  bool uploadCompleted = false;
+
+  BloodReport? report;
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    loadReport();
+
+  }
+
+  Future<void> loadReport() async {
+
+    OCRService service = OCRService();
+
+    report = await service.analyzeReport(widget.fileName);
+
+    Timer(const Duration(seconds: 2), () {
+
+      setState(() {
+
+        uploadCompleted = true;
+
+      });
+
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Uploading Report"),
+
+      ),
+
+      body: Center(
+
+        child: uploadCompleted
+
+            ? Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children: [
+
+                  const Icon(
+
+                    Icons.check_circle,
+
+                    color: Colors.green,
+
+                    size: 100,
+
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+
+                    onPressed: () {
+
+                      Navigator.pushReplacement(
+
+                        context,
+
+                        MaterialPageRoute(
+
+                          builder: (_) => ReportDetailsScreen(
+
+                            fileName: widget.fileName,
+
+                            report: report!,
+
+                          ),
+
+                        ),
+
+                      );
+
+                    },
+
+                    child: const Text(
+
+                      "View Report",
+
+                    ),
+
+                  ),
+
+                ],
+
+              )
+
+            : const Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+
+                children: [
+
+                  CircularProgressIndicator(),
+
+                  SizedBox(height: 20),
+
+                  Text(
+
+                    "Analyzing Report...",
+
+                  ),
+
+                ],
+
+              ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# 🧪 Test
+
+Run:
+
+```bash
+flutter run
+```
+
+Upload any PDF or image.
+
+The flow should now be:
+
+```text
+Upload Report
+      ↓
+OCRService
+      ↓
+BloodReport Object
+      ↓
+Report Details Screen
+```
+
+Even though the OCR service still returns sample values, the app architecture is now ready for a real OCR engine.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 71 – Connecting OCR Service
+
+### Topics Learned
+
+* Passing a model object between screens.
+* Calling a service from the UI.
+* Keeping the UI independent from data sources.
+* Preparing for real OCR integration.
+
+### Key Lesson
+
+> **The screen no longer knows where the data comes from. It simply displays a `BloodReport`. Today that report comes from a sample OCR service. Later it will come from Google Cloud Vision without requiring changes to the UI.**
+
+---
+
+# 🚀 Day 72 Preview
+
+Tomorrow we'll make your first **real backend connection**.
+
+We'll build a simple **FastAPI server** on your laptop and have your Flutter app communicate with it. That will be the first time your mobile app exchanges data with a backend service—the same architecture you'll use when deploying your MVP to the cloud.
