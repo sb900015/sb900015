@@ -1,0 +1,288 @@
+# 🚀 Day 69/90 – Connect the Report Screen to the Data Model
+
+Welcome to **Day 69!**
+
+Yesterday, we created our first **BloodReport model**.
+
+Today we'll use that model to display data on the Report Details screen instead of hard-coded values.
+
+This is how professional Flutter apps are built.
+
+---
+
+# 🎯 Today's Goal
+
+Instead of writing:
+
+```dart
+"Hemoglobin"
+"13.8 g/dL"
+```
+
+We'll use:
+
+```dart
+sampleReport.hemoglobin
+```
+
+This means later, when OCR extracts real values, we only need to replace the sample data—the UI won't need to change.
+
+---
+
+# Step 1
+
+Open:
+
+```text
+lib/screens/report_details_screen.dart
+```
+
+Delete everything and replace it with the following complete file.
+
+---
+
+## 📄 `report_details_screen.dart`
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../models/sample_report.dart';
+
+class ReportDetailsScreen extends StatelessWidget {
+  final String fileName;
+
+  const ReportDetailsScreen({
+    super.key,
+    required this.fileName,
+  });
+
+  Widget resultCard(
+    String test,
+    String value,
+    String status,
+    Color color,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ListTile(
+        title: Text(
+          test,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text(value),
+        trailing: Text(
+          status,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  String hemoglobinStatus() {
+    if (sampleReport.hemoglobin >= 12) {
+      return "Normal";
+    }
+    return "Low";
+  }
+
+  String hba1cStatus() {
+    if (sampleReport.hba1c < 5.7) {
+      return "Normal";
+    } else if (sampleReport.hba1c < 6.5) {
+      return "Pre-Diabetic";
+    }
+    return "Diabetic";
+  }
+
+  String vitaminDStatus() {
+    if (sampleReport.vitaminD >= 30) {
+      return "Normal";
+    }
+    return "Low";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Blood Report Analysis"),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Text(
+              sampleReport.patientName,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 5),
+
+            Text(
+              fileName,
+              style: const TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            resultCard(
+              "Hemoglobin",
+              "${sampleReport.hemoglobin} g/dL",
+              hemoglobinStatus(),
+              Colors.green,
+            ),
+
+            resultCard(
+              "HbA1c",
+              "${sampleReport.hba1c} %",
+              hba1cStatus(),
+              Colors.orange,
+            ),
+
+            resultCard(
+              "Vitamin D",
+              "${sampleReport.vitaminD} ng/mL",
+              vitaminDStatus(),
+              Colors.red,
+            ),
+
+            resultCard(
+              "Blood Group",
+              sampleReport.bloodGroup,
+              "Normal",
+              Colors.green,
+            ),
+
+            const SizedBox(height: 30),
+
+            const Text(
+              "AI Health Summary",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Card(
+              color: Colors.blue.shade50,
+              child: const Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  "This summary is currently using sample data.\n\n"
+                  "In the coming days it will be generated automatically "
+                  "using OCR + OpenAI.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.popUntil(
+                    context,
+                    (route) => route.isFirst,
+                  );
+                },
+                child: const Text(
+                  "Back to Dashboard",
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# 🧪 Test
+
+Run:
+
+```bash
+flutter run
+```
+
+Upload any file and go to **View Report**.
+
+You should now see:
+
+* Patient Name: **Srujan**
+* Blood Group: **B+**
+* Hemoglobin from `sampleReport`
+* HbA1c from `sampleReport`
+* Vitamin D from `sampleReport`
+
+Try changing values in:
+
+```text
+lib/models/sample_report.dart
+```
+
+For example:
+
+```dart
+hemoglobin: 10.5,
+hba1c: 8.2,
+vitaminD: 35,
+```
+
+Run the app again and you'll see the updated values automatically.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 69 – Using the BloodReport Model
+
+### Topics Learned
+
+* Importing a model into a screen.
+* Displaying data from an object.
+* Separating UI from data.
+* Computing health status from model values.
+
+### Key Lesson
+
+> **The UI should display data from a model instead of storing data directly. This makes it easy to replace sample data with real OCR results later without redesigning the screen.**
+
+---
+
+# 🚀 Day 70 Preview
+
+Tomorrow we'll begin preparing for **real OCR integration**.
+
+We'll create a service layer (`services/`) that will eventually:
+
+1. Receive the uploaded PDF or image.
+2. Extract text using OCR.
+3. Convert the extracted text into a `BloodReport` object.
+
+This is an important architectural step because it keeps OCR logic separate from your UI, making the app easier to maintain as it grows.
