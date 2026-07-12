@@ -1,0 +1,350 @@
+# 🚀 Day 65/90 – Build the Upload Progress Screen
+
+Welcome to **Day 65!**
+
+Today we'll make the upload process feel like a real application.
+
+Currently, when the user taps **CONTINUE**, they only see a SnackBar.
+
+Today we'll change the flow to:
+
+```text
+Select Report
+      ↓
+Press CONTINUE
+      ↓
+Uploading...
+      ↓
+Progress Indicator
+      ↓
+Upload Successful ✅
+```
+
+We're still **simulating the upload**. Later, we'll replace the simulation with a real upload to cloud storage.
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today:
+
+* ✅ Upload Progress Screen
+* ✅ Circular Progress Indicator
+* ✅ 3-second simulated upload
+* ✅ Success message
+* ✅ Return to Dashboard
+
+---
+
+# Step 1
+
+Create a new file:
+
+```text
+lib/screens/upload_progress_screen.dart
+```
+
+---
+
+# Step 2
+
+Paste this complete code into `upload_progress_screen.dart`
+
+```dart
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+class UploadProgressScreen extends StatefulWidget {
+  final String fileName;
+
+  const UploadProgressScreen({
+    super.key,
+    required this.fileName,
+  });
+
+  @override
+  State<UploadProgressScreen> createState() =>
+      _UploadProgressScreenState();
+}
+
+class _UploadProgressScreenState
+    extends State<UploadProgressScreen> {
+
+  bool uploadCompleted = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 3), () {
+      setState(() {
+        uploadCompleted = true;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Uploading Report"),
+        centerTitle: true,
+      ),
+
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+
+          child: uploadCompleted
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+
+                    const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 100,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    const Text(
+                      "Upload Successful!",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Text(
+                      widget.fileName,
+                      textAlign: TextAlign.center,
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Back"),
+                    ),
+                  ],
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+
+                    const CircularProgressIndicator(),
+
+                    const SizedBox(height: 30),
+
+                    const Text(
+                      "Uploading Report...",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    Text(
+                      widget.fileName,
+                      textAlign: TextAlign.center,
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      "Please wait...",
+                    ),
+                  ],
+                ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 3
+
+Open:
+
+```text
+lib/screens/upload_report_screen.dart
+```
+
+At the top, add:
+
+```dart
+import 'upload_progress_screen.dart';
+```
+
+---
+
+# Step 4
+
+Find the **CONTINUE** button.
+
+Replace **only the `onPressed` section** with:
+
+```dart
+onPressed: () {
+
+  if (selectedFile.isEmpty) {
+
+    ScaffoldMessenger.of(context).showSnackBar(
+
+      const SnackBar(
+        content: Text(
+          "Please select a report first.",
+        ),
+      ),
+
+    );
+
+    return;
+
+  }
+
+  Navigator.push(
+
+    context,
+
+    MaterialPageRoute(
+
+      builder: (context) => UploadProgressScreen(
+        fileName: selectedFile,
+      ),
+
+    ),
+
+  );
+
+},
+```
+
+---
+
+# Run
+
+```bash
+flutter run
+```
+
+---
+
+# Test Everything
+
+### Test 1
+
+No file selected
+
+↓
+
+Press CONTINUE
+
+Expected
+
+```text
+Please select a report first.
+```
+
+---
+
+### Test 2
+
+Select PDF
+
+↓
+
+Press CONTINUE
+
+Expected
+
+```text
+Uploading Report...
+```
+
+Loading spinner
+
+↓
+
+Wait 3 seconds
+
+↓
+
+```text
+Upload Successful!
+```
+
+↓
+
+Back button
+
+↓
+
+Returns to Upload Screen
+
+---
+
+# App Flow So Far
+
+```text
+Splash
+      ↓
+Login
+      ↓
+Dashboard
+      ↓
+Upload Report
+      ↓
+Select PDF/Image
+      ↓
+Upload Progress
+      ↓
+Upload Success
+```
+
+This now feels much more like a real mobile app.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 65 – Upload Progress Screen
+
+### Topics Learned
+
+* `Timer`
+* `initState()`
+* `CircularProgressIndicator`
+* Passing data between screens
+* Stateful screen updates
+
+### Key Lesson
+
+> **Long-running operations such as uploading files should give users visual feedback. A progress screen reassures users that the app is working instead of appearing frozen.**
+
+---
+
+# 🚀 A Small Roadmap Adjustment
+
+I want to slightly improve our plan from here.
+
+Originally, I planned to spend several more days polishing the upload UI before doing any real processing. Since you're progressing well and your goal is to launch an MVP, I think a better approach is:
+
+* **Day 66–67:** Integrate OCR (extract text from the selected report).
+* **Day 68–70:** Display extracted values (Hemoglobin, HbA1c, Vitamin D, etc.).
+* **Day 71 onward:** Add AI explanations and then connect the backend.
+
+This gets us to a functional health report analyzer sooner, while still building the app in manageable steps. I think it aligns better with your goal of launching a useful product.
