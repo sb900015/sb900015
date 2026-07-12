@@ -1,0 +1,337 @@
+# 🚀 Day 67/90 – Display AI Health Summary
+
+Welcome to **Day 67!**
+
+Today we're going to make your app feel much more like the final product.
+
+Currently your app shows raw blood test values like:
+
+* Hemoglobin
+* HbA1c
+* Vitamin D
+
+Now we'll add an **AI Health Summary** section that explains the report in simple language.
+
+> **Note:** Today the summary is still sample text. Later we'll replace it with a real OpenAI API response.
+
+---
+
+# 🎯 Today's Goal
+
+Your Report Details screen will now show:
+
+```text
+Blood Report
+
+Hemoglobin      Normal
+
+HbA1c           Pre-Diabetic
+
+Vitamin D       Low
+
+-------------------------
+
+AI Health Summary
+
+• Hemoglobin is normal.
+
+• HbA1c indicates pre-diabetes.
+
+• Vitamin D is below the normal range.
+
+• Consider consulting your doctor.
+
+-------------------------
+
+Overall Health Score
+
+82 / 100
+```
+
+---
+
+# Step 1
+
+Open
+
+```text
+lib/screens/report_details_screen.dart
+```
+
+Replace the **entire file** with this:
+
+```dart
+import 'package:flutter/material.dart';
+
+class ReportDetailsScreen extends StatelessWidget {
+  final String fileName;
+
+  const ReportDetailsScreen({
+    super.key,
+    required this.fileName,
+  });
+
+  Widget resultCard(
+    String test,
+    String value,
+    String status,
+    Color color,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ListTile(
+        title: Text(
+          test,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text(value),
+        trailing: Text(
+          status,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Blood Report Analysis"),
+        centerTitle: true,
+      ),
+
+      body: SingleChildScrollView(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            const Text(
+              "Blood Report Results",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Text(
+              fileName,
+              style: const TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            resultCard(
+              "Hemoglobin",
+              "13.8 g/dL",
+              "Normal",
+              Colors.green,
+            ),
+
+            resultCard(
+              "HbA1c",
+              "6.1 %",
+              "Pre-Diabetic",
+              Colors.orange,
+            ),
+
+            resultCard(
+              "Vitamin D",
+              "18 ng/mL",
+              "Low",
+              Colors.red,
+            ),
+
+            resultCard(
+              "Blood Group",
+              "B+",
+              "Normal",
+              Colors.green,
+            ),
+
+            const SizedBox(height: 30),
+
+            const Text(
+              "AI Health Summary",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Card(
+              color: Colors.blue.shade50,
+              child: const Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  "• Your hemoglobin level is within the normal range.\n\n"
+                  "• Your HbA1c indicates pre-diabetes. Regular exercise and a balanced diet may help improve blood sugar control.\n\n"
+                  "• Your Vitamin D level is low. Consult your doctor about supplementation and spend some time in sunlight if appropriate.\n\n"
+                  "• Overall, your health looks stable, but improving Vitamin D and monitoring HbA1c would be beneficial.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            const Text(
+              "Overall Health Score",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            Card(
+              color: Colors.green.shade50,
+              child: const Padding(
+                padding: EdgeInsets.all(20),
+                child: Center(
+                  child: Column(
+                    children: [
+
+                      Text(
+                        "82 / 100",
+                        style: TextStyle(
+                          fontSize: 42,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+
+                      SizedBox(height: 10),
+
+                      Text(
+                        "Good Health",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  Navigator.popUntil(
+                    context,
+                    (route) => route.isFirst,
+                  );
+
+                },
+
+                child: const Text(
+                  "Back to Dashboard",
+                ),
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# 🧪 Test the App
+
+Run the app and follow this flow:
+
+```text
+Dashboard
+      ↓
+Upload Report
+      ↓
+Select PDF
+      ↓
+Continue
+      ↓
+Uploading...
+      ↓
+Upload Successful
+      ↓
+View Report
+```
+
+You should now see:
+
+* ✅ Blood test cards
+* ✅ AI Health Summary section
+* ✅ Overall Health Score
+* ✅ Back to Dashboard button
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 67 – AI Health Summary (UI)
+
+### Topics Learned
+
+* Using multiple cards to organize information.
+* Displaying AI-generated explanations (currently sample text).
+* Creating a health score section.
+* Designing a report summary screen.
+
+### Key Lesson
+
+> **Medical values alone can be difficult for users to interpret. A summary written in simple language helps users understand what their results may mean. In future days, this summary will be generated dynamically using AI instead of fixed text.**
+
+---
+
+# 🚀 What Happens Next
+
+We're entering one of the most exciting phases of the project.
+
+Over the next few days, we'll move from **sample data** to **real report processing**:
+
+* **Day 68:** Parse extracted blood test values into structured data.
+* **Day 69:** Display dynamic results instead of hard-coded values.
+* **Day 70+:** Integrate OCR so the uploaded report provides the actual values shown on the screen.
+
+After that, we'll connect the OpenAI API so the AI Health Summary is generated specifically for each uploaded report. That will make your app behave much more like the MVP you plan to launch.
