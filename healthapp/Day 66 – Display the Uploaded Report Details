@@ -1,0 +1,268 @@
+# 🚀 Day 66/90 – Display the Uploaded Report Details
+
+Welcome to **Day 66!** 🎉
+
+Yesterday, we built an upload progress screen.
+
+Today, we'll make the app feel more realistic by showing a **Report Details** screen after the upload completes.
+
+In a real application, this screen will eventually display data extracted from OCR and AI. For now, we'll use sample values so the app flow is complete.
+
+---
+
+# 🎯 Today's Goal
+
+After today's work, the flow will be:
+
+```text
+Dashboard
+    ↓
+Upload Report
+    ↓
+Select PDF/Image
+    ↓
+Uploading...
+    ↓
+Upload Successful
+    ↓
+Report Details
+```
+
+---
+
+# Step 1
+
+Create a new file:
+
+```text
+lib/screens/report_details_screen.dart
+```
+
+---
+
+# Step 2
+
+Paste this complete code into `report_details_screen.dart`
+
+```dart
+import 'package:flutter/material.dart';
+
+class ReportDetailsScreen extends StatelessWidget {
+  final String fileName;
+
+  const ReportDetailsScreen({
+    super.key,
+    required this.fileName,
+  });
+
+  Widget resultCard(
+    String test,
+    String value,
+    String status,
+    Color color,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 15),
+      child: ListTile(
+        title: Text(
+          test,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text("Value: $value"),
+        trailing: Text(
+          status,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Blood Report"),
+        centerTitle: true,
+      ),
+
+      body: SingleChildScrollView(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+
+            const Text(
+              "Report Uploaded Successfully",
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Text(
+              fileName,
+              style: const TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            resultCard(
+              "Hemoglobin",
+              "13.8 g/dL",
+              "Normal",
+              Colors.green,
+            ),
+
+            resultCard(
+              "HbA1c",
+              "6.1 %",
+              "Pre-Diabetic",
+              Colors.orange,
+            ),
+
+            resultCard(
+              "Vitamin D",
+              "18 ng/mL",
+              "Low",
+              Colors.red,
+            ),
+
+            resultCard(
+              "Blood Group",
+              "B+",
+              "Normal",
+              Colors.green,
+            ),
+
+            const SizedBox(height: 30),
+
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                child: const Text("Back to Dashboard"),
+                onPressed: () {
+
+                  Navigator.popUntil(
+                    context,
+                    (route) => route.isFirst,
+                  );
+
+                },
+              ),
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+}
+```
+
+---
+
+# Step 3
+
+Open:
+
+```text
+lib/screens/upload_progress_screen.dart
+```
+
+Replace the **Back** button with this:
+
+```dart
+ElevatedButton(
+  onPressed: () {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ReportDetailsScreen(
+          fileName: widget.fileName,
+        ),
+      ),
+    );
+  },
+  child: const Text("View Report"),
+),
+```
+
+---
+
+# Step 4
+
+At the top of `upload_progress_screen.dart`, add:
+
+```dart
+import 'report_details_screen.dart';
+```
+
+---
+
+# 🧪 Test the App
+
+Run:
+
+```bash
+flutter run
+```
+
+Test this complete flow:
+
+1. Open **Upload Report**
+2. Select a PDF or Image
+3. Tap **CONTINUE**
+4. Wait for the upload animation
+5. Tap **View Report**
+6. You should see a report with sample values.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 66 – Report Details Screen
+
+### Topics Learned
+
+* Creating a results screen
+* Passing data between multiple screens
+* Reusable widgets (`resultCard`)
+* Displaying health information using cards
+
+### Key Lesson
+
+> **In a production app, this screen will show values extracted from the uploaded report. Today we used sample data so we could complete the user journey from upload to results.**
+
+---
+
+# 🚀 A Small Change to Our Roadmap
+
+Originally, I planned to spend a few more days polishing the upload process before introducing OCR.
+
+Instead, I think a better path for your goal is:
+
+* **Day 67–69:** Integrate OCR so the app extracts text from uploaded reports.
+* **Day 70–72:** Convert extracted text into structured health values (Hemoglobin, HbA1c, Vitamin D, etc.).
+* **After that:** Connect AI to explain those values in plain language.
+
+This keeps every new feature moving the app closer to a working MVP that someone could actually use.
