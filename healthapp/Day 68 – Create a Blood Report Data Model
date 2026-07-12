@@ -1,0 +1,226 @@
+# 🚀 Day 68/90 – Create a Blood Report Data Model
+
+Welcome to **Day 68!**
+
+Up to now, our report screen displays **hard-coded values** like:
+
+* Hemoglobin = 13.8
+* HbA1c = 6.1
+* Vitamin D = 18
+
+That works for a demo, but a real app shouldn't have values written directly into the UI.
+
+Today we'll move those values into a **data model**, which is how professional Flutter apps organize data.
+
+---
+
+# 🎯 Today's Goal
+
+Instead of this:
+
+```dart
+resultCard(
+  "Hemoglobin",
+  "13.8 g/dL",
+  "Normal",
+  Colors.green,
+);
+```
+
+We'll store all report data in one place and display it dynamically.
+
+This prepares us for OCR and AI integration.
+
+---
+
+# What is a Model?
+
+A model is simply a class that holds related data.
+
+For your app, a blood report contains things like:
+
+* Patient name
+* Hemoglobin
+* HbA1c
+* Vitamin D
+* Blood Group
+
+Instead of scattering these values across screens, we'll keep them together.
+
+---
+
+# Step 1
+
+Create a new folder if it doesn't already exist:
+
+```text
+lib/models
+```
+
+Inside it, create a new file:
+
+```text
+blood_report.dart
+```
+
+---
+
+# Step 2
+
+Paste this complete code into:
+
+```text
+lib/models/blood_report.dart
+```
+
+```dart
+class BloodReport {
+
+  final String patientName;
+  final String bloodGroup;
+
+  final double hemoglobin;
+  final double hba1c;
+  final double vitaminD;
+
+  BloodReport({
+
+    required this.patientName,
+    required this.bloodGroup,
+    required this.hemoglobin,
+    required this.hba1c,
+    required this.vitaminD,
+
+  });
+
+}
+```
+
+---
+
+# Step 3
+
+Now create another file inside:
+
+```text
+lib/models
+```
+
+called
+
+```text
+sample_report.dart
+```
+
+---
+
+Paste this:
+
+```dart
+import 'blood_report.dart';
+
+BloodReport sampleReport = BloodReport(
+
+  patientName: "Srujan",
+
+  bloodGroup: "B+",
+
+  hemoglobin: 13.8,
+
+  hba1c: 6.1,
+
+  vitaminD: 18,
+
+);
+```
+
+---
+
+# Step 4
+
+Today we **won't modify the Report Details screen yet**.
+
+The purpose of today is to understand how Flutter apps separate:
+
+* UI (screens)
+* Data (models)
+
+Tomorrow we'll connect the screen to this model.
+
+---
+
+# Why Is This Important?
+
+Imagine you upload two reports.
+
+Instead of changing your screen code every time, you'll simply create two objects:
+
+```dart
+BloodReport report1 = ...
+BloodReport report2 = ...
+```
+
+The same screen can display either report.
+
+That's how apps scale to thousands of users.
+
+---
+
+# Project Structure
+
+By the end of today, your project should look like this:
+
+```text
+lib
+│
+├── models
+│     ├── blood_report.dart
+│     └── sample_report.dart
+│
+├── screens
+│     ├── login_screen.dart
+│     ├── register_screen.dart
+│     ├── dashboard_screen.dart
+│     ├── upload_report_screen.dart
+│     ├── upload_progress_screen.dart
+│     └── report_details_screen.dart
+```
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 68 – Data Models
+
+### Topics Learned
+
+* Creating a model class
+* Organizing project folders
+* Keeping data separate from UI
+* Creating sample data
+
+### Key Lesson
+
+> **A model represents the data in your application. By separating data from the user interface, you make the app easier to maintain, test, and extend.**
+
+---
+
+# 🚀 Day 69 Preview
+
+Tomorrow we'll connect the `BloodReport` model to the Report Details screen.
+
+Instead of displaying hard-coded values, the screen will read everything from the model. After that, replacing sample data with OCR output will be straightforward, because the UI will already be designed to consume structured data.
+
+---
+
+## 📌 A Note About Our Roadmap
+
+We're now moving from "learning Flutter" to "building production-ready architecture."
+
+This is the same approach you'll see in many professional Flutter apps:
+
+* **models/** → Stores data.
+* **screens/** → Displays data.
+* **services/** (coming soon) → Handles OCR, AI, database, and cloud interactions.
+
+Organizing the project this way now will make the later backend integration much cleaner and easier to manage.
