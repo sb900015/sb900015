@@ -1,0 +1,300 @@
+# 🚀 Day 72/90 – Build Your First Backend (FastAPI)
+
+Welcome to **Day 72!** 🎉
+
+Today is one of the biggest milestones in your project.
+
+Until now, everything has been running only inside the Flutter app.
+
+Starting today, you'll build a **backend** that your app will eventually communicate with.
+
+---
+
+# 🏗 What is a Backend?
+
+Think of your app like this:
+
+```text
+Flutter App (Frontend)
+        │
+        │ Internet / API
+        ▼
+FastAPI Backend
+        │
+        ▼
+Database
+        │
+        ▼
+AI + OCR + Cloud Storage
+```
+
+Your Flutter app is what users see.
+
+The backend does all the heavy work.
+
+---
+
+# 🎯 Today's Goal
+
+Today we'll create a FastAPI server that returns a simple message.
+
+Later it will:
+
+* Store users
+* Store reports
+* Process OCR
+* Call OpenAI
+* Save data to PostgreSQL
+
+---
+
+# Step 1
+
+Open VS Code.
+
+Open the folder:
+
+```text
+BloodReportsApp/backend
+```
+
+---
+
+# Step 2
+
+Open Terminal.
+
+Create a virtual environment.
+
+```bash
+python -m venv venv
+```
+
+---
+
+# Step 3
+
+Activate it.
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+You should see
+
+```text
+(venv)
+```
+
+at the beginning of the terminal.
+
+---
+
+# Step 4
+
+Install FastAPI
+
+```bash
+pip install fastapi uvicorn
+```
+
+Wait until installation completes.
+
+---
+
+# Step 5
+
+Create a file named
+
+```text
+main.py
+```
+
+inside
+
+```text
+BloodReportsApp/backend
+```
+
+---
+
+# Step 6
+
+Paste this code.
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def home():
+
+    return {
+        "message": "Blood Report API is Running"
+    }
+
+
+@app.get("/health")
+def health():
+
+    return {
+        "status": "Healthy"
+    }
+```
+
+---
+
+# Step 7
+
+Start the server.
+
+```bash
+uvicorn main:app --reload
+```
+
+You should see something similar to:
+
+```text
+INFO:
+Uvicorn running on
+
+http://127.0.0.1:8000
+```
+
+Leave this terminal running.
+
+---
+
+# Step 8
+
+Open your browser.
+
+Visit
+
+```text
+http://127.0.0.1:8000
+```
+
+Expected output:
+
+```json
+{
+  "message": "Blood Report API is Running"
+}
+```
+
+---
+
+Now open
+
+```text
+http://127.0.0.1:8000/health
+```
+
+Expected:
+
+```json
+{
+  "status":"Healthy"
+}
+```
+
+---
+
+# Congratulations 🎉
+
+You have just created your first backend server.
+
+Although it only returns sample data today, it is the same FastAPI framework you'll use for:
+
+* User login
+* User registration
+* Uploading reports
+* AI analysis
+* OCR processing
+* Database access
+
+---
+
+# 📂 Your Project Structure
+
+```text
+BloodReportsApp
+
+│
+
+├── backend
+│     │
+│     ├── venv
+│     └── main.py
+│
+├── mobile
+│
+├── database
+│
+└── docs
+```
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 72 – Creating the Backend
+
+### Topics Learned
+
+* What a backend is.
+* Creating a Python virtual environment.
+* Installing FastAPI.
+* Running a FastAPI server.
+* Creating API endpoints.
+
+### Key Lesson
+
+> **A backend exposes APIs that the mobile application can call. Today you created two basic endpoints (`/` and `/health`). In the coming days, these endpoints will return real data instead of static messages.**
+
+---
+
+# 🚀 Day 73 Preview
+
+Tomorrow we'll make the Flutter app communicate with this backend for the first time.
+
+The flow will become:
+
+```text
+Flutter App
+      │
+      ▼
+HTTP Request
+      │
+      ▼
+FastAPI Server
+      │
+      ▼
+JSON Response
+      │
+      ▼
+Flutter Displays Result
+```
+
+This is the first step toward making your app fully functional instead of relying only on locally stored sample data.
+
+---
+
+## 🎉 A Personal Note
+
+You've reached **Day 72** and have gone from:
+
+* Knowing no Python,
+* Learning Flutter,
+* Building screens,
+* Running your app on a real Android phone,
+* Creating models and services,
+
+to now **building your own backend server**.
+
+That's a significant progression. The remaining days will focus on connecting all these pieces into a working MVP that users can actually use.
