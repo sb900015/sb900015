@@ -1,0 +1,209 @@
+# 🚀 Day 70 – Create the OCR Service (Project Architecture)
+
+Welcome to **Day 70!**
+
+Today we begin preparing your app for **real OCR integration**.
+
+> **Important:** We are **not** connecting to Google Cloud Vision yet. Instead, we're building the project structure that will make integration much easier.
+
+Professional apps separate responsibilities like this:
+
+```text
+Flutter UI
+     │
+     ▼
+OCR Service
+     │
+     ▼
+Google Cloud Vision API
+     │
+     ▼
+Extracted Text
+     │
+     ▼
+Blood Report Model
+     │
+     ▼
+Report Screen
+```
+
+---
+
+# 🎯 Today's Goal
+
+By the end of today, your project will have a dedicated **services** folder and an `OCRService` class.
+
+For now, it will return sample data. Later, we'll replace it with a real API call.
+
+---
+
+# Step 1
+
+Create a new folder:
+
+```text
+lib/services
+```
+
+---
+
+# Step 2
+
+Inside it, create a file:
+
+```text
+ocr_service.dart
+```
+
+---
+
+# Step 3
+
+Paste this complete code into:
+
+```text
+lib/services/ocr_service.dart
+```
+
+```dart
+import '../models/blood_report.dart';
+
+class OCRService {
+
+  Future<BloodReport> analyzeReport(String fileName) async {
+
+    // Simulate OCR processing delay
+    await Future.delayed(const Duration(seconds: 2));
+
+    return BloodReport(
+      patientName: "Srujan",
+      bloodGroup: "B+",
+      hemoglobin: 13.8,
+      hba1c: 6.1,
+      vitaminD: 18,
+    );
+  }
+
+}
+```
+
+---
+
+# What This Does
+
+When we call:
+
+```dart
+OCRService service = OCRService();
+
+BloodReport report =
+    await service.analyzeReport("blood_report.pdf");
+```
+
+It returns a `BloodReport` object.
+
+Right now the values are hard-coded.
+
+Later we'll replace this part with:
+
+```text
+Upload Image/PDF
+        ↓
+Google Cloud Vision OCR
+        ↓
+Extract Text
+        ↓
+Convert to BloodReport
+        ↓
+Return Report
+```
+
+The rest of your app won't need to change.
+
+---
+
+# Project Structure
+
+Your project should now look like:
+
+```text
+lib
+│
+├── models
+│     ├── blood_report.dart
+│     └── sample_report.dart
+│
+├── services
+│     └── ocr_service.dart
+│
+├── screens
+│     ├── login_screen.dart
+│     ├── register_screen.dart
+│     ├── dashboard_screen.dart
+│     ├── upload_report_screen.dart
+│     ├── upload_progress_screen.dart
+│     └── report_details_screen.dart
+```
+
+---
+
+# Why This Is Important
+
+Many beginners put everything inside one screen:
+
+```text
+Screen
+  ↓
+OCR
+Database
+API
+AI
+UI
+```
+
+This quickly becomes difficult to maintain.
+
+Instead, we're separating concerns:
+
+* **models/** → Stores data.
+* **screens/** → Displays data.
+* **services/** → Performs work (OCR, AI, cloud, database).
+
+This makes the code easier to understand and extend.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 70 – OCR Service Architecture
+
+### Topics Learned
+
+* Creating a `services` folder.
+* Building an `OCRService` class.
+* Returning a `BloodReport` object from a service.
+* Separating business logic from the user interface.
+
+### Key Lesson
+
+> **Services perform work such as OCR, AI requests, cloud uploads, or database operations. Screens should focus on displaying information, while services handle processing.**
+
+---
+
+# 🚀 Day 71 Preview
+
+Tomorrow we'll connect the `OCRService` to the app.
+
+Instead of reading directly from `sample_report.dart`, the flow will become:
+
+```text
+Upload Report
+      ↓
+OCRService
+      ↓
+BloodReport
+      ↓
+Report Screen
+```
+
+This is an important milestone because, after that, replacing the sample implementation with a real Google Cloud Vision API call will require changes only inside `OCRService`, leaving the rest of your app unchanged.
