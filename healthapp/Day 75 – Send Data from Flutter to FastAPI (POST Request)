@@ -1,0 +1,440 @@
+# 🚀 Day 75/90 – Send Data from Flutter to FastAPI (POST Request)
+
+Congratulations on completing **Day 74**!
+
+Yesterday, Flutter **received** data from the backend using a **GET** request.
+
+Today, Flutter will **send** data to the backend using a **POST** request.
+
+This is exactly how your Blood Report Analyzer will eventually send report information for processing.
+
+---
+
+# 🎯 Today's Goal
+
+Yesterday:
+
+```text
+Flutter  -------- GET --------> FastAPI
+```
+
+Today:
+
+```text
+Flutter  -------- POST --------> FastAPI
+                 Patient Data
+```
+
+---
+
+# What We'll Build
+
+A simple form:
+
+```
+Patient Name
+
+______________
+
+Hemoglobin
+
+______________
+
+        [ Send ]
+```
+
+When you click **Send**, Flutter sends:
+
+```json
+{
+  "patient_name": "Srujan",
+  "hemoglobin": 13.8
+}
+```
+
+FastAPI replies:
+
+```json
+{
+  "message": "Report received successfully"
+}
+```
+
+Flutter displays:
+
+```
+Report received successfully
+```
+
+---
+
+# Step 1
+
+Open
+
+```text
+backend/main.py
+```
+
+Replace it with this complete file:
+
+```python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+class BloodReport(BaseModel):
+    patient_name: str
+    hemoglobin: float
+
+
+@app.get("/")
+def home():
+    return {"message": "Blood Report API is Running"}
+
+
+@app.get("/report")
+def report():
+    return {
+        "patient_name": "Srujan",
+        "hemoglobin": 13.8,
+        "hba1c": 6.1,
+        "vitamin_d": 18,
+    }
+
+
+@app.post("/submit")
+def submit_report(report: BloodReport):
+    return {
+        "message": "Report received successfully",
+        "patient_name": report.patient_name,
+        "hemoglobin": report.hemoglobin,
+    }
+```
+
+Save it.
+
+---
+
+# Step 2
+
+Restart the backend.
+
+Stop it:
+
+```
+Ctrl + C
+```
+
+Run again:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0
+```
+
+---
+
+# Step 3
+
+Replace your entire
+
+```text
+lib/api/api_service.dart
+```
+
+with this:
+
+```dart
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+import '../models/report_model.dart';
+
+class ApiService {
+
+  static const String baseUrl = "http://192.168.29.33:8000";
+
+  Future<ReportModel> getReport() async {
+
+    final response = await http.get(
+      Uri.parse("$baseUrl/report"),
+    );
+
+    if (response.statusCode == 200) {
+      return ReportModel.fromJson(
+        jsonDecode(response.body),
+      );
+    }
+
+    throw Exception("Failed");
+  }
+
+  Future<String> submitReport(
+      String name,
+      double hemoglobin,
+      ) async {
+
+    final response = await http.post(
+
+      Uri.parse("$baseUrl/submit"),
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: jsonEncode({
+
+        "patient_name": name,
+
+        "hemoglobin": hemoglobin,
+
+      }),
+
+    );
+
+    if (response.statusCode == 200) {
+
+      final json = jsonDecode(response.body);
+
+      return json["message"];
+
+    }
+
+    return "Submission Failed";
+
+  }
+
+}
+```
+
+---
+
+# Step 4
+
+Create a new screen:
+
+```
+lib/screens/post_test_screen.dart
+```
+
+Paste this code:
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+
+class PostTestScreen extends StatefulWidget {
+  const PostTestScreen({super.key});
+
+  @override
+  State<PostTestScreen> createState() => _PostTestScreenState();
+}
+
+class _PostTestScreenState extends State<PostTestScreen> {
+
+  final nameController = TextEditingController();
+
+  final hbController = TextEditingController();
+
+  String result = "";
+
+  Future<void> submit() async {
+
+    ApiService api = ApiService();
+
+    String message = await api.submitReport(
+
+      nameController.text,
+
+      double.parse(hbController.text),
+
+    );
+
+    setState(() {
+
+      result = message;
+
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("POST Request"),
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            TextField(
+
+              controller: nameController,
+
+              decoration: const InputDecoration(
+
+                labelText: "Patient Name",
+
+              ),
+
+            ),
+
+            const SizedBox(height: 20),
+
+            TextField(
+
+              controller: hbController,
+
+              decoration: const InputDecoration(
+
+                labelText: "Hemoglobin",
+
+              ),
+
+              keyboardType: TextInputType.number,
+
+            ),
+
+            const SizedBox(height: 30),
+
+            ElevatedButton(
+
+              onPressed: submit,
+
+              child: const Text("Send"),
+
+            ),
+
+            const SizedBox(height: 30),
+
+            Text(
+
+              result,
+
+              style: const TextStyle(
+
+                fontSize: 22,
+
+                fontWeight: FontWeight.bold,
+
+              ),
+
+            )
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 5
+
+Temporarily change `main.dart`.
+
+Import:
+
+```dart
+import 'screens/post_test_screen.dart';
+```
+
+Change:
+
+```dart
+home: const PostTestScreen(),
+```
+
+---
+
+# Step 6
+
+Run:
+
+```bash
+flutter run -d chrome
+```
+
+---
+
+# Expected Output
+
+Type:
+
+```
+Patient Name
+
+Srujan
+```
+
+```
+Hemoglobin
+
+13.8
+```
+
+Click:
+
+```
+Send
+```
+
+You should see:
+
+```
+Report received successfully
+```
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 75 – Sending Data to FastAPI
+
+### Topics Learned
+
+* HTTP POST requests
+* Sending JSON from Flutter
+* Receiving JSON in FastAPI
+* Creating a request model using `Pydantic`
+* Returning a response from the backend
+
+### Key Lesson
+
+> **GET requests retrieve data from the backend. POST requests send data to the backend. This is how users will eventually upload report information, which the server will process with OCR and AI.**
+
+---
+
+# 🚀 Day 76 Preview
+
+Tomorrow we'll take the next step by **storing submitted blood reports in memory on the backend** and displaying a **list of all submitted reports** in Flutter. This introduces the concept of persistent application data before we connect a real database.
