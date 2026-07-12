@@ -1,0 +1,409 @@
+# 🚀 Day 74/90 – Receive a Complete Blood Report from the Backend
+
+Congratulations on completing Day 73!
+
+Yesterday your app received:
+
+```json
+{
+  "status": "Healthy"
+}
+```
+
+Today your backend will send a **complete blood report**, and Flutter will display it.
+
+---
+
+# 🎯 Today's Goal
+
+Move from this:
+
+```text
+Flutter
+     ↓
+Healthy
+```
+
+to this:
+
+```text
+Flutter
+     ↓
+Patient Name : Srujan
+Hemoglobin   : 13.8
+HbA1c        : 6.1
+Vitamin D    : 18
+```
+
+---
+
+# Step 1
+
+Open:
+
+```
+backend/main.py
+```
+
+Replace everything with:
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def home():
+    return {
+        "message": "Blood Report API is Running"
+    }
+
+
+@app.get("/health")
+def health():
+    return {
+        "status": "Healthy"
+    }
+
+
+@app.get("/report")
+def report():
+
+    return {
+
+        "patient_name": "Srujan",
+
+        "hemoglobin": 13.8,
+
+        "hba1c": 6.1,
+
+        "vitamin_d": 18
+
+    }
+```
+
+Save the file.
+
+---
+
+# Step 2
+
+Run the backend
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0
+```
+
+---
+
+# Step 3
+
+Create a new model.
+
+Create
+
+```
+lib/models/report_model.dart
+```
+
+Paste:
+
+```dart
+class ReportModel {
+
+  final String patientName;
+
+  final double hemoglobin;
+
+  final double hba1c;
+
+  final double vitaminD;
+
+  ReportModel({
+
+    required this.patientName,
+
+    required this.hemoglobin,
+
+    required this.hba1c,
+
+    required this.vitaminD,
+
+  });
+
+  factory ReportModel.fromJson(Map<String, dynamic> json) {
+
+    return ReportModel(
+
+      patientName: json["patient_name"],
+
+      hemoglobin: json["hemoglobin"].toDouble(),
+
+      hba1c: json["hba1c"].toDouble(),
+
+      vitaminD: json["vitamin_d"].toDouble(),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 4
+
+Replace your entire
+
+```
+lib/api/api_service.dart
+```
+
+with:
+
+```dart
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+import '../models/report_model.dart';
+
+class ApiService {
+
+  Future<ReportModel> getReport() async {
+
+    final response = await http.get(
+
+      Uri.parse("http://192.168.29.33:8000/report"),
+
+    );
+
+    if (response.statusCode == 200) {
+
+      return ReportModel.fromJson(
+
+        jsonDecode(response.body),
+
+      );
+
+    }
+
+    throw Exception("Failed to load report");
+
+  }
+
+}
+```
+
+> If your computer's IP address changes in the future, update the URL accordingly.
+
+---
+
+# Step 5
+
+Create a new screen:
+
+```
+lib/screens/report_test_screen.dart
+```
+
+Paste:
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+import '../models/report_model.dart';
+
+class ReportTestScreen extends StatefulWidget {
+
+  const ReportTestScreen({super.key});
+
+  @override
+  State<ReportTestScreen> createState() => _ReportTestScreenState();
+
+}
+
+class _ReportTestScreenState extends State<ReportTestScreen> {
+
+  ReportModel? report;
+
+  bool loading = true;
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    loadReport();
+
+  }
+
+  Future<void> loadReport() async {
+
+    ApiService api = ApiService();
+
+    ReportModel data = await api.getReport();
+
+    setState(() {
+
+      report = data;
+
+      loading = false;
+
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Blood Report"),
+
+      ),
+
+      body: loading
+
+          ? const Center(
+
+              child: CircularProgressIndicator(),
+
+            )
+
+          : Padding(
+
+              padding: const EdgeInsets.all(20),
+
+              child: Column(
+
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+
+                  Text(
+
+                    "Patient : ${report!.patientName}",
+
+                    style: const TextStyle(
+
+                      fontSize: 22,
+
+                      fontWeight: FontWeight.bold,
+
+                    ),
+
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  Text(
+
+                    "Hemoglobin : ${report!.hemoglobin}",
+
+                    style: const TextStyle(fontSize: 20),
+
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  Text(
+
+                    "HbA1c : ${report!.hba1c}",
+
+                    style: const TextStyle(fontSize: 20),
+
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  Text(
+
+                    "Vitamin D : ${report!.vitaminD}",
+
+                    style: const TextStyle(fontSize: 20),
+
+                  ),
+
+                ],
+
+              ),
+
+            ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 6
+
+Temporarily change `lib/main.dart`.
+
+Import:
+
+```dart
+import 'screens/report_test_screen.dart';
+```
+
+Change:
+
+```dart
+home: const ReportTestScreen(),
+```
+
+---
+
+# Step 7
+
+Run Flutter:
+
+```bash
+flutter run -d chrome
+```
+
+You should see:
+
+```
+Blood Report
+
+Patient : Srujan
+
+Hemoglobin : 13.8
+
+HbA1c : 6.1
+
+Vitamin D : 18
+```
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 74 – Receiving Structured Data from FastAPI
+
+### Topics Learned
+
+* JSON objects with multiple fields.
+* Creating a Dart model (`ReportModel`).
+* Parsing JSON into Dart objects.
+* Displaying backend data in Flutter.
+
+### Key Lesson
+
+> **Instead of receiving a single value ("Healthy"), the app now receives a complete blood report from the backend. This is the same approach that will later be used for real OCR results and AI-generated health insights.**
+
+---
+
+# 🎯 Day 75 Preview
+
+Tomorrow you'll take another major step: instead of showing **hard-coded values** from the backend, you'll **submit data from Flutter to FastAPI** using an HTTP **POST** request. This is how your app will eventually send uploaded report information to the server for OCR processing and analysis.
