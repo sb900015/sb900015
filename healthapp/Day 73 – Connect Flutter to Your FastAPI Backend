@@ -1,0 +1,412 @@
+# 🚀 Day 73/90 – Connect Flutter to Your FastAPI Backend
+
+Welcome to **Day 73!**
+
+Today is one of the biggest milestones in your project.
+
+Until yesterday:
+
+```text
+Flutter App
+     ↓
+Sample Data
+```
+
+After today:
+
+```text
+Flutter App
+      │
+HTTP Request
+      │
+      ▼
+FastAPI Backend
+      │
+JSON Response
+      │
+      ▼
+Flutter App
+```
+
+This is your **first real client-server communication**.
+
+---
+
+# 🎯 Today's Goal
+
+Your Flutter app will ask the backend:
+
+```text
+Are you running?
+```
+
+The backend will reply:
+
+```json
+{
+   "status":"Healthy"
+}
+```
+
+Flutter will display that response on the screen.
+
+---
+
+# Step 1
+
+Open your Flutter project.
+
+Open
+
+```text
+pubspec.yaml
+```
+
+---
+
+# Step 2
+
+Under
+
+```yaml
+dependencies:
+```
+
+add
+
+```yaml
+http: ^1.2.1
+```
+
+For example:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  http: ^1.2.1
+```
+
+Save the file.
+
+---
+
+# Step 3
+
+Run
+
+```bash
+flutter pub get
+```
+
+Wait until it finishes successfully.
+
+---
+
+# Step 4
+
+Create a new folder:
+
+```text
+lib/api
+```
+
+Inside it create
+
+```text
+api_service.dart
+```
+
+---
+
+# Step 5
+
+Paste this code.
+
+```dart
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+class ApiService {
+
+  Future<String> checkBackend() async {
+
+    final response = await http.get(
+
+      Uri.parse(
+        "http://10.0.2.2:8000/health",
+      ),
+
+    );
+
+    if (response.statusCode == 200) {
+
+      final json = jsonDecode(response.body);
+
+      return json["status"];
+
+    }
+
+    return "Server Error";
+
+  }
+
+}
+```
+
+---
+
+# ⚠ Important
+
+Since you're using a **real Android phone**, **do not use**:
+
+```text
+10.0.2.2
+```
+
+That address is only for the Android Emulator.
+
+Instead, use your computer's local IP address.
+
+---
+
+## Find your computer's IP
+
+Open Command Prompt and run:
+
+```cmd
+ipconfig
+```
+
+Look for:
+
+```text
+IPv4 Address
+```
+
+Example:
+
+```text
+192.168.1.15
+```
+
+Then change:
+
+```dart
+"http://10.0.2.2:8000/health"
+```
+
+to
+
+```dart
+"http://192.168.1.15:8000/health"
+```
+
+Replace it with **your own IPv4 address**.
+
+**Both your phone and your computer must be connected to the same Wi-Fi network.**
+
+---
+
+# Step 6
+
+Create a new screen:
+
+```text
+lib/screens/backend_test_screen.dart
+```
+
+Paste:
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+
+class BackendTestScreen extends StatefulWidget {
+
+  const BackendTestScreen({super.key});
+
+  @override
+  State<BackendTestScreen> createState() =>
+      _BackendTestScreenState();
+
+}
+
+class _BackendTestScreenState
+    extends State<BackendTestScreen> {
+
+  String status = "Checking...";
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    loadStatus();
+
+  }
+
+  Future<void> loadStatus() async {
+
+    ApiService api = ApiService();
+
+    String result = await api.checkBackend();
+
+    setState(() {
+
+      status = result;
+
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Backend Test"),
+
+      ),
+
+      body: Center(
+
+        child: Text(
+
+          status,
+
+          style: const TextStyle(
+
+            fontSize: 28,
+
+            fontWeight: FontWeight.bold,
+
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 7
+
+Temporarily change your `main.dart` so it starts with:
+
+```dart
+home: const BackendTestScreen(),
+```
+
+instead of your normal home screen.
+
+Don't forget to import it:
+
+```dart
+import 'screens/backend_test_screen.dart';
+```
+
+---
+
+# Step 8
+
+Run the backend:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0
+```
+
+Notice the difference from yesterday.
+
+Yesterday we used:
+
+```bash
+uvicorn main:app --reload
+```
+
+Today we use:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0
+```
+
+This allows devices on your local network (like your phone) to reach your backend.
+
+---
+
+# Step 9
+
+Run Flutter:
+
+```bash
+flutter run
+```
+
+If everything is configured correctly, your phone should display:
+
+```text
+Healthy
+```
+
+🎉 That means your Flutter app successfully contacted your FastAPI backend.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 73 – Flutter ↔ FastAPI Communication
+
+### Topics Learned
+
+* Adding the `http` package.
+* Creating an API service.
+* Sending an HTTP GET request.
+* Parsing JSON responses.
+* Connecting a Flutter app to a backend server.
+
+### Key Lesson
+
+> **The mobile app no longer relies only on local data. It can now request information from a backend using HTTP, which is the foundation for features such as login, report upload, OCR processing, AI analysis, and retrieving user history.**
+
+---
+
+# 🚀 Day 74 Preview
+
+Tomorrow we'll improve the backend by adding a new endpoint:
+
+```text
+/report
+```
+
+Instead of returning only:
+
+```json
+{
+  "status": "Healthy"
+}
+```
+
+the backend will return a complete blood report:
+
+```json
+{
+  "patient_name": "Srujan",
+  "hemoglobin": 13.8,
+  "hba1c": 6.1,
+  "vitamin_d": 18
+}
+```
+
+Your Flutter app will then display this data dynamically, marking the beginning of replacing sample data with data received from your backend.
