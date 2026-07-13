@@ -1,0 +1,277 @@
+# 🚀 Day 77/90 – Save Blood Reports in a Real SQLite Database
+
+Congratulations! 🎉
+
+Yesterday (Day 76), your reports were stored in **temporary memory**. If you restarted FastAPI, all reports disappeared.
+
+Today, you'll use a **real SQLite database**, so your reports stay saved even after restarting the backend.
+
+---
+
+# 🎯 Today's Goal
+
+Yesterday:
+
+```text
+Flutter
+   │
+POST
+   │
+FastAPI
+   │
+Memory (reports = [])
+```
+
+Today:
+
+```text
+Flutter
+   │
+POST
+   │
+FastAPI
+   │
+SQLite Database
+```
+
+This is a huge step toward making your app production-ready.
+
+---
+
+# Step 1 – Install SQLite Library
+
+Open the **backend** terminal (where your virtual environment is activated):
+
+```bash
+pip install sqlalchemy
+```
+
+Wait until installation completes.
+
+---
+
+# Step 2 – Create a new file
+
+Create:
+
+```text
+backend/database.py
+```
+
+Paste this entire file:
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+DATABASE_URL = "sqlite:///blood_reports.db"
+
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"check_same_thread": False}
+)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
+Base = declarative_base()
+```
+
+Save it.
+
+---
+
+# Step 3 – Create another file
+
+Create:
+
+```text
+backend/models.py
+```
+
+Paste:
+
+```python
+from sqlalchemy import Column, Integer, String, Float
+
+from database import Base
+
+class BloodReport(Base):
+
+    __tablename__ = "blood_reports"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    patient_name = Column(String)
+
+    hemoglobin = Column(Float)
+```
+
+Save it.
+
+---
+
+# Step 4 – Replace `backend/main.py`
+
+Replace the entire file with:
+
+```python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+from database import Base, engine, SessionLocal
+from models import BloodReport
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class Report(BaseModel):
+    patient_name: str
+    hemoglobin: float
+
+@app.get("/")
+def home():
+    return {"message": "Blood Report API Running"}
+
+@app.post("/submit")
+def submit(report: Report):
+
+    db = SessionLocal()
+
+    new_report = BloodReport(
+        patient_name=report.patient_name,
+        hemoglobin=report.hemoglobin,
+    )
+
+    db.add(new_report)
+
+    db.commit()
+
+    db.close()
+
+    return {
+        "message": "Saved Successfully"
+    }
+
+@app.get("/reports")
+def get_reports():
+
+    db = SessionLocal()
+
+    reports = db.query(BloodReport).all()
+
+    db.close()
+
+    return reports
+```
+
+Save it.
+
+---
+
+# Step 5 – Restart FastAPI
+
+Stop the server:
+
+```text
+Ctrl + C
+```
+
+Run:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0
+```
+
+The first time it runs, it will automatically create:
+
+```text
+blood_reports.db
+```
+
+inside your `backend` folder.
+
+---
+
+# Step 6 – Test
+
+Run the Flutter app.
+
+Go to the **POST Request** screen.
+
+Submit:
+
+```text
+Patient Name
+
+John
+```
+
+```text
+Hemoglobin
+
+13.4
+```
+
+Click **Send**.
+
+Then submit another report.
+
+Switch back to the **All Reports** screen.
+
+You should see both reports.
+
+---
+
+# Step 7 – Verify Persistence
+
+This is today's most important test.
+
+1. Stop FastAPI (`Ctrl + C`).
+2. Start it again:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0
+```
+
+3. Refresh the Flutter app.
+
+If your reports are **still there**, you've successfully moved from temporary memory to a real database.
+
+---
+
+# 📝 Notes for Your Notebook
+
+## Day 77 – SQLite Database Integration
+
+### Topics Learned
+
+* Installed SQLAlchemy.
+* Created a SQLite database.
+* Created a database model.
+* Stored reports permanently.
+* Retrieved reports from the database.
+
+### Key Lesson
+
+> A database stores data permanently. Unlike an in-memory list, SQLite keeps records even after restarting the backend.
+
+---
+
+# 🚀 Day 78 Preview
+
+Tomorrow you'll add **Delete Report** functionality. Users will be able to remove individual reports from the database, introducing the **DELETE** operation—completing the basic CRUD (Create, Read, Update, Delete) workflow for your backend.
