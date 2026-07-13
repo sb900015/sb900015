@@ -1,0 +1,409 @@
+# 🚀 Day 80/90 – Search Blood Reports by Patient Name
+
+Congratulations! 🎉
+
+Yesterday you added a **Delete Confirmation Dialog**.
+
+Today you'll add one of the most useful features in any application:
+
+# 🔍 Search Reports
+
+Users will be able to type a patient's name and instantly filter the list.
+
+---
+
+# 🎯 Goal
+
+Before:
+
+```text
+Alice
+Bob
+Charlie
+David
+Emma
+```
+
+After typing:
+
+```text
+bo
+```
+
+You should see:
+
+```text
+Bob
+```
+
+---
+
+# Only ONE file changes today
+
+Replace your entire
+
+```text
+lib/screens/all_reports_screen.dart
+```
+
+with this complete file.
+
+---
+
+## lib/screens/all_reports_screen.dart
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+
+class AllReportsScreen extends StatefulWidget {
+  const AllReportsScreen({super.key});
+
+  @override
+  State<AllReportsScreen> createState() =>
+      _AllReportsScreenState();
+}
+
+class _AllReportsScreenState
+    extends State<AllReportsScreen> {
+
+  List reports = [];
+
+  List filteredReports = [];
+
+  bool loading = true;
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    loadReports();
+
+  }
+
+  Future<void> loadReports() async {
+
+    setState(() {
+
+      loading = true;
+
+    });
+
+    ApiService api = ApiService();
+
+    reports = await api.getReports();
+
+    filteredReports = List.from(reports);
+
+    setState(() {
+
+      loading = false;
+
+    });
+
+  }
+
+  void searchReports(String value) {
+
+    setState(() {
+
+      if (value.isEmpty) {
+
+        filteredReports = List.from(reports);
+
+      } else {
+
+        filteredReports = reports.where((report) {
+
+          return report["patient_name"]
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase());
+
+        }).toList();
+
+      }
+
+    });
+
+  }
+
+  Future<void> confirmDelete(int id) async {
+
+    bool? delete = await showDialog(
+
+      context: context,
+
+      builder: (context) {
+
+        return AlertDialog(
+
+          title: const Text("Delete Report"),
+
+          content: const Text(
+            "Are you sure you want to delete this report?",
+          ),
+
+          actions: [
+
+            TextButton(
+
+              onPressed: () {
+
+                Navigator.pop(context, false);
+
+              },
+
+              child: const Text("No"),
+
+            ),
+
+            ElevatedButton(
+
+              onPressed: () {
+
+                Navigator.pop(context, true);
+
+              },
+
+              child: const Text("Yes"),
+
+            ),
+
+          ],
+
+        );
+
+      },
+
+    );
+
+    if (delete == true) {
+
+      ApiService api = ApiService();
+
+      await api.deleteReport(id);
+
+      loadReports();
+
+    }
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Blood Reports"),
+
+      ),
+
+      body: loading
+
+          ? const Center(
+
+              child: CircularProgressIndicator(),
+
+            )
+
+          : Column(
+
+              children: [
+
+                Padding(
+
+                  padding: const EdgeInsets.all(12),
+
+                  child: TextField(
+
+                    onChanged: searchReports,
+
+                    decoration: InputDecoration(
+
+                      hintText: "Search Patient",
+
+                      prefixIcon: const Icon(Icons.search),
+
+                      border: OutlineInputBorder(
+
+                        borderRadius:
+                            BorderRadius.circular(10),
+
+                      ),
+
+                    ),
+
+                  ),
+
+                ),
+
+                Expanded(
+
+                  child: ListView.builder(
+
+                    itemCount: filteredReports.length,
+
+                    itemBuilder: (context, index) {
+
+                      return Card(
+
+                        margin: const EdgeInsets.symmetric(
+
+                          horizontal: 10,
+
+                          vertical: 5,
+
+                        ),
+
+                        child: ListTile(
+
+                          leading: const Icon(Icons.person),
+
+                          title: Text(
+
+                            filteredReports[index]["patient_name"],
+
+                          ),
+
+                          subtitle: Text(
+
+                            "Hemoglobin : ${filteredReports[index]["hemoglobin"]}",
+
+                          ),
+
+                          trailing: IconButton(
+
+                            icon: const Icon(
+
+                              Icons.delete,
+
+                              color: Colors.red,
+
+                            ),
+
+                            onPressed: () {
+
+                              confirmDelete(
+
+                                filteredReports[index]["id"],
+
+                              );
+
+                            },
+
+                          ),
+
+                        ),
+
+                      );
+
+                    },
+
+                  ),
+
+                ),
+
+              ],
+
+            ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Run
+
+```bash
+flutter run -d chrome
+```
+
+---
+
+# Test
+
+Suppose your database contains:
+
+```text
+Alice
+Bob
+Charlie
+David
+Emma
+```
+
+Search:
+
+```text
+al
+```
+
+Result:
+
+```text
+Alice
+```
+
+Search:
+
+```text
+da
+```
+
+Result:
+
+```text
+David
+```
+
+Clear the search box:
+
+All reports appear again.
+
+---
+
+# 📝 Day 80 Notes (Notebook)
+
+## Topic
+
+Searching Blood Reports
+
+### What I learned
+
+* TextField `onChanged`
+* Filtering a list
+* `where()` method
+* `contains()`
+* `toLowerCase()`
+* Displaying filtered data with `ListView.builder`
+
+### Key Lesson
+
+> Instead of requesting new data from the backend on every keystroke, Flutter can filter data already loaded into memory. This provides a fast and smooth search experience.
+
+---
+
+# 🎉 Progress
+
+You have now completed:
+
+* ✅ Day 70–74: Backend communication
+* ✅ Day 75: POST requests
+* ✅ Day 76: Display multiple reports
+* ✅ Day 77: SQLite database
+* ✅ Day 78: Delete reports
+* ✅ Day 79: Delete confirmation dialog
+* ✅ Day 80: Search functionality
+
+**Only 10 days remain!** 🚀
+
+From Day 81 onward, we'll focus on making your Blood Report Analyzer look and behave like a polished application, including report details, charts, AI explanations, and deployment preparation.
