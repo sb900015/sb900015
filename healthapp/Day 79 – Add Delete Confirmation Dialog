@@ -1,0 +1,307 @@
+Awesome! You're now at **Day 79/90**. Only **11 days left**. 🎉
+
+From today onward, as promised, **I'll provide complete files whenever a file changes.**
+
+---
+
+# 🚀 Day 79 – Add Delete Confirmation Dialog
+
+## 🎯 Goal
+
+Yesterday, clicking the delete button immediately removed a report.
+
+Today, we'll make it safer.
+
+Instead of:
+
+```text
+🗑️ Click
+      ↓
+Deleted
+```
+
+We'll have:
+
+```text
+🗑️ Click
+      ↓
+Are you sure?
+      ↓
+Yes → Delete
+No  → Cancel
+```
+
+This is how professional apps work.
+
+---
+
+# Only ONE file changes today
+
+Replace your entire:
+
+```text
+lib/screens/all_reports_screen.dart
+```
+
+with this complete file.
+
+---
+
+## `lib/screens/all_reports_screen.dart`
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+
+class AllReportsScreen extends StatefulWidget {
+  const AllReportsScreen({super.key});
+
+  @override
+  State<AllReportsScreen> createState() =>
+      _AllReportsScreenState();
+}
+
+class _AllReportsScreenState
+    extends State<AllReportsScreen> {
+
+  List reports = [];
+
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadReports();
+  }
+
+  Future<void> loadReports() async {
+
+    setState(() {
+      loading = true;
+    });
+
+    ApiService api = ApiService();
+
+    reports = await api.getReports();
+
+    setState(() {
+      loading = false;
+    });
+
+  }
+
+  Future<void> confirmDelete(int id) async {
+
+    bool? delete = await showDialog(
+
+      context: context,
+
+      builder: (context) {
+
+        return AlertDialog(
+
+          title: const Text("Delete Report"),
+
+          content: const Text(
+            "Are you sure you want to delete this report?",
+          ),
+
+          actions: [
+
+            TextButton(
+
+              onPressed: () {
+
+                Navigator.pop(context, false);
+
+              },
+
+              child: const Text("No"),
+
+            ),
+
+            ElevatedButton(
+
+              onPressed: () {
+
+                Navigator.pop(context, true);
+
+              },
+
+              child: const Text("Yes"),
+
+            ),
+
+          ],
+
+        );
+
+      },
+
+    );
+
+    if (delete == true) {
+
+      ApiService api = ApiService();
+
+      await api.deleteReport(id);
+
+      loadReports();
+
+    }
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("All Reports"),
+
+      ),
+
+      body: loading
+
+          ? const Center(
+
+              child: CircularProgressIndicator(),
+
+            )
+
+          : ListView.builder(
+
+              itemCount: reports.length,
+
+              itemBuilder: (context, index) {
+
+                return Card(
+
+                  margin: const EdgeInsets.all(10),
+
+                  child: ListTile(
+
+                    leading: const Icon(Icons.person),
+
+                    title: Text(
+
+                      reports[index]["patient_name"],
+
+                    ),
+
+                    subtitle: Text(
+
+                      "Hemoglobin : ${reports[index]["hemoglobin"]}",
+
+                    ),
+
+                    trailing: IconButton(
+
+                      icon: const Icon(
+
+                        Icons.delete,
+
+                        color: Colors.red,
+
+                      ),
+
+                      onPressed: () {
+
+                        confirmDelete(
+
+                          reports[index]["id"],
+
+                        );
+
+                      },
+
+                    ),
+
+                  ),
+
+                );
+
+              },
+
+            ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Run
+
+```bash
+flutter run -d chrome
+```
+
+---
+
+# Expected Output
+
+When you click
+
+```
+🗑️
+```
+
+You should now see
+
+```
+Delete Report
+
+Are you sure you want to delete this report?
+
+No      Yes
+```
+
+If you press
+
+```
+No
+```
+
+Nothing happens.
+
+If you press
+
+```
+Yes
+```
+
+The report disappears.
+
+---
+
+# 📝 Notes for your notebook
+
+## Day 79 – Confirmation Dialog
+
+### Topics Learned
+
+* AlertDialog
+* showDialog()
+* Returning values from dialogs
+* Preventing accidental deletion
+
+### Key Lesson
+
+> Before performing a destructive action like deleting data, applications usually ask the user for confirmation. Flutter provides `AlertDialog` for this purpose.
+
+---
+
+# 🚀 Day 80 Preview
+
+Tomorrow you'll build one of the most useful features in any app:
+
+🔍 **Search Reports**
+
+Users will be able to type a patient name (for example, "Alice") and instantly filter the reports list. This will make your Blood Report Analyzer much more practical as the number of saved reports grows.
