@@ -1,0 +1,249 @@
+Congratulations on reaching **Day 90**! 🎉
+
+This is a significant milestone. In 90 days you've gone from not knowing Flutter to having:
+
+* ✅ A FastAPI backend
+* ✅ A Flutter Android app
+* ✅ Database integration
+* ✅ CRUD operations
+* ✅ Dashboard
+* ✅ Physical Android APK working
+* ✅ Navigation/Home Screen
+
+Now we start building features that make it feel like a production app.
+
+---
+
+# Day 90 — Add a Splash Screen
+
+**Time:** ~1 hour
+
+## Goal
+
+Instead of opening directly to the Home Screen, the app should show a splash screen for about 3 seconds and then automatically navigate to the Home Screen.
+
+This is how almost every professional mobile app behaves.
+
+---
+
+# Step 1
+
+Create a new file:
+
+```text
+lib/screens/splash_screen.dart
+```
+
+Replace the entire file with:
+
+```dart
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(
+
+      const Duration(seconds: 3),
+
+      () {
+
+        Navigator.pushReplacement(
+
+          context,
+
+          MaterialPageRoute(
+
+            builder: (_) => const HomeScreen(),
+
+          ),
+
+        );
+
+      },
+
+    );
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      backgroundColor: Colors.red,
+
+      body: Center(
+
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+
+            const Icon(
+
+              Icons.favorite,
+
+              color: Colors.white,
+
+              size: 90,
+
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+
+              "Blood Report App",
+
+              style: TextStyle(
+
+                color: Colors.white,
+
+                fontSize: 30,
+
+                fontWeight: FontWeight.bold,
+
+              ),
+
+            ),
+
+            const SizedBox(height: 30),
+
+            const CircularProgressIndicator(
+
+              color: Colors.white,
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Replace your **entire** `lib/main.dart` with:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'screens/splash_screen.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+
+      title: "Blood Report App",
+
+      home: const SplashScreen(),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Run the app:
+
+```bash
+flutter run
+```
+
+or create a new APK:
+
+```bash
+flutter build apk
+```
+
+---
+
+# Expected Result
+
+When the app starts:
+
+```
+❤️
+
+Blood Report App
+
+(Loading...)
+```
+
+After about **3 seconds**, it automatically opens the **Home Screen**.
+
+---
+
+# Day 90 Learning
+
+Today you'll learn:
+
+* `StatefulWidget`
+* `initState()`
+* `Timer`
+* Automatic navigation
+* `Navigator.pushReplacement()`
+
+These are essential Flutter concepts used in almost every production app.
+
+---
+
+# Progress
+
+You've now completed the first 90 days.
+
+**Next phase (Days 91–120):**
+
+We'll focus on making the app feel like a real consumer application by adding:
+
+* Login screen
+* Registration screen
+* User sessions
+* Logout
+* Better UI design
+* Profile page
+* Navigation drawer or bottom navigation
+* Polishing the user experience before moving to OCR and AI features.
+
+Keep the same approach we've used so far: one focused feature each day, with complete files when replacements are needed.
