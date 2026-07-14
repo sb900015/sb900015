@@ -1,0 +1,412 @@
+Welcome to **Day 98**! 🎉
+
+You've reached the stage where we focus on making the app feel professional. Today we'll improve the **Upload Report** screen by validating user input so that users can't submit empty or invalid data.
+
+As requested, **every changed file below is a complete file** that you can replace directly.
+
+---
+
+# Day 98 – Form Validation
+
+**Time:** ~1 hour
+
+## Goal
+
+Improve the Upload Report screen by validating:
+
+* Patient name cannot be empty
+* Hemoglobin cannot be empty
+* Hemoglobin must be a valid number
+* Hemoglobin must be between **0 and 25**
+
+---
+
+# Step 1
+
+Replace the entire file:
+
+```text
+lib/screens/post_test_screen.dart
+```
+
+with:
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+
+class PostTestScreen extends StatefulWidget {
+  const PostTestScreen({super.key});
+
+  @override
+  State<PostTestScreen> createState() =>
+      _PostTestScreenState();
+}
+
+class _PostTestScreenState
+    extends State<PostTestScreen> {
+
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController nameController =
+      TextEditingController();
+
+  final TextEditingController hbController =
+      TextEditingController();
+
+  bool submitting = false;
+
+  Future<void> submit() async {
+
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      submitting = true;
+    });
+
+    try {
+
+      String message =
+          await ApiService().submitReport(
+
+        nameController.text.trim(),
+
+        double.parse(hbController.text),
+
+      );
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+
+        SnackBar(
+          content: Text(message),
+        ),
+
+      );
+
+      nameController.clear();
+      hbController.clear();
+
+    } catch (e) {
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+
+      );
+
+    }
+
+    setState(() {
+      submitting = false;
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Upload Report"),
+
+        centerTitle: true,
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Form(
+
+          key: _formKey,
+
+          child: Column(
+
+            children: [
+
+              TextFormField(
+
+                controller: nameController,
+
+                decoration: const InputDecoration(
+
+                  labelText: "Patient Name",
+
+                  border: OutlineInputBorder(),
+
+                ),
+
+                validator: (value) {
+
+                  if (value == null ||
+                      value.trim().isEmpty) {
+
+                    return "Enter patient name";
+
+                  }
+
+                  return null;
+
+                },
+
+              ),
+
+              const SizedBox(height: 20),
+
+              TextFormField(
+
+                controller: hbController,
+
+                keyboardType:
+                    const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
+
+                decoration: const InputDecoration(
+
+                  labelText: "Hemoglobin",
+
+                  border: OutlineInputBorder(),
+
+                ),
+
+                validator: (value) {
+
+                  if (value == null ||
+                      value.trim().isEmpty) {
+
+                    return "Enter hemoglobin";
+
+                  }
+
+                  final hb =
+                      double.tryParse(value);
+
+                  if (hb == null) {
+
+                    return "Enter a valid number";
+
+                  }
+
+                  if (hb < 0 || hb > 25) {
+
+                    return "Hemoglobin must be between 0 and 25";
+
+                  }
+
+                  return null;
+
+                },
+
+              ),
+
+              const SizedBox(height: 30),
+
+              SizedBox(
+
+                width: double.infinity,
+
+                height: 50,
+
+                child: ElevatedButton(
+
+                  onPressed:
+                      submitting ? null : submit,
+
+                  child: submitting
+
+                      ? const SizedBox(
+
+                          width: 22,
+
+                          height: 22,
+
+                          child:
+                              CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+
+                        )
+
+                      : const Text(
+
+                          "Submit Report",
+
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+
+                        ),
+
+                ),
+
+              ),
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Run:
+
+```bash
+flutter run
+```
+
+or
+
+```bash
+flutter build apk
+```
+
+Install the updated APK.
+
+---
+
+# Test
+
+Try these cases:
+
+### Empty Name
+
+```
+Patient Name:
+
+Hemoglobin: 13
+```
+
+Expected:
+
+```
+Enter patient name
+```
+
+---
+
+### Empty Hemoglobin
+
+```
+Patient Name: Alice
+
+Hemoglobin:
+```
+
+Expected:
+
+```
+Enter hemoglobin
+```
+
+---
+
+### Invalid Number
+
+```
+Patient Name: Alice
+
+Hemoglobin: abc
+```
+
+Expected:
+
+```
+Enter a valid number
+```
+
+---
+
+### Invalid Range
+
+```
+Hemoglobin: 40
+```
+
+Expected:
+
+```
+Hemoglobin must be between 0 and 25
+```
+
+---
+
+### Valid Input
+
+```
+Patient Name: Alice
+
+Hemoglobin: 13.8
+```
+
+Expected:
+
+* Report uploads successfully.
+* Success message appears.
+* Input fields are cleared.
+
+---
+
+# What You Learned Today
+
+Today you learned:
+
+* `Form`
+* `GlobalKey<FormState>`
+* `TextFormField`
+* `validator`
+* Input validation
+* Preventing invalid API calls
+* Disabling the button while submitting
+
+---
+
+# Progress (Day 98)
+
+Your Blood Report App now includes:
+
+* ✅ Splash Screen
+* ✅ Login
+* ✅ Registration
+* ✅ Home Screen
+* ✅ Upload Report
+* ✅ Input Validation
+* ✅ Dashboard
+* ✅ Search Reports
+* ✅ Sort Reports
+* ✅ Pull-to-Refresh
+* ✅ Report Details
+* ✅ Profile
+* ✅ Settings
+* ✅ Logout
+
+You now have a much more robust application where invalid data is stopped before it reaches your backend.
+
+### Looking Ahead
+
+**Day 99** will add a **Delete Confirmation Dialog**, so users must confirm before permanently deleting a report. This is a common safety feature in production apps.
