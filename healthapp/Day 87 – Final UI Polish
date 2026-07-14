@@ -1,0 +1,480 @@
+# 🚀 Day 87/90 – Final UI Polish
+
+Congratulations! 🎉
+
+You have reached **Day 87**.
+
+Your application is now functional:
+
+* ✅ Backend
+* ✅ Database
+* ✅ Upload Reports
+* ✅ Search
+* ✅ Delete
+* ✅ Dashboard
+* ✅ Details Screen
+* ✅ AI Explanation (Simulated)
+
+Today we'll focus on making the application feel more polished and professional.
+
+---
+
+# 🎯 Today's Goal
+
+We'll improve:
+
+* Better AppBar
+* Better spacing
+* Rounded cards
+* Rounded search bar
+* Better icons
+* Consistent padding
+* Softer colors
+* Better typography
+
+The functionality remains the same—only the appearance improves.
+
+---
+
+# Only ONE file changes today
+
+Replace your entire:
+
+```text
+lib/screens/all_reports_screen.dart
+```
+
+with this complete file.
+
+---
+
+## `lib/screens/all_reports_screen.dart`
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+import 'report_details_screen.dart';
+
+class AllReportsScreen extends StatefulWidget {
+  const AllReportsScreen({super.key});
+
+  @override
+  State<AllReportsScreen> createState() =>
+      _AllReportsScreenState();
+}
+
+class _AllReportsScreenState extends State<AllReportsScreen> {
+
+  List reports = [];
+  List filteredReports = [];
+
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadReports();
+  }
+
+  Future<void> loadReports() async {
+
+    ApiService api = ApiService();
+
+    reports = await api.getReports();
+
+    filteredReports = List.from(reports);
+
+    setState(() {
+      loading = false;
+    });
+
+  }
+
+  void searchReports(String value) {
+
+    setState(() {
+
+      if (value.isEmpty) {
+
+        filteredReports = List.from(reports);
+
+      } else {
+
+        filteredReports = reports.where((report) {
+
+          return report["patient_name"]
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase());
+
+        }).toList();
+
+      }
+
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    int totalReports = reports.length;
+
+    int healthyReports = reports.where((report) {
+
+      return double.parse(
+              report["hemoglobin"].toString()) >=
+          12;
+
+    }).length;
+
+    int lowReports = totalReports - healthyReports;
+
+    double healthyPercent =
+        totalReports == 0 ? 0 : healthyReports / totalReports;
+
+    double lowPercent =
+        totalReports == 0 ? 0 : lowReports / totalReports;
+
+    return Scaffold(
+
+      backgroundColor: Colors.grey.shade100,
+
+      appBar: AppBar(
+
+        elevation: 0,
+
+        centerTitle: true,
+
+        title: const Text(
+
+          "Blood Report Dashboard",
+
+          style: TextStyle(
+
+            fontWeight: FontWeight.bold,
+
+          ),
+
+        ),
+
+      ),
+
+      body: loading
+
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+
+          : Padding(
+
+              padding: const EdgeInsets.all(15),
+
+              child: Column(
+
+                children: [
+
+                  Card(
+
+                    shape: RoundedRectangleBorder(
+
+                      borderRadius:
+                          BorderRadius.circular(20),
+
+                    ),
+
+                    elevation: 5,
+
+                    child: Padding(
+
+                      padding: const EdgeInsets.all(20),
+
+                      child: Column(
+
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+
+                        children: [
+
+                          const Text(
+
+                            "Dashboard",
+
+                            style: TextStyle(
+
+                              fontSize: 24,
+
+                              fontWeight: FontWeight.bold,
+
+                            ),
+
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          Text(
+
+                            "Total Reports : $totalReports",
+
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          const Text("Healthy"),
+
+                          const SizedBox(height: 6),
+
+                          LinearProgressIndicator(
+
+                            value: healthyPercent,
+
+                            minHeight: 10,
+
+                            borderRadius:
+                                BorderRadius.circular(10),
+
+                            color: Colors.green,
+
+                          ),
+
+                          const SizedBox(height: 5),
+
+                          Text(
+
+                            "${(healthyPercent * 100).toStringAsFixed(0)}%",
+
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          const Text("Low Hemoglobin"),
+
+                          const SizedBox(height: 6),
+
+                          LinearProgressIndicator(
+
+                            value: lowPercent,
+
+                            minHeight: 10,
+
+                            borderRadius:
+                                BorderRadius.circular(10),
+
+                            color: Colors.red,
+
+                          ),
+
+                          const SizedBox(height: 5),
+
+                          Text(
+
+                            "${(lowPercent * 100).toStringAsFixed(0)}%",
+
+                          ),
+
+                        ],
+
+                      ),
+
+                    ),
+
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  TextField(
+
+                    onChanged: searchReports,
+
+                    decoration: InputDecoration(
+
+                      hintText: "Search Patient",
+
+                      prefixIcon:
+                          const Icon(Icons.search),
+
+                      filled: true,
+
+                      fillColor: Colors.white,
+
+                      border: OutlineInputBorder(
+
+                        borderRadius:
+                            BorderRadius.circular(30),
+
+                      ),
+
+                    ),
+
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  Expanded(
+
+                    child: ListView.builder(
+
+                      itemCount:
+                          filteredReports.length,
+
+                      itemBuilder:
+                          (context, index) {
+
+                        return Card(
+
+                          margin:
+                              const EdgeInsets.only(
+                            bottom: 12,
+                          ),
+
+                          shape:
+                              RoundedRectangleBorder(
+
+                            borderRadius:
+                                BorderRadius.circular(18),
+
+                          ),
+
+                          child: ListTile(
+
+                            leading: CircleAvatar(
+
+                              backgroundColor:
+                                  Colors.blue.shade100,
+
+                              child: const Icon(
+                                Icons.person,
+                              ),
+
+                            ),
+
+                            title: Text(
+
+                              filteredReports[index]
+                                  ["patient_name"],
+
+                              style: const TextStyle(
+
+                                fontWeight:
+                                    FontWeight.bold,
+
+                              ),
+
+                            ),
+
+                            subtitle: Text(
+
+                              "Hemoglobin : ${filteredReports[index]["hemoglobin"]}",
+
+                            ),
+
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 18,
+                            ),
+
+                            onTap: () {
+
+                              Navigator.push(
+
+                                context,
+
+                                MaterialPageRoute(
+
+                                  builder: (_) =>
+                                      ReportDetailsScreen(
+
+                                    report:
+                                        filteredReports[
+                                            index],
+
+                                  ),
+
+                                ),
+
+                              );
+
+                            },
+
+                          ),
+
+                        );
+
+                      },
+
+                    ),
+
+                  ),
+
+                ],
+
+              ),
+
+            ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Run
+
+```bash
+flutter run -d chrome
+```
+
+---
+
+# What you'll notice
+
+* ✅ Rounded dashboard card
+* ✅ Rounded search box
+* ✅ Better spacing
+* ✅ Softer background
+* ✅ Modern patient cards
+* ✅ Cleaner typography
+* ✅ Better navigation icon
+
+Your application should now feel much more polished.
+
+---
+
+# 📝 Day 87 Notes (Notebook)
+
+## Topic
+
+UI Polish
+
+### What I learned
+
+* Rounded cards using `RoundedRectangleBorder`
+* Better use of padding and spacing
+* Customizing `AppBar`
+* Improving readability with typography
+* Creating a cleaner dashboard layout
+
+### Key Lesson
+
+> A polished user interface makes an application easier to use and leaves a stronger impression, even when the underlying functionality stays the same.
+
+---
+
+# 🚀 Day 88 Preview
+
+Tomorrow we'll take a major milestone:
+
+* ✅ Prepare the application for **Release Mode**
+* ✅ Build your first **Android APK**
+* ✅ Learn the difference between Debug and Release builds
+* ✅ Get the app ready to install on a real Android device
+
+After Day 88, you'll have your **first installable version** of the Blood Report Analyzer.
