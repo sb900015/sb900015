@@ -1,0 +1,266 @@
+# 🚀 Day 88/90 – Build Your First Android APK
+
+Congratulations! 🎉
+
+Today is a major milestone.
+
+By the end of today you'll understand:
+
+* ✅ Debug vs Release builds
+* ✅ How to generate an APK
+* ✅ Where Flutter stores the APK
+* ✅ How to install it on your Android phone
+
+We are **not** deploying to the Play Store yet. That will come later.
+
+---
+
+# What is an APK?
+
+An **APK (Android Package)** is the installable file for Android apps.
+
+Just like Windows uses:
+
+```text
+.exe
+```
+
+Android uses:
+
+```text
+.apk
+```
+
+---
+
+# Step 1
+
+Open Terminal in
+
+```text
+BloodReportsApp/blood_report_app
+```
+
+---
+
+# Step 2
+
+Check Flutter
+
+Run
+
+```bash
+flutter doctor
+```
+
+Everything should show ✔️ or be acceptable.
+
+---
+
+# Step 3
+
+Clean the project
+
+```bash
+flutter clean
+```
+
+---
+
+# Step 4
+
+Download packages again
+
+```bash
+flutter pub get
+```
+
+---
+
+# Step 5
+
+Build the APK
+
+Run
+
+```bash
+flutter build apk
+```
+
+This will take a few minutes.
+
+The first build is usually the slowest.
+
+---
+
+# Step 6
+
+When finished you should see something similar to:
+
+```text
+✓ Built build\app\outputs\flutter-apk\app-release.apk
+```
+
+---
+
+# Step 7
+
+Open
+
+```text
+blood_report_app
+
+↓
+
+build
+
+↓
+
+app
+
+↓
+
+outputs
+
+↓
+
+flutter-apk
+```
+
+You'll find
+
+```text
+app-release.apk
+```
+
+---
+
+# Step 8
+
+Copy
+
+```text
+app-release.apk
+```
+
+to your Android phone.
+
+You can use:
+
+* USB cable
+* Google Drive
+* OneDrive
+* Email
+* Nearby Share
+
+---
+
+# Step 9
+
+Install it.
+
+Android may ask:
+
+> Install from Unknown Sources?
+
+Allow it.
+
+---
+
+# Step 10
+
+Open the application.
+
+Test:
+
+* Dashboard
+* Search
+* Details Screen
+* Delete
+* Upload
+* Backend connection
+
+---
+
+# Important
+
+At this stage the APK is **unsigned** for Play Store publishing, but it is perfectly fine for:
+
+* Your own testing
+* Friends
+* Family
+* Demonstrations
+
+When we prepare for production, we'll generate a signed release.
+
+---
+
+# If the build fails
+
+Copy the entire terminal output and send it to me.
+
+We'll fix it together.
+
+---
+
+# 📝 Day 88 Notes (Notebook)
+
+## Topic
+
+Building Android APK
+
+### What I learned
+
+* Difference between Debug and Release builds
+* How to clean a Flutter project
+* How to regenerate dependencies
+* How to build an APK
+* Where Flutter stores the generated APK
+* How to install an APK on an Android device
+
+### Commands Learned
+
+```bash
+flutter doctor
+```
+
+```bash
+flutter clean
+```
+
+```bash
+flutter pub get
+```
+
+```bash
+flutter build apk
+```
+
+---
+
+# 🎯 Progress
+
+You have now learned:
+
+* Flutter
+* FastAPI
+* SQLite
+* CRUD
+* REST APIs
+* Search
+* Dashboard
+* UI Design
+* APK Generation
+
+---
+
+# 🚀 Day 89 Preview
+
+Tomorrow we'll prepare your project for real-world deployment by:
+
+* Organizing the project structure
+* Preparing the GitHub repository
+* Creating a professional `README.md`
+* Preparing the application for AWS EC2 deployment
+
+After Day 89, your project will be ready to move from your local computer to the cloud.
