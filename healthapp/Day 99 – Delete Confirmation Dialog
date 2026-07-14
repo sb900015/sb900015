@@ -1,0 +1,366 @@
+Congratulations on reaching **Day 99!** 🎉
+
+You're now polishing the app with features that users expect from professional applications.
+
+Today we'll add a **Delete Confirmation Dialog** so users don't accidentally delete reports.
+
+As always, **I'll give you the complete file to replace**.
+
+---
+
+# Day 99 – Delete Confirmation Dialog
+
+**Time:** ~1 hour
+
+## Goal
+
+Before deleting a report, the app will ask:
+
+> **Delete Report?**
+>
+> Are you sure you want to delete this report?
+>
+> ❌ Cancel  🗑 Delete
+
+Only if the user taps **Delete** will the report be removed.
+
+---
+
+# Step 1
+
+Replace the entire file:
+
+```text
+lib/screens/report_details_screen.dart
+```
+
+with this complete file:
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+
+class ReportDetailsScreen extends StatelessWidget {
+  final Map report;
+
+  const ReportDetailsScreen({
+    super.key,
+    required this.report,
+  });
+
+  Future<void> deleteReport(BuildContext context) async {
+
+    bool? confirm = await showDialog<bool>(
+
+      context: context,
+
+      builder: (context) {
+
+        return AlertDialog(
+
+          title: const Text("Delete Report"),
+
+          content: const Text(
+            "Are you sure you want to delete this report?",
+          ),
+
+          actions: [
+
+            TextButton(
+
+              onPressed: () {
+
+                Navigator.pop(context, false);
+
+              },
+
+              child: const Text("Cancel"),
+
+            ),
+
+            ElevatedButton(
+
+              style: ElevatedButton.styleFrom(
+
+                backgroundColor: Colors.red,
+
+              ),
+
+              onPressed: () {
+
+                Navigator.pop(context, true);
+
+              },
+
+              child: const Text(
+                "Delete",
+                style: TextStyle(color: Colors.white),
+              ),
+
+            ),
+
+          ],
+
+        );
+
+      },
+
+    );
+
+    if (confirm != true) {
+      return;
+    }
+
+    try {
+
+      await ApiService().deleteReport(report["id"]);
+
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+
+        const SnackBar(
+
+          content: Text("Report deleted successfully"),
+
+        ),
+
+      );
+
+      Navigator.pop(context, true);
+
+    } catch (e) {
+
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+
+      );
+
+    }
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Report Details"),
+
+        actions: [
+
+          IconButton(
+
+            icon: const Icon(Icons.delete),
+
+            onPressed: () {
+
+              deleteReport(context);
+
+            },
+
+          ),
+
+        ],
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Card(
+
+          elevation: 5,
+
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(20),
+
+          ),
+
+          child: Padding(
+
+            padding: const EdgeInsets.all(20),
+
+            child: Column(
+
+              crossAxisAlignment: CrossAxisAlignment.start,
+
+              children: [
+
+                const Text(
+
+                  "Patient Information",
+
+                  style: TextStyle(
+
+                    fontSize: 22,
+
+                    fontWeight: FontWeight.bold,
+
+                  ),
+
+                ),
+
+                const SizedBox(height: 25),
+
+                Text(
+
+                  "Patient Name: ${report["patient_name"]}",
+
+                  style: const TextStyle(fontSize: 18),
+
+                ),
+
+                const SizedBox(height: 15),
+
+                Text(
+
+                  "Hemoglobin: ${report["hemoglobin"]}",
+
+                  style: const TextStyle(fontSize: 18),
+
+                ),
+
+                const SizedBox(height: 15),
+
+                Text(
+
+                  "ID: ${report["id"]}",
+
+                  style: const TextStyle(fontSize: 18),
+
+                ),
+
+              ],
+
+            ),
+
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Run:
+
+```bash
+flutter run
+```
+
+or
+
+```bash
+flutter build apk
+```
+
+Install the APK on your Android phone.
+
+---
+
+# Test
+
+Open:
+
+```
+My Reports
+
+↓
+
+Select any report
+
+↓
+
+Tap Delete icon
+```
+
+You should now see:
+
+```
+Delete Report
+
+Are you sure you want to delete this report?
+
+Cancel      Delete
+```
+
+### Test 1
+
+Press **Cancel**
+
+Expected:
+
+* Nothing happens
+* Report remains
+
+---
+
+### Test 2
+
+Press **Delete**
+
+Expected:
+
+* Report deleted
+* Success message
+* Automatically returns to previous screen
+
+---
+
+# What You Learned Today
+
+Today you learned:
+
+* `AlertDialog`
+* `showDialog()`
+* Confirmation before destructive actions
+* Returning values from dialogs (`true` / `false`)
+* Better user experience and data safety
+
+---
+
+# Project Progress (Day 99)
+
+Your app now includes:
+
+* ✅ Splash Screen
+* ✅ Login
+* ✅ Register
+* ✅ Home
+* ✅ Upload Report
+* ✅ Form Validation
+* ✅ Dashboard
+* ✅ Search Reports
+* ✅ Sort Reports
+* ✅ Pull-to-Refresh
+* ✅ Report Details
+* ✅ Delete Confirmation Dialog
+* ✅ Profile
+* ✅ Settings
+* ✅ Logout
+
+Your application is now approaching the quality expected of a production CRUD mobile app.
+
+## Coming Up
+
+**Day 100** will be a milestone. We'll polish the overall application by adding an **About App** page (version, developer information, and app details), giving the project a finished, professional feel before we move into GitHub, AWS EC2 deployment, and internet hosting.
