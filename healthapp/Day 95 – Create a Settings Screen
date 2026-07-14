@@ -1,0 +1,530 @@
+Welcome to **Day 95**! 🎉
+
+You've now built a very solid app structure. Today we'll improve the navigation by replacing the placeholder **Settings** screen with a real one.
+
+---
+
+# Day 95 – Create a Settings Screen
+
+**Time:** ~1 hour
+
+## Goal
+
+Replace the placeholder Settings page with a proper Settings screen.
+
+We'll add:
+
+* Notifications (switch)
+* Dark Mode (switch)
+* App Version
+* About
+* Contact Us
+
+The switches won't save settings yet—we'll add persistence later.
+
+---
+
+# Step 1
+
+Create a new file:
+
+```text
+lib/screens/settings_screen.dart
+```
+
+Replace the **entire file** with:
+
+```dart
+import 'package:flutter/material.dart';
+
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() =>
+      _SettingsScreenState();
+}
+
+class _SettingsScreenState
+    extends State<SettingsScreen> {
+
+  bool notifications = true;
+  bool darkMode = false;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Settings"),
+
+        centerTitle: true,
+
+      ),
+
+      body: ListView(
+
+        children: [
+
+          SwitchListTile(
+
+            title: const Text("Notifications"),
+
+            subtitle: const Text(
+              "Receive app notifications",
+            ),
+
+            value: notifications,
+
+            onChanged: (value) {
+
+              setState(() {
+
+                notifications = value;
+
+              });
+
+            },
+
+          ),
+
+          const Divider(),
+
+          SwitchListTile(
+
+            title: const Text("Dark Mode"),
+
+            subtitle: const Text(
+              "Coming Soon",
+            ),
+
+            value: darkMode,
+
+            onChanged: (value) {
+
+              setState(() {
+
+                darkMode = value;
+
+              });
+
+            },
+
+          ),
+
+          const Divider(),
+
+          const ListTile(
+
+            leading: Icon(Icons.info),
+
+            title: Text("App Version"),
+
+            subtitle: Text("1.0.0"),
+
+          ),
+
+          const Divider(),
+
+          ListTile(
+
+            leading: const Icon(Icons.description),
+
+            title: const Text("About"),
+
+            onTap: () {
+
+              showAboutDialog(
+
+                context: context,
+
+                applicationName: "Blood Report App",
+
+                applicationVersion: "1.0.0",
+
+                applicationLegalese:
+                    "Built by Srujan Bharthipudi",
+
+              );
+
+            },
+
+          ),
+
+          const Divider(),
+
+          ListTile(
+
+            leading: const Icon(Icons.email),
+
+            title: const Text("Contact Us"),
+
+            subtitle: const Text(
+              "support@bloodreportapp.com",
+            ),
+
+            onTap: () {
+
+              ScaffoldMessenger.of(context).showSnackBar(
+
+                const SnackBar(
+
+                  content: Text(
+                    "Email support coming soon",
+                  ),
+
+                ),
+
+              );
+
+            },
+
+          ),
+
+        ],
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Replace your **entire** `lib/screens/home_screen.dart` with the following:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'all_reports_screen.dart';
+import 'login_screen.dart';
+import 'post_test_screen.dart';
+import 'profile_screen.dart';
+import 'settings_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  Widget buildButton(
+    BuildContext context,
+    IconData icon,
+    String title,
+    Widget page,
+    Color color,
+  ) {
+    return SizedBox(
+      width: double.infinity,
+      height: 70,
+      child: ElevatedButton.icon(
+        icon: Icon(icon, size: 30),
+        label: Text(
+          title,
+          style: const TextStyle(fontSize: 20),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => page,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Blood Report App"),
+
+        centerTitle: true,
+
+        actions: [
+
+          IconButton(
+
+            icon: const Icon(Icons.person),
+
+            onPressed: () {
+
+              Navigator.push(
+
+                context,
+
+                MaterialPageRoute(
+
+                  builder: (_) =>
+                      const ProfileScreen(),
+
+                ),
+
+              );
+
+            },
+
+          ),
+
+          IconButton(
+
+            icon: const Icon(Icons.logout),
+
+            onPressed: () async {
+
+              bool? logout = await showDialog(
+
+                context: context,
+
+                builder: (_) {
+
+                  return AlertDialog(
+
+                    title: const Text("Logout"),
+
+                    content: const Text(
+                      "Are you sure you want to logout?",
+                    ),
+
+                    actions: [
+
+                      TextButton(
+
+                        onPressed: () {
+
+                          Navigator.pop(context, false);
+
+                        },
+
+                        child: const Text("No"),
+
+                      ),
+
+                      ElevatedButton(
+
+                        onPressed: () {
+
+                          Navigator.pop(context, true);
+
+                        },
+
+                        child: const Text("Yes"),
+
+                      ),
+
+                    ],
+
+                  );
+
+                },
+
+              );
+
+              if (logout == true) {
+
+                Navigator.pushAndRemoveUntil(
+
+                  context,
+
+                  MaterialPageRoute(
+
+                    builder: (_) =>
+                        const LoginScreen(),
+
+                  ),
+
+                  (route) => false,
+
+                );
+
+              }
+
+            },
+
+          ),
+
+        ],
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            const SizedBox(height: 20),
+
+            buildButton(
+
+              context,
+
+              Icons.upload_file,
+
+              "Upload Report",
+
+              const PostTestScreen(),
+
+              Colors.blue,
+
+            ),
+
+            const SizedBox(height: 20),
+
+            buildButton(
+
+              context,
+
+              Icons.description,
+
+              "My Reports",
+
+              const AllReportsScreen(),
+
+              Colors.green,
+
+            ),
+
+            const SizedBox(height: 20),
+
+            buildButton(
+
+              context,
+
+              Icons.dashboard,
+
+              "Dashboard",
+
+              const AllReportsScreen(),
+
+              Colors.orange,
+
+            ),
+
+            const SizedBox(height: 20),
+
+            buildButton(
+
+              context,
+
+              Icons.settings,
+
+              "Settings",
+
+              const SettingsScreen(),
+
+              Colors.grey,
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Run:
+
+```bash
+flutter run
+```
+
+or build a new APK:
+
+```bash
+flutter build apk
+```
+
+Install the updated APK.
+
+---
+
+# Expected Result
+
+From the Home Screen:
+
+```
+Settings
+```
+
+↓
+
+Opens:
+
+```
+Settings
+
+☑ Notifications
+
+☐ Dark Mode
+
+App Version
+1.0.0
+
+About
+
+Contact Us
+```
+
+---
+
+# Day 95 Learning
+
+Today you'll learn:
+
+* `SwitchListTile`
+* `ListTile`
+* `showAboutDialog()`
+* Building a settings page
+* Stateful widgets for user preferences
+
+---
+
+# Progress
+
+Your application now contains:
+
+```text
+Splash
+   ↓
+Login
+   ↓
+Register
+   ↓
+Home
+ ├── Upload Report
+ ├── My Reports
+ ├── Dashboard
+ ├── Profile
+ ├── Settings
+ └── Logout
+```
+
+This is a strong application structure. After the next few UI-focused days, we'll start connecting the Login, Registration, and Profile screens to your FastAPI backend so users can have real accounts instead of sample data.
