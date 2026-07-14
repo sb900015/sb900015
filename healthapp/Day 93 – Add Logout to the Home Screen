@@ -1,0 +1,259 @@
+Welcome to **Day 93**! 🚀
+
+Your app now has:
+
+* ✅ Splash Screen
+* ✅ Login Screen
+* ✅ Registration Screen
+* ✅ Home Screen
+* ✅ Upload Report
+* ✅ Dashboard
+* ✅ My Reports
+* ✅ Working APK on Android
+
+Today we'll improve the user experience by adding **Logout** functionality.
+
+---
+
+# Day 93 – Add Logout to the Home Screen
+
+**Time:** ~1 hour
+
+## Goal
+
+Allow the user to return to the Login Screen from the Home Screen.
+
+The app flow becomes:
+
+```text
+Splash
+   ↓
+Login
+   ↓
+Home
+   ↓
+Logout
+   ↓
+Login
+```
+
+---
+
+# Step 1
+
+Replace your **entire** `lib/screens/home_screen.dart` with the following:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'all_reports_screen.dart';
+import 'login_screen.dart';
+import 'post_test_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  Widget buildButton(
+    BuildContext context,
+    IconData icon,
+    String title,
+    Widget page,
+    Color color,
+  ) {
+    return SizedBox(
+      width: double.infinity,
+      height: 70,
+      child: ElevatedButton.icon(
+        icon: Icon(icon, size: 30),
+        label: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => page,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Blood Report App"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              bool? logout = await showDialog(
+                context: context,
+                builder: (_) {
+                  return AlertDialog(
+                    title: const Text("Logout"),
+                    content: const Text(
+                      "Are you sure you want to logout?",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context, false);
+                        },
+                        child: const Text("No"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context, true);
+                        },
+                        child: const Text("Yes"),
+                      ),
+                    ],
+                  );
+                },
+              );
+
+              if (logout == true) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const LoginScreen(),
+                  ),
+                  (route) => false,
+                );
+              }
+            },
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            buildButton(
+              context,
+              Icons.upload_file,
+              "Upload Report",
+              const PostTestScreen(),
+              Colors.blue,
+            ),
+            const SizedBox(height: 20),
+            buildButton(
+              context,
+              Icons.description,
+              "My Reports",
+              const AllReportsScreen(),
+              Colors.green,
+            ),
+            const SizedBox(height: 20),
+            buildButton(
+              context,
+              Icons.dashboard,
+              "Dashboard",
+              const AllReportsScreen(),
+              Colors.orange,
+            ),
+            const SizedBox(height: 20),
+            buildButton(
+              context,
+              Icons.settings,
+              "Settings",
+              const Placeholder(),
+              Colors.grey,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+# Step 2
+
+Run:
+
+```bash
+flutter run
+```
+
+or build a new APK:
+
+```bash
+flutter build apk
+```
+
+Install the APK on your phone.
+
+---
+
+# Expected Result
+
+When you're on the Home Screen:
+
+```
+Blood Report App                     🚪
+```
+
+Tap the **logout icon**.
+
+A dialog appears:
+
+```
+Logout
+
+Are you sure you want to logout?
+
+[ No ]    [ Yes ]
+```
+
+* Press **No** → Stay on the Home Screen.
+* Press **Yes** → Return to the Login Screen.
+
+---
+
+# Day 93 Learning
+
+Today you'll learn:
+
+* `AlertDialog`
+* `showDialog()`
+* `Navigator.pushAndRemoveUntil()`
+* Removing previous screens from the navigation stack
+* Creating a proper logout flow
+
+---
+
+# Progress So Far
+
+Your application now includes:
+
+```
+Splash Screen
+      ↓
+Login
+      ↓
+Register
+      ↓
+Home
+ ├── Upload Report
+ ├── My Reports
+ ├── Dashboard
+ ├── Settings
+ └── Logout
+```
+
+This is another feature commonly found in production apps. In the coming days, we'll start connecting the login and registration screens to your FastAPI backend so that users can create real accounts and authenticate with stored data instead of placeholder navigation.
