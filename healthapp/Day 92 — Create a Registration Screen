@@ -1,0 +1,481 @@
+Welcome to **Day 92**! 🚀
+
+Your app now has:
+
+* ✅ Splash Screen
+* ✅ Login Screen
+* ✅ Home Screen
+* ✅ Upload Report
+* ✅ Dashboard
+* ✅ My Reports
+* ✅ Working Android APK
+
+Today we'll add a feature that every real app has.
+
+---
+
+# Day 92 — Create a Registration Screen
+
+**Time:** ~1 hour
+
+## Goal
+
+Your app should allow a **new user** to create an account (UI only).
+
+Today's flow:
+
+```text
+Splash
+   ↓
+Login
+   ↓
+Register
+   ↓
+Login
+   ↓
+Home
+```
+
+We are **not connecting to FastAPI yet**. Today we only build the UI and navigation.
+
+---
+
+# Step 1
+
+Create a new file:
+
+```text
+lib/screens/register_screen.dart
+```
+
+Replace the **entire file** with:
+
+```dart
+import 'package:flutter/material.dart';
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() =>
+      _RegisterScreenState();
+}
+
+class _RegisterScreenState
+    extends State<RegisterScreen> {
+
+  final TextEditingController nameController =
+      TextEditingController();
+
+  final TextEditingController emailController =
+      TextEditingController();
+
+  final TextEditingController passwordController =
+      TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Register"),
+
+        centerTitle: true,
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            const SizedBox(height:30),
+
+            TextField(
+
+              controller: nameController,
+
+              decoration: const InputDecoration(
+
+                labelText: "Full Name",
+
+                border: OutlineInputBorder(),
+
+              ),
+
+            ),
+
+            const SizedBox(height:20),
+
+            TextField(
+
+              controller: emailController,
+
+              decoration: const InputDecoration(
+
+                labelText: "Email",
+
+                border: OutlineInputBorder(),
+
+              ),
+
+            ),
+
+            const SizedBox(height:20),
+
+            TextField(
+
+              controller: passwordController,
+
+              obscureText: true,
+
+              decoration: const InputDecoration(
+
+                labelText: "Password",
+
+                border: OutlineInputBorder(),
+
+              ),
+
+            ),
+
+            const SizedBox(height:30),
+
+            SizedBox(
+
+              width: double.infinity,
+
+              height: 55,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+
+                    const SnackBar(
+
+                      content: Text(
+
+                        "Registration Successful",
+
+                      ),
+
+                    ),
+
+                  );
+
+                  Navigator.pop(context);
+
+                },
+
+                child: const Text(
+
+                  "Register",
+
+                  style: TextStyle(
+
+                    fontSize:20,
+
+                  ),
+
+                ),
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Replace your **entire** `lib/screens/login_screen.dart`
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
+import 'register_screen.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() =>
+      _LoginScreenState();
+}
+
+class _LoginScreenState
+    extends State<LoginScreen> {
+
+  final TextEditingController emailController =
+      TextEditingController();
+
+  final TextEditingController passwordController =
+      TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Login"),
+
+        centerTitle: true,
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            const SizedBox(height:40),
+
+            TextField(
+
+              controller: emailController,
+
+              decoration: const InputDecoration(
+
+                labelText: "Email",
+
+                border: OutlineInputBorder(),
+
+              ),
+
+            ),
+
+            const SizedBox(height:20),
+
+            TextField(
+
+              controller: passwordController,
+
+              obscureText: true,
+
+              decoration: const InputDecoration(
+
+                labelText: "Password",
+
+                border: OutlineInputBorder(),
+
+              ),
+
+            ),
+
+            const SizedBox(height:30),
+
+            SizedBox(
+
+              width: double.infinity,
+
+              height:55,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  Navigator.pushReplacement(
+
+                    context,
+
+                    MaterialPageRoute(
+
+                      builder: (_) =>
+                          const HomeScreen(),
+
+                    ),
+
+                  );
+
+                },
+
+                child: const Text(
+
+                  "Login",
+
+                  style: TextStyle(
+
+                    fontSize:20,
+
+                  ),
+
+                ),
+
+              ),
+
+            ),
+
+            const SizedBox(height:20),
+
+            TextButton(
+
+              onPressed: () {
+
+                Navigator.push(
+
+                  context,
+
+                  MaterialPageRoute(
+
+                    builder: (_) =>
+                        const RegisterScreen(),
+
+                  ),
+
+                );
+
+              },
+
+              child: const Text(
+
+                "Create New Account",
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Run
+
+```bash
+flutter run
+```
+
+or
+
+```bash
+flutter build apk
+```
+
+Install the new APK.
+
+---
+
+# Expected Result
+
+```
+Splash
+      ↓
+
+Login
+
+Email
+
+Password
+
+[ Login ]
+
+Create New Account
+```
+
+Tapping **Create New Account**
+
+↓
+
+```
+Register
+
+Full Name
+
+Email
+
+Password
+
+[ Register ]
+```
+
+After pressing Register
+
+↓
+
+Shows
+
+```
+Registration Successful
+```
+
+↓
+
+Returns to Login.
+
+---
+
+# Day 92 Learning
+
+Today you learned:
+
+* Multiple screen navigation
+* `Navigator.push()`
+* `Navigator.pop()`
+* SnackBars
+* Registration UI
+
+---
+
+# Where we are now
+
+Your app now has:
+
+```
+Splash
+
+↓
+
+Login
+
+↓
+
+Register
+
+↓
+
+Home
+
+├── Upload Report
+├── Dashboard
+├── My Reports
+└── Settings
+```
+
+This is beginning to resemble the structure of a production application. On the next days, we'll connect registration and login to your FastAPI backend so users can have real accounts instead of placeholder screens.
