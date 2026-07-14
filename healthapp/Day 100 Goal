@@ -1,0 +1,397 @@
+# 🎉 Day 100 – Congratulations!
+
+Congratulations on reaching **Day 100**!
+
+This is a huge milestone.
+
+When we started, you had:
+
+* No Flutter knowledge
+* No Python knowledge
+* No backend knowledge
+* No mobile app experience
+
+Today you have built a working Blood Report application that includes:
+
+* ✅ Login
+* ✅ Registration
+* ✅ Home Screen
+* ✅ Upload Report
+* ✅ Backend API
+* ✅ Dashboard
+* ✅ Search
+* ✅ Sort
+* ✅ Delete
+* ✅ Pull to Refresh
+* ✅ Android APK
+* ✅ Running on a real Android phone
+
+Very few people actually finish building a complete app. You did.
+
+---
+
+# Day 100 Goal
+
+Today we'll make the app feel like a real application by adding an **About App** page.
+
+This is common in production apps.
+
+Users can see
+
+* App Name
+* Version
+* Developer
+* Technology Used
+
+---
+
+# Step 1
+
+Create a **new file**
+
+```
+lib/screens/about_screen.dart
+```
+
+Paste this entire file.
+
+```dart
+import 'package:flutter/material.dart';
+
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("About"),
+
+        centerTitle: true,
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Card(
+
+          elevation: 5,
+
+          shape: RoundedRectangleBorder(
+
+            borderRadius: BorderRadius.circular(20),
+
+          ),
+
+          child: Padding(
+
+            padding: const EdgeInsets.all(25),
+
+            child: Column(
+
+              crossAxisAlignment: CrossAxisAlignment.start,
+
+              children: [
+
+                const Center(
+
+                  child: Icon(
+
+                    Icons.favorite,
+
+                    color: Colors.red,
+
+                    size: 80,
+
+                  ),
+
+                ),
+
+                const SizedBox(height: 25),
+
+                const Center(
+
+                  child: Text(
+
+                    "Blood Report Analyzer",
+
+                    style: TextStyle(
+
+                      fontSize: 24,
+
+                      fontWeight: FontWeight.bold,
+
+                    ),
+
+                  ),
+
+                ),
+
+                const SizedBox(height: 30),
+
+                const Divider(),
+
+                const SizedBox(height: 20),
+
+                const Text(
+
+                  "Version",
+
+                  style: TextStyle(
+
+                    fontWeight: FontWeight.bold,
+
+                  ),
+
+                ),
+
+                const Text("1.0.0"),
+
+                const SizedBox(height: 20),
+
+                const Text(
+
+                  "Developer",
+
+                  style: TextStyle(
+
+                    fontWeight: FontWeight.bold,
+
+                  ),
+
+                ),
+
+                const Text("Srujan Bharthipudi"),
+
+                const SizedBox(height: 20),
+
+                const Text(
+
+                  "Technology",
+
+                  style: TextStyle(
+
+                    fontWeight: FontWeight.bold,
+
+                  ),
+
+                ),
+
+                const Text(
+
+                  "Flutter\nFastAPI\nSQLite\nPython",
+
+                ),
+
+                const SizedBox(height: 20),
+
+                const Text(
+
+                  "Purpose",
+
+                  style: TextStyle(
+
+                    fontWeight: FontWeight.bold,
+
+                  ),
+
+                ),
+
+                const Text(
+
+                  "Store blood reports and analyze health parameters.",
+
+                ),
+
+              ],
+
+            ),
+
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Replace your **entire**
+
+```
+lib/screens/settings_screen.dart
+```
+
+with this complete file.
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'about_screen.dart';
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Settings"),
+
+      ),
+
+      body: ListView(
+
+        children: [
+
+          ListTile(
+
+            leading: const Icon(Icons.info),
+
+            title: const Text("About App"),
+
+            trailing: const Icon(Icons.arrow_forward_ios),
+
+            onTap: () {
+
+              Navigator.push(
+
+                context,
+
+                MaterialPageRoute(
+
+                  builder: (_) => const AboutScreen(),
+
+                ),
+
+              );
+
+            },
+
+          ),
+
+        ],
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Run
+
+```bash
+flutter run
+```
+
+or
+
+```bash
+flutter build apk
+```
+
+Install the APK.
+
+---
+
+# Test
+
+Open
+
+```
+Settings
+
+↓
+
+About App
+```
+
+You should see
+
+* ❤️ Icon
+* Blood Report Analyzer
+* Version
+* Developer
+* Technology
+* Purpose
+
+---
+
+# What You Learned Today
+
+Today you learned
+
+* Creating an information page
+* Navigation between screens
+* Professional app structure
+* Organizing application information
+
+---
+
+# 🎉 100-Day Achievement
+
+You have now built:
+
+✅ Backend API (FastAPI)
+
+✅ Flutter Mobile App
+
+✅ CRUD Operations
+
+✅ Search
+
+✅ Sorting
+
+✅ Validation
+
+✅ Dashboard
+
+✅ Android APK
+
+✅ Real Device Testing
+
+✅ Professional UI
+
+This is no longer just a tutorial project—it is a functional application that you can continue improving.
+
+---
+
+# Where We Go From Here
+
+Starting **Day 101**, we'll shift from learning Flutter basics to **making your app production-ready**.
+
+The roadmap will include:
+
+1. Push the complete project to GitHub.
+2. Clean up the project structure.
+3. Deploy the FastAPI backend on an AWS EC2 instance.
+4. Set up PostgreSQL on AWS (instead of SQLite).
+5. Configure Nginx and a custom domain.
+6. Enable HTTPS with SSL.
+7. Update the Flutter app to use the live backend instead of your local IP.
+8. Prepare the app for release on the Google Play Store.
+
+This next phase will turn your project into something that other people can actually use over the internet.
