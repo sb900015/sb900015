@@ -1,0 +1,486 @@
+# 🚀 Day 86/90 – Dashboard Progress Indicators
+
+Congratulations! 🎉
+
+Yesterday you created a **Dashboard** with:
+
+* ✅ Total Reports
+* ✅ Healthy Reports
+* ✅ Low Hemoglobin Reports
+
+Today we'll improve the dashboard by adding **progress indicators and percentages**.
+
+This makes the dashboard much easier to understand at a glance.
+
+---
+
+# 🎯 Today's Goal
+
+Instead of:
+
+```text
+Total Reports : 8
+
+Healthy : 5
+
+Low Hb : 3
+```
+
+You'll now see:
+
+```text
+Healthy Reports
+
+████████████░░░░░ 62%
+
+Low Hemoglobin
+
+██████░░░░░░░░░░ 38%
+```
+
+---
+
+# Only ONE file changes today
+
+Replace your entire:
+
+```text
+lib/screens/all_reports_screen.dart
+```
+
+with the following complete file.
+
+---
+
+## `lib/screens/all_reports_screen.dart`
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+import 'report_details_screen.dart';
+
+class AllReportsScreen extends StatefulWidget {
+  const AllReportsScreen({super.key});
+
+  @override
+  State<AllReportsScreen> createState() =>
+      _AllReportsScreenState();
+}
+
+class _AllReportsScreenState extends State<AllReportsScreen> {
+
+  List reports = [];
+  List filteredReports = [];
+
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadReports();
+  }
+
+  Future<void> loadReports() async {
+
+    setState(() {
+      loading = true;
+    });
+
+    ApiService api = ApiService();
+
+    reports = await api.getReports();
+
+    filteredReports = List.from(reports);
+
+    setState(() {
+      loading = false;
+    });
+
+  }
+
+  void searchReports(String value) {
+
+    setState(() {
+
+      if (value.isEmpty) {
+
+        filteredReports = List.from(reports);
+
+      } else {
+
+        filteredReports = reports.where((report) {
+
+          return report["patient_name"]
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase());
+
+        }).toList();
+
+      }
+
+    });
+
+  }
+
+  Future<void> confirmDelete(int id) async {
+
+    bool? delete = await showDialog(
+
+      context: context,
+
+      builder: (context) {
+
+        return AlertDialog(
+
+          title: const Text("Delete Report"),
+
+          content: const Text(
+              "Are you sure you want to delete this report?"),
+
+          actions: [
+
+            TextButton(
+
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+
+              child: const Text("No"),
+
+            ),
+
+            ElevatedButton(
+
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+
+              child: const Text("Yes"),
+
+            ),
+
+          ],
+
+        );
+
+      },
+
+    );
+
+    if (delete == true) {
+
+      ApiService api = ApiService();
+
+      await api.deleteReport(id);
+
+      loadReports();
+
+    }
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    int totalReports = reports.length;
+
+    int healthyReports = reports.where((report) {
+
+      return double.parse(
+              report["hemoglobin"].toString()) >=
+          12;
+
+    }).length;
+
+    int lowReports = totalReports - healthyReports;
+
+    double healthyPercent =
+        totalReports == 0 ? 0 : healthyReports / totalReports;
+
+    double lowPercent =
+        totalReports == 0 ? 0 : lowReports / totalReports;
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Blood Report Dashboard"),
+      ),
+
+      body: loading
+
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+
+          : Column(
+
+              children: [
+
+                Padding(
+
+                  padding: const EdgeInsets.all(15),
+
+                  child: Card(
+
+                    child: Padding(
+
+                      padding: const EdgeInsets.all(20),
+
+                      child: Column(
+
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+
+                        children: [
+
+                          Text(
+                            "Total Reports : $totalReports",
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          const SizedBox(height: 25),
+
+                          const Text(
+                            "Healthy Reports",
+                            style: TextStyle(fontSize: 18),
+                          ),
+
+                          const SizedBox(height: 8),
+
+                          LinearProgressIndicator(
+
+                            value: healthyPercent,
+
+                            minHeight: 12,
+
+                            color: Colors.green,
+
+                          ),
+
+                          const SizedBox(height: 5),
+
+                          Text(
+                            "${(healthyPercent * 100).toStringAsFixed(0)} %",
+                          ),
+
+                          const SizedBox(height: 25),
+
+                          const Text(
+                            "Low Hemoglobin",
+                            style: TextStyle(fontSize: 18),
+                          ),
+
+                          const SizedBox(height: 8),
+
+                          LinearProgressIndicator(
+
+                            value: lowPercent,
+
+                            minHeight: 12,
+
+                            color: Colors.red,
+
+                          ),
+
+                          const SizedBox(height: 5),
+
+                          Text(
+                            "${(lowPercent * 100).toStringAsFixed(0)} %",
+                          ),
+
+                        ],
+
+                      ),
+
+                    ),
+
+                  ),
+
+                ),
+
+                Padding(
+
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12),
+
+                  child: TextField(
+
+                    onChanged: searchReports,
+
+                    decoration: InputDecoration(
+
+                      hintText: "Search Patient",
+
+                      prefixIcon:
+                          const Icon(Icons.search),
+
+                      border: OutlineInputBorder(
+
+                        borderRadius:
+                            BorderRadius.circular(10),
+
+                      ),
+
+                    ),
+
+                  ),
+
+                ),
+
+                const SizedBox(height: 10),
+
+                Expanded(
+
+                  child: ListView.builder(
+
+                    itemCount: filteredReports.length,
+
+                    itemBuilder: (context, index) {
+
+                      return Card(
+
+                        child: ListTile(
+
+                          leading:
+                              const Icon(Icons.person),
+
+                          title: Text(
+                            filteredReports[index]["patient_name"],
+                          ),
+
+                          subtitle: Text(
+                            "Hemoglobin : ${filteredReports[index]["hemoglobin"]}",
+                          ),
+
+                          onTap: () {
+
+                            Navigator.push(
+
+                              context,
+
+                              MaterialPageRoute(
+
+                                builder: (_) =>
+                                    ReportDetailsScreen(
+
+                                  report:
+                                      filteredReports[index],
+
+                                ),
+
+                              ),
+
+                            );
+
+                          },
+
+                          trailing: IconButton(
+
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+
+                            onPressed: () {
+
+                              confirmDelete(
+                                  filteredReports[index]["id"]);
+
+                            },
+
+                          ),
+
+                        ),
+
+                      );
+
+                    },
+
+                  ),
+
+                ),
+
+              ],
+
+            ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Run
+
+```bash
+flutter run -d chrome
+```
+
+---
+
+# Test
+
+Suppose your database contains:
+
+| Patient | Hemoglobin |
+| ------- | ---------: |
+| Alice   |       13.2 |
+| Bob     |       11.0 |
+| Charlie |       12.8 |
+| David   |       10.5 |
+| Emma    |       13.9 |
+
+The dashboard should show approximately:
+
+```text
+Total Reports : 5
+
+Healthy Reports
+60%
+
+Low Hemoglobin
+40%
+```
+
+with progress bars.
+
+---
+
+# 📝 Day 86 Notes (Notebook)
+
+## Topic
+
+Dashboard Progress Indicators
+
+### What I learned
+
+* `LinearProgressIndicator`
+* Calculating percentages
+* Displaying health statistics visually
+* Handling division by zero safely when there are no reports
+
+### Key Lesson
+
+> Visual indicators like progress bars help users understand health trends much faster than numbers alone.
+
+---
+
+# 🚀 Day 87 Preview
+
+Tomorrow we'll give the application its **final UI polish** by improving:
+
+* Better spacing
+* Better colors
+* Improved typography
+* Consistent cards
+* Overall professional appearance
+
+After Day 87, the application will look much closer to something you'd confidently show to users or potential employers.
