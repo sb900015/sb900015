@@ -1,0 +1,303 @@
+Excellent! You've reached **Day 89**.
+
+You've now achieved something significant:
+
+* ✅ Backend is working
+* ✅ Flutter app is working
+* ✅ APK builds successfully
+* ✅ APK runs on a physical Android phone
+* ✅ CRUD operations work
+* ✅ Dashboard works
+
+From now on, we're no longer building individual test screens—we're turning them into a **real product**.
+
+---
+
+# Day 89 — Create the Home Screen (Navigation Hub)
+
+**Time:** ~1 hour
+
+## Goal
+
+Instead of launching directly into the Dashboard, the app should first show a **Home Screen** where users can choose what they want to do.
+
+The Home Screen will have four options:
+
+```
+Blood Report App
+
+👤 Upload Report
+
+📄 My Reports
+
+📊 Dashboard
+
+⚙ Settings
+```
+
+For now, these buttons will simply navigate to the existing screens.
+
+---
+
+# Step 1
+
+Create a new file:
+
+```
+lib/screens/home_screen.dart
+```
+
+Replace the entire file with:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'all_reports_screen.dart';
+import 'post_test_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  Widget buildButton(
+      BuildContext context,
+      IconData icon,
+      String title,
+      Widget page,
+      Color color,
+      ) {
+
+    return SizedBox(
+
+      width: double.infinity,
+
+      height: 70,
+
+      child: ElevatedButton.icon(
+
+        icon: Icon(icon,size:30),
+
+        label: Text(
+
+          title,
+
+          style: const TextStyle(
+            fontSize:20,
+          ),
+
+        ),
+
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+        ),
+
+        onPressed: () {
+
+          Navigator.push(
+
+            context,
+
+            MaterialPageRoute(
+              builder: (_) => page,
+            ),
+
+          );
+
+        },
+
+      ),
+
+    );
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+
+        title: const Text("Blood Report App"),
+
+        centerTitle: true,
+
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            const SizedBox(height:20),
+
+            buildButton(
+
+              context,
+
+              Icons.upload_file,
+
+              "Upload Report",
+
+              const PostTestScreen(),
+
+              Colors.blue,
+
+            ),
+
+            const SizedBox(height:20),
+
+            buildButton(
+
+              context,
+
+              Icons.description,
+
+              "My Reports",
+
+              const AllReportsScreen(),
+
+              Colors.green,
+
+            ),
+
+            const SizedBox(height:20),
+
+            buildButton(
+
+              context,
+
+              Icons.dashboard,
+
+              "Dashboard",
+
+              const AllReportsScreen(),
+
+              Colors.orange,
+
+            ),
+
+            const SizedBox(height:20),
+
+            buildButton(
+
+              context,
+
+              Icons.settings,
+
+              "Settings",
+
+              const Placeholder(),
+
+              Colors.grey,
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Replace your **entire** `lib/main.dart` with:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'screens/home_screen.dart';
+
+void main() {
+
+  runApp(const MyApp());
+
+}
+
+class MyApp extends StatelessWidget {
+
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+
+      title: 'Blood Report App',
+
+      home: const HomeScreen(),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Run the app:
+
+```bash
+flutter run -d chrome
+```
+
+or build a new APK:
+
+```bash
+flutter build apk
+```
+
+---
+
+# Expected Result
+
+When the app opens, you'll now see:
+
+```
+Blood Report App
+
+[ Upload Report ]
+
+[ My Reports ]
+
+[ Dashboard ]
+
+[ Settings ]
+```
+
+* **Upload Report** → opens your existing upload screen.
+* **My Reports** → opens the reports list.
+* **Dashboard** → opens the dashboard.
+* **Settings** → shows a placeholder for now.
+
+---
+
+# Day 89 Learning Outcome
+
+Today you'll learn:
+
+* Creating a central navigation screen.
+* Using reusable widgets (`buildButton()`).
+* Navigating between multiple screens using `Navigator.push()`.
+* Structuring an app more like a real mobile application.
+
+---
+
+We're now entering the final phase of the project, where we'll replace the temporary/test flow with a polished user experience. After this, we'll move on to authentication, splash screens, and integrating report upload into the main workflow.
