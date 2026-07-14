@@ -1,0 +1,519 @@
+Awesome! Welcome to **Day 97**. You're now entering the final polishing stage before we move into **AWS deployment, authentication, and production readiness**.
+
+As requested, I'll continue giving **complete files whenever a file changes**.
+
+---
+
+# Day 97 – Sort Reports
+
+**Estimated Time:** 1 hour
+
+## Goal
+
+Today you'll add a **Sort** feature so users can sort reports by:
+
+* Patient Name (A → Z)
+* Hemoglobin (Highest → Lowest)
+
+This is a feature users expect in real applications.
+
+---
+
+# Step 1
+
+Replace your **entire** file:
+
+```text
+lib/screens/all_reports_screen.dart
+```
+
+with this complete file:
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+import 'report_details_screen.dart';
+
+class AllReportsScreen extends StatefulWidget {
+  const AllReportsScreen({super.key});
+
+  @override
+  State<AllReportsScreen> createState() =>
+      _AllReportsScreenState();
+}
+
+class _AllReportsScreenState extends State<AllReportsScreen> {
+
+  List reports = [];
+  List filteredReports = [];
+
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadReports();
+  }
+
+  Future<void> loadReports() async {
+
+    try {
+
+      ApiService api = ApiService();
+
+      reports = await api.getReports();
+
+      filteredReports = List.from(reports);
+
+      setState(() {
+        loading = false;
+      });
+
+    } catch (e) {
+
+      setState(() {
+        loading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+
+      );
+
+    }
+
+  }
+
+  Future<void> refreshReports() async {
+
+    setState(() {
+      loading = true;
+    });
+
+    await loadReports();
+
+  }
+
+  void searchReports(String value) {
+
+    setState(() {
+
+      if (value.isEmpty) {
+
+        filteredReports = List.from(reports);
+
+      } else {
+
+        filteredReports = reports.where((report) {
+
+          return report["patient_name"]
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase());
+
+        }).toList();
+
+      }
+
+    });
+
+  }
+
+  void sortByName() {
+
+    setState(() {
+
+      filteredReports.sort((a, b) {
+
+        return a["patient_name"]
+            .toString()
+            .compareTo(
+              b["patient_name"].toString(),
+            );
+
+      });
+
+    });
+
+  }
+
+  void sortByHemoglobin() {
+
+    setState(() {
+
+      filteredReports.sort((a, b) {
+
+        double h1 = double.parse(
+          a["hemoglobin"].toString(),
+        );
+
+        double h2 = double.parse(
+          b["hemoglobin"].toString(),
+        );
+
+        return h2.compareTo(h1);
+
+      });
+
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    int totalReports = reports.length;
+
+    int healthyReports = reports.where((report) {
+
+      return double.parse(
+            report["hemoglobin"].toString(),
+          ) >=
+          12;
+
+    }).length;
+
+    int lowReports = totalReports - healthyReports;
+
+    double healthyPercent =
+        totalReports == 0 ? 0 : healthyReports / totalReports;
+
+    double lowPercent =
+        totalReports == 0 ? 0 : lowReports / totalReports;
+
+    return Scaffold(
+
+      backgroundColor: Colors.grey.shade100,
+
+      appBar: AppBar(
+
+        title: const Text(
+          "Blood Report Dashboard",
+        ),
+
+        centerTitle: true,
+
+        actions: [
+
+          PopupMenuButton(
+
+            onSelected: (value) {
+
+              if (value == "name") {
+
+                sortByName();
+
+              }
+
+              if (value == "hb") {
+
+                sortByHemoglobin();
+
+              }
+
+            },
+
+            itemBuilder: (context) => [
+
+              const PopupMenuItem(
+
+                value: "name",
+
+                child: Text("Sort by Name"),
+
+              ),
+
+              const PopupMenuItem(
+
+                value: "hb",
+
+                child: Text("Sort by Hemoglobin"),
+
+              ),
+
+            ],
+
+          ),
+
+        ],
+
+      ),
+
+      body: loading
+
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+
+          : RefreshIndicator(
+
+              onRefresh: refreshReports,
+
+              child: ListView(
+
+                padding: const EdgeInsets.all(15),
+
+                children: [
+
+                  Card(
+
+                    shape: RoundedRectangleBorder(
+
+                      borderRadius:
+                          BorderRadius.circular(20),
+
+                    ),
+
+                    child: Padding(
+
+                      padding:
+                          const EdgeInsets.all(20),
+
+                      child: Column(
+
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+
+                        children: [
+
+                          const Text(
+
+                            "Dashboard",
+
+                            style: TextStyle(
+
+                              fontSize: 24,
+
+                              fontWeight:
+                                  FontWeight.bold,
+
+                            ),
+
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          Text(
+                            "Total Reports : $totalReports",
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          const Text("Healthy"),
+
+                          LinearProgressIndicator(
+
+                            value: healthyPercent,
+
+                            color: Colors.green,
+
+                          ),
+
+                          const SizedBox(height: 5),
+
+                          Text(
+                            "${(healthyPercent * 100).toStringAsFixed(0)}%",
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          const Text(
+                            "Low Hemoglobin",
+                          ),
+
+                          LinearProgressIndicator(
+
+                            value: lowPercent,
+
+                            color: Colors.red,
+
+                          ),
+
+                          const SizedBox(height: 5),
+
+                          Text(
+                            "${(lowPercent * 100).toStringAsFixed(0)}%",
+                          ),
+
+                        ],
+
+                      ),
+
+                    ),
+
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  TextField(
+
+                    onChanged: searchReports,
+
+                    decoration: InputDecoration(
+
+                      hintText:
+                          "Search Patient",
+
+                      prefixIcon:
+                          const Icon(Icons.search),
+
+                      filled: true,
+
+                      fillColor: Colors.white,
+
+                      border: OutlineInputBorder(
+
+                        borderRadius:
+                            BorderRadius.circular(30),
+
+                      ),
+
+                    ),
+
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ...filteredReports.map((report) {
+
+                    return Card(
+
+                      child: ListTile(
+
+                        leading: const CircleAvatar(
+
+                          child: Icon(Icons.person),
+
+                        ),
+
+                        title: Text(
+                          report["patient_name"],
+                        ),
+
+                        subtitle: Text(
+                          "Hemoglobin : ${report["hemoglobin"]}",
+                        ),
+
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios,
+                        ),
+
+                        onTap: () {
+
+                          Navigator.push(
+
+                            context,
+
+                            MaterialPageRoute(
+
+                              builder: (_) =>
+                                  ReportDetailsScreen(
+                                report: report,
+                              ),
+
+                            ),
+
+                          );
+
+                        },
+
+                      ),
+
+                    );
+
+                  }),
+
+                ],
+
+              ),
+
+            ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Run
+
+```bash
+flutter run
+```
+
+or
+
+```bash
+flutter build apk
+```
+
+Install the APK on your Android phone.
+
+---
+
+# Test
+
+Open **My Reports**.
+
+Tap the **⋮ (three dots)** in the AppBar.
+
+You'll see:
+
+```
+Sort by Name
+
+Sort by Hemoglobin
+```
+
+Selecting either option immediately rearranges the report list.
+
+---
+
+# What You Learned Today
+
+Today you learned:
+
+* `PopupMenuButton`
+* `PopupMenuItem`
+* Sorting a `List`
+* Sorting strings
+* Sorting numbers
+* Updating the UI with `setState()`
+
+---
+
+# Progress
+
+Your app now includes:
+
+* ✅ Splash Screen
+* ✅ Login
+* ✅ Register
+* ✅ Home
+* ✅ Upload Report
+* ✅ Dashboard
+* ✅ My Reports
+* ✅ Search Reports
+* ✅ Sort Reports
+* ✅ Pull-to-Refresh
+* ✅ Profile
+* ✅ Settings
+* ✅ Logout
+
+You now have a polished CRUD-style mobile app.
+
+## Looking Ahead
+
+After a few more refinement days, we'll transition into the production phase:
+
+* **Days 98–100:** UI polish, validation, and error handling.
+* **Days 101 onward:** GitHub, AWS EC2 deployment, PostgreSQL setup, Nginx, HTTPS, and making the app accessible over the internet. This is where your project will evolve from a learning app into a deployable portfolio application.
