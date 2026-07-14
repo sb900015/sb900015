@@ -1,0 +1,339 @@
+Welcome to **Day 96!** 🎉
+
+You now have a complete UI flow for your Blood Report App. Starting today, we'll begin making it feel like a real production application.
+
+Today we'll add one of the most useful features:
+
+# Day 96 – Pull to Refresh (Refresh Reports)
+
+**Time:** ~1 hour
+
+## Goal
+
+Allow users to refresh the report list by simply pulling down.
+
+Instead of closing and reopening the app after uploading a report, users can refresh the list.
+
+---
+
+# Step 1
+
+Replace your **entire** file:
+
+```text
+lib/screens/all_reports_screen.dart
+```
+
+with the following:
+
+```dart
+import 'package:flutter/material.dart';
+
+import '../api/api_service.dart';
+import 'report_details_screen.dart';
+
+class AllReportsScreen extends StatefulWidget {
+  const AllReportsScreen({super.key});
+
+  @override
+  State<AllReportsScreen> createState() =>
+      _AllReportsScreenState();
+}
+
+class _AllReportsScreenState
+    extends State<AllReportsScreen> {
+  List reports = [];
+  List filteredReports = [];
+
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadReports();
+  }
+
+  Future<void> loadReports() async {
+    try {
+      ApiService api = ApiService();
+
+      reports = await api.getReports();
+
+      filteredReports = List.from(reports);
+
+      setState(() {
+        loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error: $e"),
+        ),
+      );
+    }
+  }
+
+  Future<void> refreshReports() async {
+    setState(() {
+      loading = true;
+    });
+
+    await loadReports();
+  }
+
+  void searchReports(String value) {
+    setState(() {
+      if (value.isEmpty) {
+        filteredReports = List.from(reports);
+      } else {
+        filteredReports = reports.where((report) {
+          return report["patient_name"]
+              .toString()
+              .toLowerCase()
+              .contains(value.toLowerCase());
+        }).toList();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    int totalReports = reports.length;
+
+    int healthyReports = reports.where((report) {
+      return double.parse(
+            report["hemoglobin"].toString(),
+          ) >=
+          12;
+    }).length;
+
+    int lowReports = totalReports - healthyReports;
+
+    double healthyPercent =
+        totalReports == 0 ? 0 : healthyReports / totalReports;
+
+    double lowPercent =
+        totalReports == 0 ? 0 : lowReports / totalReports;
+
+    return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Blood Report Dashboard",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: loading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : RefreshIndicator(
+              onRefresh: refreshReports,
+              child: ListView(
+                padding: const EdgeInsets.all(15),
+                children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(20),
+                    ),
+                    elevation: 5,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Dashboard",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight:
+                                  FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            "Total Reports : $totalReports",
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          const Text("Healthy"),
+                          const SizedBox(height: 6),
+                          LinearProgressIndicator(
+                            value: healthyPercent,
+                            minHeight: 10,
+                            borderRadius:
+                                BorderRadius.circular(
+                                    10),
+                            color: Colors.green,
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            "${(healthyPercent * 100).toStringAsFixed(0)}%",
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                              "Low Hemoglobin"),
+                          const SizedBox(height: 6),
+                          LinearProgressIndicator(
+                            value: lowPercent,
+                            minHeight: 10,
+                            borderRadius:
+                                BorderRadius.circular(
+                                    10),
+                            color: Colors.red,
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            "${(lowPercent * 100).toStringAsFixed(0)}%",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    onChanged: searchReports,
+                    decoration: InputDecoration(
+                      hintText:
+                          "Search Patient",
+                      prefixIcon:
+                          const Icon(Icons.search),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border:
+                          OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius.circular(
+                                30),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ...filteredReports.map((report) {
+                    return Card(
+                      margin:
+                          const EdgeInsets.only(
+                              bottom: 12),
+                      shape:
+                          RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(
+                                18),
+                      ),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor:
+                              Colors.blue.shade100,
+                          child: const Icon(
+                              Icons.person),
+                        ),
+                        title: Text(
+                          report["patient_name"],
+                          style:
+                              const TextStyle(
+                            fontWeight:
+                                FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "Hemoglobin : ${report["hemoglobin"]}",
+                        ),
+                        trailing: const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  ReportDetailsScreen(
+                                report: report,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+    );
+  }
+}
+```
+
+---
+
+# Step 2
+
+Run:
+
+```bash
+flutter run
+```
+
+or
+
+```bash
+flutter build apk
+```
+
+Install the new APK on your phone.
+
+---
+
+# Test
+
+1. Open **My Reports**.
+2. Pull the screen downward.
+3. You should see the refresh spinner.
+4. The app reloads the latest reports from your FastAPI server.
+
+---
+
+# What You Learned Today
+
+Today you learned:
+
+* `RefreshIndicator`
+* Pull-to-refresh gesture
+* Refreshing API data
+* Better error handling with `try/catch`
+* Improving the user experience
+
+---
+
+# Project Progress (Day 96)
+
+You now have:
+
+* ✅ Splash Screen
+* ✅ Login
+* ✅ Register
+* ✅ Home
+* ✅ Upload Report
+* ✅ Dashboard
+* ✅ My Reports
+* ✅ Report Details
+* ✅ Profile
+* ✅ Settings
+* ✅ Logout
+* ✅ Pull-to-Refresh
+
+This is a feature found in many real-world apps and makes your application feel much more polished.
+
+**Day 97** will focus on adding report sorting (for example, by patient name or hemoglobin level), making it easier to browse large numbers of reports.
