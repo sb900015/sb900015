@@ -1,0 +1,343 @@
+Welcome to **Day 91**! 🚀
+
+Your app is now running on a real Android phone, so we can start building features that users expect from a real application.
+
+---
+
+# Day 91 — Create a Login Screen
+
+**Time:** ~1 hour
+
+## Goal
+
+Instead of going directly from the splash screen to the Home Screen, the app should now go to a **Login Screen**.
+
+Today's login is **UI only**. We are **not** connecting it to the backend yet. We'll add authentication later.
+
+The flow will become:
+
+```text
+Splash Screen
+      │
+      ▼
+Login Screen
+      │
+      ▼
+Home Screen
+```
+
+---
+
+# Step 1
+
+Create a new file:
+
+```text
+lib/screens/login_screen.dart
+```
+
+Replace the entire file with:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+  final TextEditingController emailController =
+      TextEditingController();
+
+  final TextEditingController passwordController =
+      TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Login"),
+        centerTitle: true,
+      ),
+
+      body: Padding(
+
+        padding: const EdgeInsets.all(20),
+
+        child: Column(
+
+          children: [
+
+            const SizedBox(height:40),
+
+            TextField(
+
+              controller: emailController,
+
+              decoration: const InputDecoration(
+
+                labelText: "Email",
+
+                border: OutlineInputBorder(),
+
+              ),
+
+            ),
+
+            const SizedBox(height:20),
+
+            TextField(
+
+              controller: passwordController,
+
+              obscureText: true,
+
+              decoration: const InputDecoration(
+
+                labelText: "Password",
+
+                border: OutlineInputBorder(),
+
+              ),
+
+            ),
+
+            const SizedBox(height:30),
+
+            SizedBox(
+
+              width: double.infinity,
+
+              height: 55,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  Navigator.pushReplacement(
+
+                    context,
+
+                    MaterialPageRoute(
+
+                      builder: (_) => const HomeScreen(),
+
+                    ),
+
+                  );
+
+                },
+
+                child: const Text(
+
+                  "Login",
+
+                  style: TextStyle(fontSize:20),
+
+                ),
+
+              ),
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 2
+
+Replace your **entire** `lib/screens/splash_screen.dart` with:
+
+```dart
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import 'login_screen.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() =>
+      _SplashScreenState();
+}
+
+class _SplashScreenState
+    extends State<SplashScreen> {
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    Timer(
+
+      const Duration(seconds:3),
+
+      () {
+
+        Navigator.pushReplacement(
+
+          context,
+
+          MaterialPageRoute(
+
+            builder: (_) =>
+                const LoginScreen(),
+
+          ),
+
+        );
+
+      },
+
+    );
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      backgroundColor: Colors.red,
+
+      body: Center(
+
+        child: Column(
+
+          mainAxisAlignment:
+              MainAxisAlignment.center,
+
+          children: [
+
+            const Icon(
+
+              Icons.favorite,
+
+              color: Colors.white,
+
+              size:90,
+
+            ),
+
+            const SizedBox(height:20),
+
+            const Text(
+
+              "Blood Report App",
+
+              style: TextStyle(
+
+                color: Colors.white,
+
+                fontSize:30,
+
+                fontWeight: FontWeight.bold,
+
+              ),
+
+            ),
+
+            const SizedBox(height:30),
+
+            const CircularProgressIndicator(
+
+              color: Colors.white,
+
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
+  }
+
+}
+```
+
+---
+
+# Step 3
+
+Run the app:
+
+```bash
+flutter run
+```
+
+or build a new APK:
+
+```bash
+flutter build apk
+```
+
+---
+
+# Expected Result
+
+The app should now follow this flow:
+
+```text
+Splash Screen
+      ↓
+Login Screen
+      ↓
+(Home button)
+      ↓
+Home Screen
+```
+
+The Login button doesn't validate credentials yet—it simply takes the user to the Home Screen. We'll connect it to the backend in the coming days.
+
+---
+
+# Day 91 Learning
+
+Today you'll learn:
+
+* Creating a Login Screen
+* `TextEditingController`
+* Password fields with `obscureText`
+* Navigation using `Navigator.pushReplacement()`
+* Preparing the app for real authentication
+
+---
+
+# Progress
+
+You now have:
+
+* ✅ Splash Screen
+* ✅ Login Screen
+* ✅ Home Screen
+* ✅ Upload Screen
+* ✅ Reports Screen
+* ✅ Dashboard
+* ✅ Android APK running on a physical device
+
+By the end of the next few days, your app will start feeling much closer to a production mobile application.
